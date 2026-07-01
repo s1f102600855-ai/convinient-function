@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>メモ帳アプリ | 自動保存・フォルダ分け・画像貼り付け対応</title>
+  <meta name="description" content="ブラウザで使える無料のメモ帳アプリです。自動保存、フォルダ分け、文字数カウント、画像の貼り付け、前の保存状態への復元に対応しています。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://example.com/" />
+
+  <meta property="og:title" content="メモ帳アプリ | 自動保存・フォルダ分け対応" />
+  <meta property="og:description" content="自動保存、フォルダ分け、画像貼り付け、文字数カウントに対応したブラウザ用メモ帳アプリです。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:site_name" content="メモ帳アプリ" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#137b73" />
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "メモ帳アプリ",
+    "url": "https://example.com/",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "description": "自動保存、フォルダ分け、文字数カウント、画像貼り付けに対応したブラウザ用メモ帳アプリです。",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-intro">
+    <h1>ブラウザで使えるメモ帳アプリ</h1>
+    <p>自動保存、フォルダ分け、文字数カウント、画像貼り付け、前の保存状態への復元に対応した無料のメモ帳アプリです。</p>
+  </header>
+
+  <aside>
+    <h2 class="app-title">メモ帳</h2>
+
+    <div class="side-actions">
+      <button id="newFolderButton" type="button">新規フォルダ</button>
+      <button id="newMemoButton" type="button">新規メモ</button>
+    </div>
+
+    <h3>フォルダ</h3>
+    <div id="folderList"></div>
+
+    <h3>メモ</h3>
+    <div id="memoList"></div>
+  </aside>
+
+  <main>
+    <div class="top-row">
+      <input id="title" type="text" placeholder="タイトル" />
+      <select id="folderSelect"></select>
+    </div>
+
+    <div class="toolbar">
+      <button id="restoreButton" type="button">前の保存状態に戻す</button>
+      <button id="imageButton" type="button">写真を挿入</button>
+      <input id="imageInput" type="file" accept="image/*" hidden />
+    </div>
+
+    <div id="body" class="editor" contenteditable="true" data-placeholder="ここにメモを書く。画像の貼り付けもできます。"></div>
+
+    <p class="counter">本文：<span id="charCount">0</span>文字</p>
+
+    <div class="actions">
+      <button id="deleteButton" class="delete" type="button">削除</button>
+      <span id="status">保存済み</span>
+    </div>
+  </main>
+</body>
+</html>

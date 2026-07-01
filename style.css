@@ -1,0 +1,246 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+  background: #eef3f0;
+  color: #222;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.site-intro {
+  grid-column: 1 / -1;
+  padding: 24px 28px;
+  background: #ffffff;
+  border-bottom: 1px solid #d9dfdc;
+}
+
+.site-intro h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  color: #137b73;
+}
+
+.site-intro p {
+  margin: 0;
+  color: #555;
+  line-height: 1.7;
+}
+
+aside {
+  background: #ffffff;
+  border-right: 1px solid #d9dfdc;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+main {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(180deg, #f8faf8, #eef3f0);
+}
+
+.app-title {
+  margin: 0 0 18px;
+  font-size: 24px;
+  color: #137b73;
+}
+
+h3 {
+  margin: 22px 0 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+button,
+select {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 14px;
+  cursor: pointer;
+  background: #137b73;
+  color: white;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #0f615b;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  background: #aab5b2;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button.delete {
+  background: #b54949;
+}
+
+button.delete:hover {
+  background: #913737;
+}
+
+select {
+  background: white;
+  color: #222;
+  border: 1px solid #ccd5d1;
+}
+
+.side-actions,
+.toolbar,
+.actions,
+.top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.side-actions {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.top-row {
+  align-items: stretch;
+}
+
+.top-row input {
+  flex: 1;
+}
+
+.folder,
+.note {
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  background: #f4f7f5;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+
+.folder:hover,
+.note:hover {
+  background: #e7f1ee;
+}
+
+.folder.active,
+.note.active {
+  background: #d8ebe7;
+  border-color: #137b73;
+  font-weight: bold;
+}
+
+.note-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.note-title {
+  flex: 1;
+  min-width: 0;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-folder-select {
+  width: 110px;
+  flex-shrink: 0;
+  padding: 6px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccd5d1;
+  background: white;
+  color: #333;
+}
+
+input,
+.editor {
+  width: 100%;
+  border: 1px solid #ccd5d1;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+  background: white;
+  outline: none;
+}
+
+input:focus,
+.editor:focus,
+select:focus {
+  border-color: #137b73;
+  box-shadow: 0 0 0 3px rgba(19, 123, 115, 0.15);
+}
+
+input {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.editor {
+  flex: 1;
+  min-height: 400px;
+  line-height: 1.8;
+  overflow-y: auto;
+}
+
+.editor:empty::before {
+  content: attr(data-placeholder);
+  color: #999;
+}
+
+.editor img {
+  display: block;
+  max-width: 100%;
+  max-height: 320px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #d9dfdc;
+}
+
+.counter,
+#status {
+  color: #666;
+  font-size: 14px;
+}
+
+.counter {
+  margin: 0;
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 300px 1fr;
+  }
+
+  aside {
+    border-right: none;
+    border-bottom: 1px solid #d9dfdc;
+  }
+
+  main {
+    padding: 16px;
+  }
+
+  .top-row,
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
