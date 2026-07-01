@@ -80,10 +80,6 @@ function getCurrentMemo() {
   return memos.find((memo) => memo.id === currentId);
 }
 
-function getFolderName(folderId) {
-  return folders.find((folder) => folder.id === folderId)?.name || "未分類";
-}
-
 function getVisibleMemos() {
   if (currentFolderId === "all") {
     return memos;
@@ -93,6 +89,17 @@ function getVisibleMemos() {
 }
 
 function pushHistory(memo) {
+  const last = memo.history[memo.history.length - 1];
+
+  if (
+    last &&
+    last.title === memo.title &&
+    last.body === memo.body &&
+    last.folderId === memo.folderId
+  ) {
+    return;
+  }
+
   memo.history.push({
     title: memo.title,
     body: memo.body,
@@ -109,9 +116,10 @@ function updateCharCount() {
   charCount.textContent = [...bodyEditor.innerText.trim()].length;
 }
 
-function updateRestoreButton() {
+function updateButtons() {
   const memo = getCurrentMemo();
   restoreButton.disabled = !memo || memo.history.length === 0;
+  deleteButton.disabled = !memo;
 }
 
 function renderFolders() {
@@ -229,7 +237,7 @@ function renderAll() {
   renderFolders();
   renderFolderSelect();
   renderList();
-  updateRestoreButton();
+  updateButtons();
 }
 
 function selectMemo(id) {
@@ -396,9 +404,15 @@ function insertImageFile(file) {
 }
 
 function deleteMemo() {
-  if (!currentId) return;
+  const memo = getCurrentMemo();
+  if (!memo) return;
 
-  memos = memos.filter((memo) => memo.id !== currentId);
+  const title = memo.title || "無題のメモ";
+  const ok = confirm(`「${title}」を削除しますか？`);
+
+  if (!ok) return;
+
+  memos = memos.filter((item) => item.id !== memo.id);
   saveData();
 
   currentId = getVisibleMemos()[0]?.id || memos[0]?.id || null;

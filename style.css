@@ -90,6 +90,10 @@ button.delete:hover {
   background: #913737;
 }
 
+button.delete:disabled {
+  background: #c9b2b2;
+}
+
 select {
   background: white;
   color: #222;
