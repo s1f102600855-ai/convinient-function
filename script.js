@@ -33,23 +33,28 @@ function defaultFolder() {
 }
 
 function loadData() {
-  const savedData = localStorage.getItem(storageKey);
+  try {
+    const savedData = localStorage.getItem(storageKey);
 
-  if (savedData) {
-    const data = JSON.parse(savedData);
-    folders = data.folders || [defaultFolder()];
-    memos = data.memos || [];
-  } else {
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      folders = data.folders || [defaultFolder()];
+      memos = data.memos || [];
+    } else {
+      folders = [defaultFolder()];
+
+      const oldMemos = JSON.parse(localStorage.getItem(oldStorageKey)) || [];
+      memos = oldMemos.map((memo) => ({
+        id: String(memo.id || createId()),
+        title: memo.title || "",
+        body: memo.body || "",
+        folderId: "default",
+        history: []
+      }));
+    }
+  } catch (error) {
     folders = [defaultFolder()];
-
-    const oldMemos = JSON.parse(localStorage.getItem(oldStorageKey)) || [];
-    memos = oldMemos.map((memo) => ({
-      id: String(memo.id || createId()),
-      title: memo.title || "",
-      body: memo.body || "",
-      folderId: "default",
-      history: []
-    }));
+    memos = [];
   }
 
   if (folders.length === 0) {
