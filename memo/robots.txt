@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://s1f102600855-ai.github.io/convinient-function/sitemap.xml
+Sitemap: https://convenientfunction.com/sitemap.xml
