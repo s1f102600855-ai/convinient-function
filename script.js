@@ -114,26 +114,31 @@ function pushHistory(memo) {
 }
 
 function countWords(text) {
-  const trimmedText = text.trim();
+  const normalizedText = text.replace(/\s+/g, " ").trim();
 
-  if (!trimmedText) {
+  if (!normalizedText) {
     return 0;
   }
 
-  if ("Segmenter" in Intl) {
+  if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
     const segmenter = new Intl.Segmenter("ja", { granularity: "word" });
-    return [...segmenter.segment(trimmedText)].filter((segment) => {
+
+    return [...segmenter.segment(normalizedText)].filter((segment) => {
       return segment.isWordLike;
     }).length;
   }
 
-  return trimmedText.split(/\s+/).filter(Boolean).length;
+  const words = normalizedText.match(
+    /[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)?|[ぁ-んァ-ン一-龥々ー]+/g
+  );
+
+  return words ? words.length : 0;
 }
 
 function updateCounts() {
-  const text = bodyEditor.innerText.trim();
+  const text = bodyEditor.innerText || "";
 
-  charCount.textContent = [...text].length;
+  charCount.textContent = [...text.trim()].length;
   wordCount.textContent = countWords(text);
 }
 
@@ -149,10 +154,12 @@ function renderFolders() {
   const allFolder = document.createElement("div");
   allFolder.className = "folder" + (currentFolderId === "all" ? " active" : "");
   allFolder.textContent = `すべてのメモ（${memos.length}）`;
+
   allFolder.addEventListener("click", () => {
     currentFolderId = "all";
     renderAll();
   });
+
   folderList.appendChild(allFolder);
 
   folders.forEach((folder) => {
@@ -355,6 +362,11 @@ function startAutoSave() {
   }, 600);
 }
 
+function handleBodyInput() {
+  updateCounts();
+  startAutoSave();
+}
+
 function restorePreviousSavedState() {
   const memo = getCurrentMemo();
 
@@ -418,6 +430,7 @@ function insertImageFile(file) {
   reader.addEventListener("load", () => {
     const imageHtml = `<img src="${reader.result}" alt="貼り付けた写真">`;
     insertHtmlAtCursor(imageHtml);
+    updateCounts();
     startAutoSave();
   });
 
@@ -450,7 +463,7 @@ function deleteMemo() {
 }
 
 titleInput.addEventListener("input", startAutoSave);
-bodyEditor.addEventListener("input", startAutoSave);
+bodyEditor.addEventListener("input", handleBodyInput);
 
 folderSelect.addEventListener("change", () => {
   startAutoSave();
@@ -467,6 +480,8 @@ bodyEditor.addEventListener("paste", (event) => {
       return;
     }
   }
+
+  setTimeout(updateCounts, 0);
 });
 
 imageButton.addEventListener("click", () => {
@@ -491,3 +506,5 @@ if (memos.length === 0) {
 } else {
   selectMemo(currentId);
 }
+
+updateCounts();
