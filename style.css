@@ -20,6 +20,23 @@ body {
   border-bottom: 1px solid #d9dfdc;
 }
 
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.site-nav a {
+  color: #137b73;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
 .site-intro h1 {
   margin: 0 0 8px;
   font-size: 26px;

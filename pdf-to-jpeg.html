@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDFをJPEGに変換 | メモ帳</title>
+  <meta name="description" content="PDFファイルをブラウザ上でJPEG画像に変換できます。ファイルはサーバーに送信されず、端末内で処理されます。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://s1f102600855-ai.github.io/convinient-function/pdf-to-jpeg.html" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+      color: #222;
+      background: #eef3f0;
+    }
+
+    header {
+      padding: 24px 28px;
+      background: #ffffff;
+      border-bottom: 1px solid #d9dfdc;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    nav a {
+      color: #137b73;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      color: #137b73;
+    }
+
+    header p {
+      margin: 0;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    main {
+      width: min(980px, calc(100% - 32px));
+      margin: 24px auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel,
+    .result-card {
+      background: #ffffff;
+      border: 1px solid #d9dfdc;
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .drop-area {
+      display: grid;
+      place-items: center;
+      min-height: 190px;
+      border: 2px dashed #9bc4bd;
+      border-radius: 8px;
+      background: #f8faf8;
+      text-align: center;
+      padding: 24px;
+      transition: 0.2s;
+    }
+
+    .drop-area.dragover {
+      background: #e2f2ee;
+      border-color: #137b73;
+    }
+
+    .drop-area strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .drop-area span {
+      color: #666;
+      line-height: 1.7;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    select,
+    button {
+      border-radius: 8px;
+      padding: 11px 14px;
+      font: inherit;
+      font-weight: bold;
+    }
+
+    select {
+      border: 1px solid #ccd5d1;
+      background: #ffffff;
+      color: #222;
+    }
+
+    button {
+      border: none;
+      background: #137b73;
+      color: #ffffff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #0f615b;
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      background: #aab5b2;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      margin: 0;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .results {
+      display: grid;
+      gap: 14px;
+    }
+
+    .result-card {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .result-card img {
+      width: 160px;
+      max-height: 220px;
+      object-fit: contain;
+      border: 1px solid #d9dfdc;
+      border-radius: 8px;
+      background: #f8faf8;
+    }
+
+    .result-card h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .result-card p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .download-all {
+      justify-self: start;
+    }
+
+    canvas {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        padding: 20px 16px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .result-card {
+        grid-template-columns: 1fr;
+      }
+
+      .result-card img {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">メモ帳</a>
+      <a href="pdf-to-jpeg.html">PDFをJPEGに変換</a>
+    </nav>
+    <h1>PDFをJPEGに変換</h1>
+    <p>PDFを選ぶと、各ページをJPEG画像に変換できます。処理はブラウザ内で行われ、PDFはサーバーに送信されません。</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <label class="drop-area" id="dropArea" for="pdfInput">
+        <span>
+          <strong>PDFファイルを選択</strong>
+          クリックして選ぶか、ここにPDFをドラッグ&ドロップしてください。
+        </span>
+      </label>
+      <input id="pdfInput" type="file" accept="application/pdf,.pdf" />
+
+      <div class="controls">
+        <label>
+          画質
+          <select id="qualitySelect">
+            <option value="0.92" selected>高画質</option>
+            <option value="0.82">標準</option>
+            <option value="0.7">軽量</option>
+          </select>
+        </label>
+
+        <label>
+          解像度
+          <select id="scaleSelect">
+            <option value="1.5">低め</option>
+            <option value="2" selected>標準</option>
+            <option value="3">高解像度</option>
+          </select>
+        </label>
+
+        <label>
+          変換
+          <button id="convertButton" type="button" disabled>JPEGに変換</button>
+        </label>
+      </div>
+    </section>
+
+    <p class="status" id="status">PDFファイルを選択してください。</p>
+    <button class="download-all" id="downloadAllButton" type="button" disabled>すべてダウンロード</button>
+    <section class="results" id="results"></section>
+  </main>
+
+  <canvas id="workCanvas"></canvas>
+
+  <script type="module">
+    import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@6.1.200/build/pdf.mjs";
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@6.1.200/build/pdf.worker.mjs";
+
+    const pdfInput = document.getElementById("pdfInput");
+    const dropArea = document.getElementById("dropArea");
+    const qualitySelect = document.getElementById("qualitySelect");
+    const scaleSelect = document.getElementById("scaleSelect");
+    const convertButton = document.getElementById("convertButton");
+    const downloadAllButton = document.getElementById("downloadAllButton");
+    const statusText = document.getElementById("status");
+    const results = document.getElementById("results");
+    const canvas = document.getElementById("workCanvas");
+    const context = canvas.getContext("2d");
+
+    let selectedFile = null;
+    let convertedImages = [];
+
+    function setStatus(message) {
+      statusText.textContent = message;
+    }
+
+    function sanitizeFileName(name) {
+      return name
+        .replace(/\.pdf$/i, "")
+        .replace(/[\\/:*?"<>|]/g, "-")
+        .trim() || "converted";
+    }
+
+    function resetResults() {
+      convertedImages = [];
+      results.innerHTML = "";
+      downloadAllButton.disabled = true;
+    }
+
+    function setFile(file) {
+      if (!file) return;
+
+      if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+        setStatus("PDFファイルを選択してください。");
+        return;
+      }
+
+      selectedFile = file;
+      convertButton.disabled = false;
+      resetResults();
+      setStatus(`${file.name} を選択しました。`);
+    }
+
+    async function renderPageToJpeg(pdf, pageNumber, scale, quality, baseName) {
+      const page = await pdf.getPage(pageNumber);
+      const viewport = page.getViewport({ scale });
+      const outputScale = window.devicePixelRatio || 1;
+
+      canvas.width = Math.floor(viewport.width * outputScale);
+      canvas.height = Math.floor(viewport.height * outputScale);
+      canvas.style.width = `${Math.floor(viewport.width)}px`;
+      canvas.style.height = `${Math.floor(viewport.height)}px`;
+
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      await page.render({
+        canvasContext: context,
+        viewport,
+        transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null
+      }).promise;
+
+      const dataUrl = canvas.toDataURL("image/jpeg", quality);
+      const fileName = `${baseName}-page-${String(pageNumber).padStart(2, "0")}.jpg`;
+
+      return {
+        dataUrl,
+        fileName,
+        pageNumber,
+        width: canvas.width,
+        height: canvas.height
+      };
+    }
+
+    function addResultCard(image) {
+      const card = document.createElement("article");
+      card.className = "result-card";
+
+      const preview = document.createElement("img");
+      preview.src = image.dataUrl;
+      preview.alt = `PDF ${image.pageNumber}ページ目のJPEGプレビュー`;
+
+      const info = document.createElement("div");
+      const title = document.createElement("h2");
+      title.textContent = `${image.pageNumber}ページ目`;
+
+      const detail = document.createElement("p");
+      detail.textContent = `${image.width} x ${image.height}px / ${image.fileName}`;
+
+      const link = document.createElement("a");
+      link.href = image.dataUrl;
+      link.download = image.fileName;
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "ダウンロード";
+
+      link.appendChild(button);
+      info.appendChild(title);
+      info.appendChild(detail);
+      card.appendChild(preview);
+      card.appendChild(info);
+      card.appendChild(link);
+      results.appendChild(card);
+    }
+
+    async function convertPdf() {
+      if (!selectedFile) return;
+
+      resetResults();
+      convertButton.disabled = true;
+      setStatus("PDFを読み込んでいます...");
+
+      try {
+        const pdfData = new Uint8Array(await selectedFile.arrayBuffer());
+        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        const scale = Number(scaleSelect.value);
+        const quality = Number(qualitySelect.value);
+        const baseName = sanitizeFileName(selectedFile.name);
+
+        setStatus(`${pdf.numPages}ページを変換しています...`);
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+          setStatus(`${pageNumber} / ${pdf.numPages} ページを変換中...`);
+          const image = await renderPageToJpeg(pdf, pageNumber, scale, quality, baseName);
+          convertedImages.push(image);
+          addResultCard(image);
+        }
+
+        downloadAllButton.disabled = convertedImages.length === 0;
+        setStatus(`変換が完了しました。${convertedImages.length}枚のJPEGを作成しました。`);
+      } catch (error) {
+        setStatus("変換できませんでした。PDFファイルを確認してください。");
+      } finally {
+        convertButton.disabled = !selectedFile;
+      }
+    }
+
+    function downloadAll() {
+      convertedImages.forEach((image, index) => {
+        setTimeout(() => {
+          const link = document.createElement("a");
+          link.href = image.dataUrl;
+          link.download = image.fileName;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        }, index * 250);
+      });
+    }
+
+    pdfInput.addEventListener("change", () => {
+      setFile(pdfInput.files[0]);
+    });
+
+    dropArea.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      dropArea.classList.add("dragover");
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("dragover");
+    });
+
+    dropArea.addEventListener("drop", (event) => {
+      event.preventDefault();
+      dropArea.classList.remove("dragover");
+      setFile(event.dataTransfer.files[0]);
+    });
+
+    convertButton.addEventListener("click", convertPdf);
+    downloadAllButton.addEventListener("click", downloadAll);
+  </script>
+</body>
+</html>
