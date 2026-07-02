@@ -5,6 +5,7 @@ const folderList = document.getElementById("folderList");
 const folderSelect = document.getElementById("folderSelect");
 const statusText = document.getElementById("status");
 const charCount = document.getElementById("charCount");
+const wordCount = document.getElementById("wordCount");
 const newMemoButton = document.getElementById("newMemoButton");
 const newFolderButton = document.getElementById("newFolderButton");
 const deleteButton = document.getElementById("deleteButton");
@@ -112,8 +113,28 @@ function pushHistory(memo) {
   }
 }
 
-function updateCharCount() {
-  charCount.textContent = [...bodyEditor.innerText.trim()].length;
+function countWords(text) {
+  const trimmedText = text.trim();
+
+  if (!trimmedText) {
+    return 0;
+  }
+
+  if ("Segmenter" in Intl) {
+    const segmenter = new Intl.Segmenter("ja", { granularity: "word" });
+    return [...segmenter.segment(trimmedText)].filter((segment) => {
+      return segment.isWordLike;
+    }).length;
+  }
+
+  return trimmedText.split(/\s+/).filter(Boolean).length;
+}
+
+function updateCounts() {
+  const text = bodyEditor.innerText.trim();
+
+  charCount.textContent = [...text].length;
+  wordCount.textContent = countWords(text);
 }
 
 function updateButtons() {
@@ -248,7 +269,7 @@ function selectMemo(id) {
   titleInput.value = memo?.title || "";
   bodyEditor.innerHTML = memo?.body || "";
 
-  updateCharCount();
+  updateCounts();
   renderAll();
 
   statusText.textContent = "保存済み";
@@ -317,7 +338,7 @@ function autoSaveMemo() {
 
   saveData();
   renderAll();
-  updateCharCount();
+  updateCounts();
 
   const now = new Date();
   statusText.textContent =
@@ -351,7 +372,7 @@ function restorePreviousSavedState() {
 
   saveData();
   renderAll();
-  updateCharCount();
+  updateCounts();
 
   statusText.textContent = "ひとつ前の保存状態に戻しました";
 }
@@ -422,7 +443,7 @@ function deleteMemo() {
   } else {
     titleInput.value = "";
     bodyEditor.innerHTML = "";
-    updateCharCount();
+    updateCounts();
     renderAll();
     statusText.textContent = "メモがありません";
   }
