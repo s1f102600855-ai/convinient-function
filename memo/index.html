@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>メモ帳 | 自動保存できる無料ブラウザメモ</title>
+  <meta name="description" content="ブラウザで使える無料のメモ帳です。自動保存、フォルダ分け、文字数カウント、画像貼り付け、直前の保存状態への復元に対応しています。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://s1f102600855-ai.github.io/convinient-function/memo/" />
+
+  <meta property="og:title" content="メモ帳 | 自動保存できる無料ブラウザメモ" />
+  <meta property="og:description" content="端末内に保存できる、ブラウザ用の無料メモ帳です。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://s1f102600855-ai.github.io/convinient-function/memo/" />
+  <meta property="og:site_name" content="便利サイト" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0f766e" />
+
+  <link rel="stylesheet" href="../style.css" />
+  <script src="script.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "メモ帳",
+    "url": "https://s1f102600855-ai.github.io/convinient-function/memo/",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ja",
+    "description": "ブラウザで使える無料のメモ帳です。",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+</head>
+<body class="memo-page">
+  <header class="site-header compact">
+    <nav class="site-nav" aria-label="主要ナビゲーション">
+      <a href="../">ホーム</a>
+      <a href="./" aria-current="page">メモ帳</a>
+      <a href="../pdf-to-jpeg.html">PDFをJPEGに変換</a>
+      <a href="../privacy.html">プライバシー</a>
+    </nav>
+
+    <div class="site-heading">
+      <p class="eyebrow">Memo</p>
+      <h1>メモ帳</h1>
+      <p>書いた内容はブラウザの保存領域に自動保存されます。</p>
+    </div>
+  </header>
+
+  <aside class="memo-sidebar">
+    <h2 class="app-title">メモ帳</h2>
+
+    <div class="side-actions">
+      <button id="newFolderButton" type="button">新規フォルダ</button>
+      <button id="newMemoButton" type="button">新規メモ</button>
+    </div>
+
+    <h3>フォルダ</h3>
+    <div id="folderList"></div>
+
+    <h3>メモ</h3>
+    <div id="memoList"></div>
+  </aside>
+
+  <main class="memo-main">
+    <div class="top-row">
+      <label class="sr-only" for="title">タイトル</label>
+      <input id="title" type="text" placeholder="タイトル" autocomplete="off" />
+      <label class="sr-only" for="folderSelect">フォルダ</label>
+      <select id="folderSelect" aria-label="フォルダ"></select>
+    </div>
+
+    <div class="toolbar">
+      <button id="restoreButton" type="button">直前の保存状態へ戻す</button>
+      <button id="imageButton" type="button">画像を挿入</button>
+      <input id="imageInput" type="file" accept="image/*" hidden />
+    </div>
+
+    <div id="body" class="editor" contenteditable="true" data-placeholder="ここにメモを書く。画像の貼り付けもできます。" role="textbox" aria-label="メモ本文"></div>
+
+    <p class="counter">
+      本文: <span id="charCount">0</span>文字 / <span id="wordCount">0</span>語
+    </p>
+
+    <div class="actions">
+      <button id="deleteButton" class="delete" type="button">このメモを削除</button>
+      <span id="status" role="status" aria-live="polite">保存済み</span>
+    </div>
+  </main>
+</body>
+</html>

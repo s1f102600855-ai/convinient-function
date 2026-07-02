@@ -62,11 +62,13 @@ function loadData() {
     folders = [defaultFolder()];
   }
 
+  const folderIds = new Set(folders.map((folder) => folder.id));
+
   memos = memos.map((memo) => ({
     id: String(memo.id || createId()),
     title: memo.title || "",
     body: memo.body || "",
-    folderId: memo.folderId || "default",
+    folderId: folderIds.has(memo.folderId) ? memo.folderId : "default",
     history: memo.history || []
   }));
 
@@ -129,7 +131,7 @@ function countWords(text) {
   }
 
   const words = normalizedText.match(
-    /[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)?|[ぁ-んァ-ン一-龥々ー]+/g
+    /[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)?|[\u3040-\u30ff\u3400-\u9fff]+/g
   );
 
   return words ? words.length : 0;
@@ -218,6 +220,7 @@ function renderList() {
 
     const select = document.createElement("select");
     select.className = "note-folder-select";
+    select.setAttribute("aria-label", "メモのフォルダ");
 
     folders.forEach((folder) => {
       const option = document.createElement("option");
@@ -428,7 +431,7 @@ function insertImageFile(file) {
   const reader = new FileReader();
 
   reader.addEventListener("load", () => {
-    const imageHtml = `<img src="${reader.result}" alt="貼り付けた写真">`;
+    const imageHtml = `<img src="${reader.result}" alt="貼り付けた画像">`;
     insertHtmlAtCursor(imageHtml);
     updateCounts();
     startAutoSave();

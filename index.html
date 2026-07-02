@@ -3,88 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>メモ帳 | 自動保存できる無料メモ帳アプリ</title>
-  <meta name="description" content="メモ帳は、ブラウザで使える無料のメモ帳アプリです。自動保存、フォルダ分け、文字数カウント、単語数カウント、画像貼り付け、前の保存状態への復元に対応しています。" />
+  <title>便利サイト | ブラウザで使える無料ツール集</title>
+  <meta name="description" content="メモ帳やPDFをJPEGに変換するツールを、ブラウザだけで使える無料サイトです。入力した内容やPDFは端末内で処理されます。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://s1f102600855-ai.github.io/convinient-function/" />
 
-  <meta property="og:title" content="メモ帳 | 無料メモ帳アプリ" />
-  <meta property="og:description" content="自動保存、フォルダ分け、画像貼り付け、文字数カウント、単語数カウントに対応したブラウザ用メモ帳アプリです。" />
+  <meta property="og:title" content="便利サイト | ブラウザで使える無料ツール集" />
+  <meta property="og:description" content="自動保存メモ帳とPDFからJPEGへの変換ツールを、ブラウザで手軽に使えます。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://s1f102600855-ai.github.io/convinient-function/" />
-  <meta property="og:site_name" content="メモ帳" />
+  <meta property="og:site_name" content="便利サイト" />
   <meta name="twitter:card" content="summary" />
-  <meta name="theme-color" content="#137b73" />
+  <meta name="theme-color" content="#0f766e" />
 
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "メモ帳",
+    "@type": "WebSite",
+    "name": "便利サイト",
     "url": "https://s1f102600855-ai.github.io/convinient-function/",
-    "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Any",
-    "description": "自動保存、フォルダ分け、文字数カウント、単語数カウント、画像貼り付けに対応したブラウザ用メモ帳アプリです。",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "JPY"
-    }
+    "inLanguage": "ja",
+    "description": "ブラウザで使える無料ツール集です。"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "便利サイトのツール",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "url": "https://s1f102600855-ai.github.io/convinient-function/memo/",
+        "name": "メモ帳"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "url": "https://s1f102600855-ai.github.io/convinient-function/pdf-to-jpeg.html",
+        "name": "PDFをJPEGに変換"
+      }
+    ]
   }
   </script>
 </head>
-<body>
-  <header class="site-intro">
-    <nav class="site-nav">
-      <a href="index.html">メモ帳</a>
+<body class="home-page">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="主要ナビゲーション">
+      <a href="./" aria-current="page">ホーム</a>
+      <a href="memo/">メモ帳</a>
       <a href="pdf-to-jpeg.html">PDFをJPEGに変換</a>
+      <a href="privacy.html">プライバシー</a>
     </nav>
 
-    <h1>メモ帳</h1>
-    <p>自動保存、フォルダ分け、文字数カウント、単語数カウント、画像貼り付け、前の保存状態への復元に対応した無料のメモ帳アプリです。</p>
+    <div class="site-heading">
+      <p class="eyebrow">Free browser tools</p>
+      <h1>便利サイト</h1>
+      <p>日々の作業で少しだけ面倒なことを、ブラウザだけで済ませるための無料ツール集です。</p>
+    </div>
   </header>
 
-  <aside>
-    <h2 class="app-title">メモ帳</h2>
+  <main class="home-main">
+    <section class="tool-list" aria-labelledby="tool-list-heading">
+      <div class="section-heading">
+        <h2 id="tool-list-heading">ツール</h2>
+        <p>端末内で扱いやすい、小さな作業用ツールをまとめています。</p>
+      </div>
 
-    <div class="side-actions">
-      <button id="newFolderButton" type="button">新規フォルダ</button>
-      <button id="newMemoButton" type="button">新規メモ</button>
-    </div>
+      <article class="tool-card">
+        <div>
+          <h3>メモ帳</h3>
+          <p>文章を書いて自動保存できる、ブラウザ用のシンプルなメモ帳です。</p>
+        </div>
+        <a class="button-link" href="memo/">開く</a>
+      </article>
 
-    <h3>フォルダ</h3>
-    <div id="folderList"></div>
-
-    <h3>メモ</h3>
-    <div id="memoList"></div>
-  </aside>
-
-  <main>
-    <div class="top-row">
-      <input id="title" type="text" placeholder="タイトル" />
-      <select id="folderSelect"></select>
-    </div>
-
-    <div class="toolbar">
-      <button id="restoreButton" type="button">前の保存状態に戻す</button>
-      <button id="imageButton" type="button">写真を挿入</button>
-      <input id="imageInput" type="file" accept="image/*" hidden />
-    </div>
-
-    <div id="body" class="editor" contenteditable="true" data-placeholder="ここにメモを書く。画像の貼り付けもできます。"></div>
-
-    <p class="counter">
-      本文：<span id="charCount">0</span>文字 / <span id="wordCount">0</span>単語
-    </p>
-
-    <div class="actions">
-      <button id="deleteButton" class="delete" type="button">このメモを削除</button>
-      <span id="status">保存済み</span>
-    </div>
+      <article class="tool-card">
+        <div>
+          <h3>PDFをJPEGに変換</h3>
+          <p>PDFの各ページをJPEG画像として書き出せます。</p>
+        </div>
+        <a class="button-link" href="pdf-to-jpeg.html">開く</a>
+      </article>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <a href="privacy.html">プライバシーポリシー</a>
+  </footer>
 </body>
 </html>
