@@ -494,6 +494,65 @@ canvas {
   margin-top: 10px;
 }
 
+
+.ad-slot {
+  display: block;
+  overflow: hidden;
+  background: transparent;
+}
+
+.ad-top {
+  min-height: 90px;
+}
+
+.home-top-ad {
+  display: none;
+}
+
+.ad-rail {
+  display: none;
+}
+
+.memo-bottom-ad {
+  width: min(970px, 100%);
+  min-height: 90px;
+  margin: 8px auto 0;
+}
+
+@media (min-width: 1180px) {
+  .site-header {
+    position: relative;
+  }
+
+  .home-top-ad {
+    display: block;
+    position: absolute;
+    top: 14px;
+    left: min(50vw, 820px);
+    width: min(728px, calc(100vw - min(50vw, 820px) - 28px));
+    height: 90px;
+  }
+}
+
+@media (min-width: 1560px) {
+  .home-page .ad-rail,
+  .tool-page .ad-rail {
+    display: block;
+    position: fixed;
+    top: 292px;
+    bottom: 24px;
+    width: clamp(180px, calc((100vw - 1080px) / 2 - 40px), 300px);
+  }
+
+  .ad-rail-left {
+    left: 24px;
+  }
+
+  .ad-rail-right {
+    right: 24px;
+  }
+}
+
 @media (max-width: 760px) {
   .site-header {
     padding: 20px 16px;
