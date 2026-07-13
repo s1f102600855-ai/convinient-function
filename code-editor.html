@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webコードエディター | HTML CSS JavaScriptをブラウザで実行</title>
+  <meta name="description" content="HTML、CSS、JavaScriptをブラウザ上で書いて実行できる無料のWebコードエディターです。自動実行、保存、コピー、HTMLファイルのダウンロードに対応しています。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://convenientfunction.com/code-editor.html" />
+
+  <meta property="og:title" content="Webコードエディター | HTML CSS JavaScriptをブラウザで実行" />
+  <meta property="og:description" content="HTML、CSS、JavaScriptをブラウザで書いてすぐに実行できます。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://convenientfunction.com/code-editor.html" />
+  <meta property="og:site_name" content="便利サイト" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0f766e" />
+
+  <link rel="stylesheet" href="style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6659521652915815"
+     crossorigin="anonymous"></script>
+  <script src="code-editor.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Webコードエディター",
+    "url": "https://convenientfunction.com/code-editor.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ja",
+    "description": "HTML、CSS、JavaScriptをブラウザ上で書いて実行できる無料のWebコードエディターです。",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+</head>
+<body class="tool-page code-editor-page">
+  <aside class="ad-slot ad-rail ad-rail-left" aria-label="広告"></aside>
+  <aside class="ad-slot ad-rail ad-rail-right" aria-label="広告"></aside>
+
+  <header class="site-header compact">
+    <nav class="site-nav" aria-label="主要ナビゲーション">
+      <a href="./">ホーム</a>
+      <a href="memo/">メモ帳</a>
+      <a href="pdf-to-jpeg.html">PDFをJPEGに変換</a>
+      <a href="code-editor.html" aria-current="page">Webコードエディター</a>
+      <a href="privacy.html">プライバシー</a>
+    </nav>
+
+    <div class="site-heading">
+      <p class="eyebrow">Code editor</p>
+      <h1>Webコードエディター</h1>
+      <p>HTML、CSS、JavaScriptを書いて、ブラウザ上ですぐに実行できます。</p>
+    </div>
+  </header>
+
+  <main class="code-editor-main">
+    <section class="code-workspace" aria-label="コード編集エリア">
+      <div class="code-toolbar">
+        <label class="toggle-control">
+          <input type="checkbox" id="autoRun" />
+          自動実行
+        </label>
+
+        <div class="code-actions">
+          <button type="button" id="runButton">実行</button>
+          <button type="button" id="saveButton">保存</button>
+          <button type="button" id="copyButton">コピー</button>
+          <button type="button" id="downloadButton">HTML保存</button>
+          <button type="button" id="resetButton" class="secondary-button">リセット</button>
+        </div>
+      </div>
+
+      <div class="code-editor-grid">
+        <section class="code-panel" aria-labelledby="html-code-heading">
+          <div class="code-panel-header html-accent">
+            <h2 id="html-code-heading">HTML</h2>
+          </div>
+          <textarea id="htmlCode" spellcheck="false" aria-label="HTMLコード"></textarea>
+        </section>
+
+        <section class="code-panel" aria-labelledby="css-code-heading">
+          <div class="code-panel-header css-accent">
+            <h2 id="css-code-heading">CSS</h2>
+          </div>
+          <textarea id="cssCode" spellcheck="false" aria-label="CSSコード"></textarea>
+        </section>
+
+        <section class="code-panel" aria-labelledby="js-code-heading">
+          <div class="code-panel-header js-accent">
+            <h2 id="js-code-heading">JavaScript</h2>
+          </div>
+          <textarea id="jsCode" spellcheck="false" aria-label="JavaScriptコード"></textarea>
+        </section>
+      </div>
+    </section>
+
+    <section class="preview-panel" aria-labelledby="preview-heading">
+      <div class="preview-toolbar">
+        <h2 id="preview-heading">実行結果</h2>
+        <div class="preview-actions">
+          <span id="status" class="editor-status" role="status" aria-live="polite">準備完了</span>
+          <button type="button" id="fullscreenButton" class="secondary-button">拡大</button>
+        </div>
+      </div>
+
+      <iframe
+        id="preview"
+        title="コードの実行結果"
+        sandbox="allow-scripts allow-modals allow-forms"
+      ></iframe>
+
+      <div class="console-panel" aria-live="polite">
+        <div class="console-header">
+          <h3>コンソール</h3>
+          <button type="button" id="clearConsoleButton" class="secondary-button">消去</button>
+        </div>
+        <pre id="consoleOutput">ログはまだありません。</pre>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

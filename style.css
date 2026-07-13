@@ -1,4 +1,4 @@
-* {
+﻿* {
   box-sizing: border-box;
 }
 
@@ -494,6 +494,212 @@ canvas {
   margin-top: 10px;
 }
 
+.code-editor-main {
+  width: min(1440px, calc(100% - 32px));
+  min-height: calc(100vh - 190px);
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: minmax(420px, 0.95fr) minmax(420px, 1.05fr);
+  gap: 16px;
+}
+
+.code-workspace,
+.preview-panel {
+  min-width: 0;
+}
+
+.code-toolbar,
+.preview-toolbar,
+.console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.code-toolbar {
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 12px;
+}
+
+.toggle-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.toggle-control input {
+  width: auto;
+}
+
+.code-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.secondary-button {
+  background: #e2e8f0;
+  color: var(--text);
+}
+
+.secondary-button:hover {
+  background: #cbd5e1;
+}
+
+.code-editor-grid {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(180px, 1fr));
+  gap: 12px;
+  min-height: 620px;
+  height: calc(100vh - 280px);
+}
+
+.code-panel,
+.preview-panel,
+.console-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.code-panel,
+.preview-panel {
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.code-panel {
+  flex-direction: column;
+}
+
+.code-panel-header {
+  min-height: 40px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-soft);
+  padding: 9px 12px;
+}
+
+.code-panel-header h2,
+.preview-toolbar h2,
+.console-header h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.html-accent {
+  border-left: 5px solid #e34c26;
+}
+
+.css-accent {
+  border-left: 5px solid #264de4;
+}
+
+.js-accent {
+  border-left: 5px solid #f0db4f;
+}
+
+.code-panel textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.preview-panel {
+  flex-direction: column;
+}
+
+.preview-toolbar {
+  min-height: 52px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  padding: 10px 12px;
+}
+
+.preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editor-status {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.preview-panel iframe {
+  flex: 1;
+  width: 100%;
+  min-height: 360px;
+  border: none;
+  background: #ffffff;
+}
+
+.console-panel {
+  margin: 12px;
+  overflow: hidden;
+}
+
+.console-header {
+  min-height: 42px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-soft);
+  padding: 8px 10px;
+}
+
+.console-header button {
+  min-height: 34px;
+  padding: 7px 12px;
+}
+
+#consoleOutput {
+  min-height: 96px;
+  max-height: 160px;
+  margin: 0;
+  overflow: auto;
+  padding: 12px;
+  background: #0f172a;
+  color: #dbeafe;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1080px) {
+  .code-editor-main {
+    grid-template-columns: 1fr;
+  }
+
+  .code-editor-grid {
+    height: auto;
+    min-height: 0;
+    grid-template-rows: repeat(3, 250px);
+  }
+
+  .preview-panel {
+    min-height: 560px;
+  }
+}
+
 
 .ad-slot {
   display: block;
@@ -609,5 +815,37 @@ canvas {
 
   .result-card img {
     width: 100%;
+  }
+
+  .code-editor-main {
+    width: min(100% - 24px, 100%);
+    margin: 16px auto;
+  }
+
+  .code-toolbar,
+  .preview-toolbar,
+  .console-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .code-actions,
+  .preview-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .toggle-control,
+  .editor-status {
+    width: 100%;
+  }
+
+  .code-editor-grid {
+    grid-template-rows: repeat(3, 240px);
+  }
+
+  .preview-panel {
+    min-height: 520px;
   }
 }
