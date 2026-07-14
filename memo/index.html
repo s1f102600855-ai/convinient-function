@@ -7,6 +7,7 @@
   <meta name="description" content="ブラウザで使える無料のメモ帳です。自動保存、フォルダ分け、文字数カウント、画像貼り付け、直前の保存状態への復元に対応しています。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/memo/" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';" />
 
   <meta property="og:title" content="メモ帳 | 自動保存できる無料ブラウザメモ" />
   <meta property="og:description" content="端末内に保存できる、ブラウザ用の無料メモ帳です。" />
@@ -17,8 +18,6 @@
   <meta name="theme-color" content="#0f766e" />
 
   <link rel="stylesheet" href="../style.css" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6659521652915815"
-     crossorigin="anonymous"></script>
   <script src="script.js" defer></script>
 
   <script type="application/ld+json">
@@ -82,12 +81,18 @@
     <div class="toolbar">
       <button id="restoreButton" type="button">直前の保存状態へ戻す</button>
       <button id="imageButton" type="button">画像を挿入</button>
+      <button id="exportButton" class="secondary-button" type="button">バックアップ保存</button>
+      <button id="importButton" class="secondary-button" type="button">バックアップ読込</button>
       <input id="imageInput" type="file" accept="image/*" hidden />
+      <input id="importInput" type="file" accept="application/json,.json" hidden />
     </div>
 
-    <div id="body" class="editor" contenteditable="true" data-placeholder="ここにメモを書く。画像の貼り付けもできます。" role="textbox" aria-label="メモ本文"></div>
+    <section class="memo-safety-note" aria-label="メモの保存について">
+      <strong>保存について</strong>
+      <p>このメモはこの端末のブラウザ内に保存されます。ブラウザデータの削除、シークレットモード終了、端末故障などで消える場合があります。パスワード、カード情報、マイナンバーなどの機密情報は保存しないでください。</p>
+    </section>
 
-    <div class="ad-slot ad-bottom memo-bottom-ad" aria-label="広告"></div>
+    <div id="body" class="editor" contenteditable="true" data-placeholder="ここにメモを書く。画像の貼り付けもできます。" role="textbox" aria-label="メモ本文"></div>
 
     <p class="counter">
       本文: <span id="charCount">0</span>文字 / <span id="wordCount">0</span>語

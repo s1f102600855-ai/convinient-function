@@ -69,6 +69,7 @@
         </span>
       </label>
       <input id="pdfInput" type="file" accept="application/pdf,.pdf" />
+      <p class="tool-note">変換できるPDFは50MB以下、80ページまでです。大きなファイルは端末に負荷がかかるため制限しています。</p>
 
       <div class="controls">
         <label>
@@ -91,7 +92,10 @@
 
         <label>
           実行
-          <button id="convertButton" type="button" disabled>JPEGに変換</button>
+          <span class="button-row">
+            <button id="convertButton" type="button" disabled>JPEGに変換</button>
+            <button id="cancelButton" class="secondary-button" type="button" disabled>中止</button>
+          </span>
         </label>
       </div>
     </section>
@@ -114,14 +118,19 @@
     const qualitySelect = document.getElementById("qualitySelect");
     const scaleSelect = document.getElementById("scaleSelect");
     const convertButton = document.getElementById("convertButton");
+    const cancelButton = document.getElementById("cancelButton");
     const downloadAllButton = document.getElementById("downloadAllButton");
     const statusText = document.getElementById("status");
     const results = document.getElementById("results");
     const canvas = document.getElementById("workCanvas");
     const context = canvas.getContext("2d");
+    const maxFileSizeMb = 50;
+    const maxFileSizeBytes = maxFileSizeMb * 1024 * 1024;
+    const maxPageCount = 80;
 
     let selectedFile = null;
     let convertedImages = [];
+    let isCancelled = false;
 
     function setStatus(message) {
       statusText.textContent = message;
@@ -140,18 +149,34 @@
       downloadAllButton.disabled = true;
     }
 
+    function clearSelectedFile(message) {
+      selectedFile = null;
+      pdfInput.value = "";
+      convertButton.disabled = true;
+      cancelButton.disabled = true;
+      resetResults();
+      setStatus(message);
+    }
+
     function setFile(file) {
       if (!file) return;
 
       if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
-        setStatus("PDFファイルを選択してください。");
+        clearSelectedFile("PDFファイルを選択してください。");
+        return;
+      }
+
+      if (file.size > maxFileSizeBytes) {
+        clearSelectedFile(`PDFファイルは${maxFileSizeMb}MB以下にしてください。`);
         return;
       }
 
       selectedFile = file;
+      isCancelled = false;
       convertButton.disabled = false;
+      cancelButton.disabled = true;
       resetResults();
-      setStatus(`${file.name} を選択しました。`);
+      setStatus(`${file.name} を選択しました。最大${maxPageCount}ページまで変換できます。`);
     }
 
     async function renderPageToJpeg(pdf, pageNumber, scale, quality, baseName) {
@@ -221,7 +246,9 @@
       if (!selectedFile) return;
 
       resetResults();
+      isCancelled = false;
       convertButton.disabled = true;
+      cancelButton.disabled = false;
       setStatus("PDFを読み込んでいます...");
 
       try {
@@ -231,21 +258,42 @@
         const quality = Number(qualitySelect.value);
         const baseName = sanitizeFileName(selectedFile.name);
 
+        if (pdf.numPages > maxPageCount) {
+          setStatus(`ページ数が多すぎます。${maxPageCount}ページ以下のPDFを選択してください。`);
+          return;
+        }
+
         setStatus(`${pdf.numPages}ページを変換しています...`);
 
         for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+          if (isCancelled) break;
+
           setStatus(`${pageNumber} / ${pdf.numPages} ページを変換中...`);
           const image = await renderPageToJpeg(pdf, pageNumber, scale, quality, baseName);
+
+          if (isCancelled) break;
+
           convertedImages.push(image);
           addResultCard(image);
         }
 
         downloadAllButton.disabled = convertedImages.length === 0;
+
+        if (isCancelled) {
+          setStatus(`変換を中止しました。${convertedImages.length}枚のJPEGを作成済みです。`);
+          return;
+        }
+
         setStatus(`変換が完了しました。${convertedImages.length}枚のJPEGを作成しました。`);
       } catch (error) {
-        setStatus("変換できませんでした。PDFファイルを確認してください。");
+        if (isCancelled) {
+          setStatus(`変換を中止しました。${convertedImages.length}枚のJPEGを作成済みです。`);
+        } else {
+          setStatus("変換できませんでした。PDFファイルを確認してください。");
+        }
       } finally {
         convertButton.disabled = !selectedFile;
+        cancelButton.disabled = true;
       }
     }
 
@@ -282,6 +330,11 @@
     });
 
     convertButton.addEventListener("click", convertPdf);
+    cancelButton.addEventListener("click", () => {
+      isCancelled = true;
+      cancelButton.disabled = true;
+      setStatus("変換を中止しています...");
+    });
     downloadAllButton.addEventListener("click", downloadAll);
   </script>
 </body>

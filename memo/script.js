@@ -12,9 +12,13 @@ const deleteButton = document.getElementById("deleteButton");
 const imageButton = document.getElementById("imageButton");
 const imageInput = document.getElementById("imageInput");
 const restoreButton = document.getElementById("restoreButton");
+const exportButton = document.getElementById("exportButton");
+const importButton = document.getElementById("importButton");
+const importInput = document.getElementById("importInput");
 
 const storageKey = "memoAppDataV2";
 const oldStorageKey = "memos";
+const backupVersion = 1;
 
 let folders = [];
 let memos = [];
@@ -76,7 +80,20 @@ function loadData() {
 }
 
 function saveData() {
-  localStorage.setItem(storageKey, JSON.stringify({ folders, memos }));
+  try {
+    localStorage.setItem(storageKey, JSON.stringify({ folders, memos }));
+    return true;
+  } catch (error) {
+    if (error?.name === "QuotaExceededError" || error?.code === 22) {
+      statusText.textContent =
+        "保存容量がいっぱいです。画像を減らすか、バックアップを保存してください。";
+    } else {
+      statusText.textContent =
+        "保存できませんでした。ブラウザの保存設定を確認してください。";
+    }
+
+    return false;
+  }
 }
 
 function getCurrentMemo() {
@@ -241,7 +258,11 @@ function renderList() {
       if (memo.folderId !== select.value) {
         pushHistory(memo);
         memo.folderId = select.value;
-        saveData();
+        const saved = saveData();
+
+        if (!saved) {
+          return;
+        }
       }
 
       if (memo.id === currentId) {
@@ -346,9 +367,13 @@ function autoSaveMemo() {
   memo.body = newBody;
   memo.folderId = newFolderId;
 
-  saveData();
+  const saved = saveData();
   renderAll();
   updateCounts();
+
+  if (!saved) {
+    return;
+  }
 
   const now = new Date();
   statusText.textContent =
@@ -385,11 +410,13 @@ function restorePreviousSavedState() {
   bodyEditor.innerHTML = memo.body;
   folderSelect.value = memo.folderId;
 
-  saveData();
+  const saved = saveData();
   renderAll();
   updateCounts();
 
-  statusText.textContent = "ひとつ前の保存状態に戻しました";
+  if (saved) {
+    statusText.textContent = "ひとつ前の保存状態に戻しました";
+  }
 }
 
 function insertHtmlAtCursor(html) {
@@ -450,7 +477,11 @@ function deleteMemo() {
   if (!ok) return;
 
   memos = memos.filter((item) => item.id !== memo.id);
-  saveData();
+  const saved = saveData();
+
+  if (!saved) {
+    return;
+  }
 
   currentId = getVisibleMemos()[0]?.id || memos[0]?.id || null;
 
@@ -462,6 +493,127 @@ function deleteMemo() {
     updateCounts();
     renderAll();
     statusText.textContent = "メモがありません";
+  }
+}
+
+function normalizeFolders(rawFolders) {
+  const source = Array.isArray(rawFolders) ? rawFolders : [];
+  const seen = new Set();
+  const normalized = [];
+
+  source.forEach((folder) => {
+    const id = String(folder?.id || createId());
+    const name = String(folder?.name || "").trim();
+
+    if (!name || seen.has(id)) return;
+
+    seen.add(id);
+    normalized.push({ id, name });
+  });
+
+  if (!seen.has("default")) {
+    normalized.unshift(defaultFolder());
+  }
+
+  return normalized.length > 0 ? normalized : [defaultFolder()];
+}
+
+function normalizeMemos(rawMemos, folderIds) {
+  const source = Array.isArray(rawMemos) ? rawMemos : [];
+  const seen = new Set();
+
+  return source.map((memo) => {
+    let id = String(memo?.id || createId());
+
+    while (seen.has(id)) {
+      id = createId();
+    }
+
+    seen.add(id);
+
+    const history = Array.isArray(memo?.history)
+      ? memo.history.slice(-30).map((item) => ({
+          title: String(item?.title || ""),
+          body: String(item?.body || ""),
+          folderId: folderIds.has(item?.folderId) ? item.folderId : "default",
+          savedAt: String(item?.savedAt || "")
+        }))
+      : [];
+
+    const folderId = folderIds.has(memo?.folderId) ? memo.folderId : "default";
+
+    return {
+      id,
+      title: String(memo?.title || ""),
+      body: String(memo?.body || ""),
+      folderId,
+      history
+    };
+  });
+}
+
+function exportBackup() {
+  const backup = {
+    version: backupVersion,
+    exportedAt: new Date().toISOString(),
+    folders,
+    memos
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], {
+    type: "application/json"
+  });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const date = new Date().toISOString().slice(0, 10);
+
+  link.href = url;
+  link.download = `memo-backup-${date}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+
+  statusText.textContent = "バックアップファイルを作成しました";
+}
+
+async function importBackup(file) {
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+
+    if (!Array.isArray(data?.folders) || !Array.isArray(data?.memos)) {
+      throw new Error("Invalid memo backup");
+    }
+
+    const ok = confirm("現在のメモをバックアップ内容に置き換えます。よろしいですか？");
+    if (!ok) return;
+
+    const nextFolders = normalizeFolders(data.folders);
+    const folderIds = new Set(nextFolders.map((folder) => folder.id));
+    const nextMemos = normalizeMemos(data.memos, folderIds);
+
+    folders = nextFolders;
+    memos = nextMemos;
+    currentFolderId = "all";
+    currentId = memos[0]?.id || null;
+
+    const saved = saveData();
+
+    if (!saved) {
+      return;
+    }
+
+    if (currentId) {
+      selectMemo(currentId);
+    } else {
+      newMemo();
+    }
+
+    statusText.textContent = "バックアップを読み込みました";
+  } catch (error) {
+    statusText.textContent = "読み込めませんでした。JSONファイルを確認してください。";
   }
 }
 
@@ -495,6 +647,18 @@ imageInput.addEventListener("change", () => {
   const file = imageInput.files[0];
   insertImageFile(file);
   imageInput.value = "";
+});
+
+exportButton.addEventListener("click", exportBackup);
+
+importButton.addEventListener("click", () => {
+  importInput.click();
+});
+
+importInput.addEventListener("change", () => {
+  importBackup(importInput.files[0]).finally(() => {
+    importInput.value = "";
+  });
 });
 
 newFolderButton.addEventListener("click", newFolder);

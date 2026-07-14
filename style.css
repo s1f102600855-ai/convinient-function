@@ -290,6 +290,10 @@ a:focus-visible {
   gap: 10px;
 }
 
+.toolbar {
+  flex-wrap: wrap;
+}
+
 .side-actions {
   flex-direction: column;
   align-items: stretch;
@@ -377,6 +381,24 @@ a:focus-visible {
   border: 1px solid var(--line);
 }
 
+.memo-safety-note {
+  border: 1px solid #f0c36d;
+  border-radius: 8px;
+  background: #fff8e7;
+  color: #4d3b10;
+  padding: 12px 14px;
+}
+
+.memo-safety-note strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.memo-safety-note p {
+  margin: 0;
+  line-height: 1.7;
+}
+
 .counter,
 #status,
 .status {
@@ -437,6 +459,23 @@ input[type="file"] {
   gap: 6px;
   color: var(--muted);
   font-weight: 700;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.button-row button {
+  width: 100%;
+}
+
+.tool-note {
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .status {
@@ -806,6 +845,10 @@ canvas {
   }
 
   .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .button-row {
     grid-template-columns: 1fr;
   }
 
