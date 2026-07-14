@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>カレンダー | 予定をブラウザ内に保存できる無料ツール</title>
+  <meta name="description" content="予定をブラウザ内に保存できる無料カレンダーです。月表示、日別予定、バックアップ保存と読み込みに対応しています。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://convenientfunction.com/calendar.html" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+
+  <meta property="og:title" content="カレンダー | 予定をブラウザ内に保存できる無料ツール" />
+  <meta property="og:description" content="予定を端末内に保存して、月表示で確認できるシンプルなカレンダーです。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://convenientfunction.com/calendar.html" />
+  <meta property="og:site_name" content="便利サイト" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0f766e" />
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="calendar.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "カレンダー",
+    "url": "https://convenientfunction.com/calendar.html",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ja",
+    "description": "予定をブラウザ内に保存できる無料カレンダーです。",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+</head>
+<body class="tool-page calendar-page">
+  <header class="site-header compact">
+    <nav class="site-nav" aria-label="主要ナビゲーション">
+      <a href="./">ホーム</a>
+      <a href="memo/">メモ帳</a>
+      <a href="calendar.html" aria-current="page">カレンダー</a>
+      <a href="pdf-to-jpeg.html">PDFをJPEGに変換</a>
+      <a href="code-editor.html">Webコードエディター</a>
+      <a href="privacy.html">プライバシー</a>
+    </nav>
+
+    <div class="site-heading">
+      <p class="eyebrow">Calendar</p>
+      <h1>カレンダー</h1>
+      <p>予定をブラウザ内に保存して、月ごと・日ごとに確認できます。</p>
+    </div>
+  </header>
+
+  <main class="calendar-main">
+    <section class="memo-safety-note" aria-label="カレンダーの保存について">
+      <strong>保存について</strong>
+      <p>予定はこの端末のブラウザ内に保存されます。ブラウザデータの削除や端末故障で消える場合があります。重要な予定はバックアップ保存をご利用ください。</p>
+    </section>
+
+    <section class="panel calendar-panel" aria-labelledby="calendar-heading">
+      <div class="calendar-toolbar">
+        <div>
+          <p class="eyebrow">Monthly view</p>
+          <h2 id="calendar-heading"></h2>
+        </div>
+
+        <div class="calendar-nav-actions">
+          <button id="prevMonthButton" class="secondary-button" type="button">前月</button>
+          <button id="todayButton" type="button">今日</button>
+          <button id="nextMonthButton" class="secondary-button" type="button">翌月</button>
+        </div>
+      </div>
+
+      <div class="calendar-grid calendar-weekdays" aria-hidden="true">
+        <div>日</div>
+        <div>月</div>
+        <div>火</div>
+        <div>水</div>
+        <div>木</div>
+        <div>金</div>
+        <div>土</div>
+      </div>
+
+      <div id="calendarGrid" class="calendar-grid calendar-days" aria-label="月間カレンダー"></div>
+    </section>
+
+    <section class="panel day-panel" aria-labelledby="selected-date-heading">
+      <div class="day-panel-header">
+        <div>
+          <p class="eyebrow">Selected day</p>
+          <h2 id="selected-date-heading"></h2>
+        </div>
+        <p id="eventSummary" class="status">予定はありません。</p>
+      </div>
+
+      <form id="eventForm" class="event-form">
+        <label>
+          日付
+          <input id="eventDate" type="date" required />
+        </label>
+
+        <label>
+          時刻
+          <input id="eventTime" type="time" />
+        </label>
+
+        <label>
+          予定
+          <input id="eventTitle" type="text" maxlength="80" placeholder="予定を入力" required />
+        </label>
+
+        <label>
+          種類
+          <select id="eventCategory">
+            <option value="work">仕事</option>
+            <option value="personal">私用</option>
+            <option value="important">重要</option>
+            <option value="other">その他</option>
+          </select>
+        </label>
+
+        <label class="event-note-field">
+          メモ
+          <textarea id="eventNote" maxlength="300" placeholder="必要ならメモを追加"></textarea>
+        </label>
+
+        <div class="event-actions">
+          <button type="submit">予定を追加</button>
+          <button id="exportCalendarButton" class="secondary-button" type="button">バックアップ保存</button>
+          <button id="importCalendarButton" class="secondary-button" type="button">バックアップ読込</button>
+          <input id="importCalendarInput" type="file" accept="application/json,.json" hidden />
+        </div>
+      </form>
+
+      <div id="eventList" class="event-list" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+</html>
