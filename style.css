@@ -587,6 +587,34 @@ canvas {
   font-weight: 700;
 }
 
+.google-sync-help {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+  padding: 12px 14px;
+}
+
+.google-sync-help summary {
+  cursor: pointer;
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.google-sync-help ol {
+  margin: 10px 0 0;
+  padding-left: 22px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.google-sync-help code {
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: var(--text);
+  padding: 1px 5px;
+  overflow-wrap: anywhere;
+}
+
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));

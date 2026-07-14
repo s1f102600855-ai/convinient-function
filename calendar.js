@@ -90,9 +90,40 @@ function loadGoogleSettings() {
   updateGoogleButtons();
 }
 
+function isValidGoogleClientId(clientId) {
+  return /^[0-9a-zA-Z._-]+\.apps\.googleusercontent\.com$/.test(clientId);
+}
+
+function getGoogleClientIdValidationMessage(clientId) {
+  if (!clientId) {
+    return "OAuth Client IDを入力してください。";
+  }
+
+  if (clientId.includes("@")) {
+    return "メールアドレスではなく、Google Cloudで作成したOAuth Client IDを入力してください。";
+  }
+
+  if (/^https?:\/\//i.test(clientId)) {
+    return "サイトURLではなく、末尾が .apps.googleusercontent.com のOAuth Client IDを入力してください。";
+  }
+
+  if (!isValidGoogleClientId(clientId)) {
+    return "OAuth Client IDは xxxxx.apps.googleusercontent.com の形式です。APIキーやURLは使えません。";
+  }
+
+  return "";
+}
+
 function saveGoogleSettings() {
   const clientId = googleClientIdInput.value.trim();
   const calendarId = googleCalendarIdInput.value.trim() || "primary";
+  const validationMessage = getGoogleClientIdValidationMessage(clientId);
+
+  if (validationMessage) {
+    setGoogleStatus(validationMessage);
+    updateGoogleButtons();
+    return false;
+  }
 
   localStorage.setItem(
     googleSettingsKey,
@@ -104,10 +135,9 @@ function saveGoogleSettings() {
 
   googleCalendarIdInput.value = calendarId;
   googleTokenClient = null;
-  googleSyncStatus.textContent = clientId
-    ? "Google連携設定を保存しました。"
-    : "OAuth Client IDを入力してください。";
+  googleSyncStatus.textContent = "Google連携設定を保存しました。";
   updateGoogleButtons();
+  return true;
 }
 
 function getGoogleCalendarId() {
@@ -115,7 +145,8 @@ function getGoogleCalendarId() {
 }
 
 function updateGoogleButtons() {
-  const hasClientId = Boolean(googleClientIdInput.value.trim());
+  const clientId = googleClientIdInput.value.trim();
+  const hasClientId = isValidGoogleClientId(clientId);
   const connected = Boolean(googleAccessToken);
 
   connectGoogleButton.disabled = !hasClientId;
@@ -206,9 +237,10 @@ function loadGoogleIdentity() {
 
 async function ensureGoogleToken(prompt = "") {
   const clientId = googleClientIdInput.value.trim();
+  const validationMessage = getGoogleClientIdValidationMessage(clientId);
 
-  if (!clientId) {
-    setGoogleStatus("OAuth Client IDを入力して設定を保存してください。");
+  if (validationMessage) {
+    setGoogleStatus(validationMessage);
     updateGoogleButtons();
     return null;
   }
@@ -834,7 +866,11 @@ googleClientIdInput.addEventListener("input", updateGoogleButtons);
 googleCalendarIdInput.addEventListener("input", updateGoogleButtons);
 
 connectGoogleButton.addEventListener("click", async () => {
-  saveGoogleSettings();
+  const saved = saveGoogleSettings();
+
+  if (!saved) {
+    return;
+  }
 
   try {
     setGoogleStatus("Googleに接続しています...");

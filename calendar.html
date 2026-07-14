@@ -77,7 +77,7 @@
 
       <div class="google-settings">
         <label>
-          OAuth Client ID
+          OAuth Client ID（メールアドレスではありません）
           <input id="googleClientId" type="text" placeholder="xxxxx.apps.googleusercontent.com" autocomplete="off" />
         </label>
 
@@ -95,7 +95,18 @@
         <button id="disconnectGoogleButton" class="secondary-button" type="button" disabled>切断</button>
       </div>
 
-      <p class="tool-note">Google CloudでCalendar APIを有効化し、承認済みJavaScript生成元にこのサイトのURLを登録したOAuth Client IDを入力してください。Client IDとカレンダーIDはこのブラウザ内に保存されます。</p>
+      <details class="google-sync-help">
+        <summary>Google連携でブロックされる場合の設定</summary>
+        <ol>
+          <li>Google CloudでGoogle Calendar APIを有効化します。</li>
+          <li>OAuth同意画面を設定し、テスト公開中は利用するGoogleアカウントをテストユーザーに追加します。</li>
+          <li>認証情報で「OAuth 2.0 クライアント ID」を作成し、種類は「ウェブ アプリケーション」を選びます。</li>
+          <li>承認済み JavaScript 生成元に <code>https://convenientfunction.com</code> を登録します。ローカル確認時は <code>http://127.0.0.1:8765</code> も追加します。</li>
+          <li>作成された <code>...apps.googleusercontent.com</code> で終わるClient IDだけを上の欄に入力します。メールアドレス、サイトURL、APIキーは使えません。</li>
+        </ol>
+      </details>
+
+      <p class="tool-note">Client IDとカレンダーIDはこのブラウザ内に保存されます。Googleの認証エラー画面が出る場合は、Client IDの形式、承認済みJavaScript生成元、テストユーザー設定を確認してください。</p>
     </section>
 
     <section class="panel calendar-panel" aria-labelledby="calendar-heading">
