@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>カレンダー | 予定をブラウザ内に保存できる無料ツール</title>
-  <meta name="description" content="予定をブラウザ内に保存できる無料カレンダーです。月表示、日別予定、バックアップ保存と読み込みに対応しています。" />
+  <title>カレンダー | Googleカレンダー同期に対応した無料ブラウザツール</title>
+  <meta name="description" content="予定をブラウザ内に保存できる無料カレンダーです。月表示、日別予定、バックアップ保存、Googleカレンダー同期に対応しています。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/calendar.html" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://accounts.google.com https://www.googleapis.com https://oauth2.googleapis.com; frame-src https://accounts.google.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';" />
 
-  <meta property="og:title" content="カレンダー | 予定をブラウザ内に保存できる無料ツール" />
-  <meta property="og:description" content="予定を端末内に保存して、月表示で確認できるシンプルなカレンダーです。" />
+  <meta property="og:title" content="カレンダー | Googleカレンダー同期に対応した無料ブラウザツール" />
+  <meta property="og:description" content="予定を端末内に保存して、必要に応じてGoogleカレンダーと同期できます。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://convenientfunction.com/calendar.html" />
   <meta property="og:site_name" content="便利サイト" />
@@ -33,7 +33,7 @@
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "Any",
     "inLanguage": "ja",
-    "description": "予定をブラウザ内に保存できる無料カレンダーです。",
+    "description": "予定をブラウザ内に保存し、Googleカレンダーとも同期できる無料カレンダーです。",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -56,14 +56,46 @@
     <div class="site-heading">
       <p class="eyebrow">Calendar</p>
       <h1>カレンダー</h1>
-      <p>予定をブラウザ内に保存して、月ごと・日ごとに確認できます。</p>
+      <p>予定をブラウザ内に保存して、必要に応じてGoogleカレンダーと同期できます。</p>
     </div>
   </header>
 
   <main class="calendar-main">
     <section class="memo-safety-note" aria-label="カレンダーの保存について">
       <strong>保存について</strong>
-      <p>予定はこの端末のブラウザ内に保存されます。ブラウザデータの削除や端末故障で消える場合があります。重要な予定はバックアップ保存をご利用ください。</p>
+      <p>予定はこの端末のブラウザ内に保存されます。Google連携を行うと、選択した予定内容がGoogleカレンダーとの同期に使われます。重要な予定はバックアップ保存もご利用ください。</p>
+    </section>
+
+    <section class="panel google-sync-panel" aria-labelledby="google-sync-heading">
+      <div class="google-sync-header">
+        <div>
+          <p class="eyebrow">Google Sync</p>
+          <h2 id="google-sync-heading">Googleカレンダー連携</h2>
+        </div>
+        <p id="googleSyncStatus" class="status">未接続です。</p>
+      </div>
+
+      <div class="google-settings">
+        <label>
+          OAuth Client ID
+          <input id="googleClientId" type="text" placeholder="xxxxx.apps.googleusercontent.com" autocomplete="off" />
+        </label>
+
+        <label>
+          カレンダーID
+          <input id="googleCalendarId" type="text" value="primary" autocomplete="off" />
+        </label>
+      </div>
+
+      <div class="google-sync-actions">
+        <button id="saveGoogleSettingsButton" class="secondary-button" type="button">設定を保存</button>
+        <button id="connectGoogleButton" type="button">Googleに接続</button>
+        <button id="syncGoogleButton" type="button" disabled>Googleと同期</button>
+        <button id="importGoogleButton" class="secondary-button" type="button" disabled>表示月を取り込む</button>
+        <button id="disconnectGoogleButton" class="secondary-button" type="button" disabled>切断</button>
+      </div>
+
+      <p class="tool-note">Google CloudでCalendar APIを有効化し、承認済みJavaScript生成元にこのサイトのURLを登録したOAuth Client IDを入力してください。Client IDとカレンダーIDはこのブラウザ内に保存されます。</p>
     </section>
 
     <section class="panel calendar-panel" aria-labelledby="calendar-heading">

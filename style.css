@@ -544,13 +544,15 @@ canvas {
 }
 
 .calendar-panel,
-.day-panel {
+.day-panel,
+.google-sync-panel {
   display: grid;
   gap: 14px;
 }
 
 .calendar-toolbar,
-.day-panel-header {
+.day-panel-header,
+.google-sync-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -558,16 +560,31 @@ canvas {
 }
 
 .calendar-toolbar h2,
-.day-panel-header h2 {
+.day-panel-header h2,
+.google-sync-header h2 {
   margin: 0;
 }
 
 .calendar-nav-actions,
-.event-actions {
+.event-actions,
+.google-sync-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: flex-end;
+}
+
+.google-settings {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.4fr) minmax(180px, 0.8fr);
+  gap: 12px;
+}
+
+.google-settings label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-weight: 700;
 }
 
 .calendar-grid {
@@ -740,6 +757,18 @@ canvas {
 .event-note {
   margin-top: 6px !important;
   overflow-wrap: anywhere;
+}
+
+.event-sync-badge {
+  width: max-content;
+  max-width: 100%;
+  margin-top: 6px !important;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534 !important;
+  padding: 2px 8px;
+  font-size: 12px !important;
+  font-weight: 700;
 }
 
 .code-editor-main {
@@ -1051,16 +1080,22 @@ canvas {
   }
 
   .calendar-toolbar,
-  .day-panel-header {
+  .day-panel-header,
+  .google-sync-header {
     align-items: stretch;
     flex-direction: column;
   }
 
   .calendar-nav-actions,
-  .event-actions {
+  .event-actions,
+  .google-sync-actions {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
+  }
+
+  .google-settings {
+    grid-template-columns: 1fr;
   }
 
   .calendar-day {
@@ -1307,6 +1342,7 @@ canvas {
 
   .calendar-nav-actions,
   .event-actions,
+  .google-sync-actions,
   .event-form {
     grid-template-columns: 1fr;
   }
