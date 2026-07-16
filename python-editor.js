@@ -12,6 +12,7 @@ const clearPythonOutputButton = document.getElementById("clearPythonOutputButton
 const autoSavePython = document.getElementById("autoSavePython");
 
 const pythonStorageKey = "pythonEditorCodeV1";
+const pythonWorkerUrl = "python-worker.js?v=20260716-runfix";
 const defaultPythonCode = `# ブラウザ内でPythonを実行できます
 name = "便利サイト"
 numbers = [1, 2, 3, 4, 5]
@@ -33,6 +34,21 @@ function setPythonStatus(message) {
 function setRunning(isRunning) {
   runPythonButton.disabled = isRunning;
   stopPythonButton.disabled = !isRunning;
+}
+
+function formatWorkerError(event) {
+  const parts = [];
+
+  if (event.message) {
+    parts.push(event.message);
+  }
+
+  if (event.filename) {
+    const location = [event.filename, event.lineno, event.colno].filter(Boolean).join(":");
+    parts.push(location);
+  }
+
+  return parts.join("\n") || "Python実行環境を読み込めませんでした。";
 }
 
 function getPythonCode() {
@@ -118,7 +134,7 @@ function createPythonWorker() {
     return pythonWorker;
   }
 
-  pythonWorker = new Worker("python-worker.js", { type: "module" });
+  pythonWorker = new Worker(pythonWorkerUrl, { type: "module" });
 
   pythonWorker.addEventListener("message", (event) => {
     const data = event.data || {};
@@ -147,7 +163,7 @@ function createPythonWorker() {
   });
 
   pythonWorker.addEventListener("error", (event) => {
-    pythonOutput.textContent = event.message || "Python実行環境を読み込めませんでした。";
+    pythonOutput.textContent = formatWorkerError(event);
     setPythonStatus("実行環境の読み込みに失敗しました。");
     setRunning(false);
   });

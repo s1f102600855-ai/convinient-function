@@ -1,10 +1,39 @@
-import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v314.0.2/full/pyodide.mjs";
+const pyodideBaseUrl = "https://cdn.jsdelivr.net/pyodide/v314.0.2/full/";
 
+let pyodideModulePromise = null;
 let pyodideReadyPromise = null;
 
-function getPyodide() {
+function formatError(error) {
+  if (!error) {
+    return "不明なエラーです。";
+  }
+
+  if (error.stack) {
+    return error.stack;
+  }
+
+  if (error.message) {
+    return error.message;
+  }
+
+  return String(error);
+}
+
+async function getPyodideModule() {
+  if (!pyodideModulePromise) {
+    pyodideModulePromise = import(`${pyodideBaseUrl}pyodide.mjs`);
+  }
+
+  return pyodideModulePromise;
+}
+
+async function getPyodide() {
   if (!pyodideReadyPromise) {
-    pyodideReadyPromise = loadPyodide();
+    pyodideReadyPromise = getPyodideModule().then(({ loadPyodide }) =>
+      loadPyodide({
+        indexURL: pyodideBaseUrl
+      })
+    );
   }
 
   return pyodideReadyPromise;
@@ -57,10 +86,12 @@ except BaseException:
       error: Boolean(hadError)
     });
   } catch (error) {
+    pyodideReadyPromise = null;
+
     self.postMessage({
       type: "error",
       runId,
-      message: error?.message || String(error)
+      message: formatError(error)
     });
   }
 });
