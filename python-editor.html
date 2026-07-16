@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pythonエディター | ブラウザでPythonを実行できる無料ツール</title>
+  <meta name="description" content="Pythonコードをブラウザ内で実行できる無料ツールです。Pyodideを使い、コードは端末内に自動保存されます。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://convenientfunction.com/python-editor.html" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';" />
+
+  <meta property="og:title" content="Pythonエディター | ブラウザでPythonを実行できる無料ツール" />
+  <meta property="og:description" content="Pythonコードをブラウザ上で書いて、その場で実行できます。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://convenientfunction.com/python-editor.html" />
+  <meta property="og:site_name" content="便利サイト" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#0f766e" />
+
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="python-editor.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pythonエディター",
+    "url": "https://convenientfunction.com/python-editor.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ja",
+    "description": "Pythonコードをブラウザ内で実行できる無料ツールです。",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY"
+    }
+  }
+  </script>
+</head>
+<body class="tool-page python-editor-page">
+  <header class="site-header compact">
+    <nav class="site-nav" aria-label="主要ナビゲーション">
+      <a href="./">ホーム</a>
+      <a href="memo/">メモ帳</a>
+      <a href="calendar.html">カレンダー</a>
+      <a href="pdf-to-jpeg.html">PDFをJPEGに変換</a>
+      <a href="code-editor.html">Webコードエディター</a>
+      <a href="python-editor.html" aria-current="page">Pythonエディター</a>
+      <a href="privacy.html">プライバシー</a>
+    </nav>
+
+    <div class="site-heading">
+      <p class="eyebrow">Python editor</p>
+      <h1>Pythonエディター</h1>
+      <p>Pythonコードをブラウザ内で実行できます。処理は端末内で行います。</p>
+    </div>
+  </header>
+
+  <main class="python-editor-main">
+    <section class="memo-safety-note" aria-label="Pythonエディターの保存について">
+      <strong>実行について</strong>
+      <p>Pythonはブラウザ内の別スレッドで実行されます。初回読み込みには時間がかかります。コードはこのブラウザ内に保存されますが、秘密情報やパスワードは入力しないでください。</p>
+    </section>
+
+    <section class="python-workspace" aria-label="Pythonコード編集エリア">
+      <div class="code-toolbar">
+        <label class="toggle-control">
+          <input type="checkbox" id="autoSavePython" checked />
+          自動保存
+        </label>
+
+        <div class="code-actions">
+          <button type="button" id="runPythonButton">実行</button>
+          <button type="button" id="stopPythonButton" class="secondary-button" disabled>停止</button>
+          <button type="button" id="savePythonButton">保存</button>
+          <button type="button" id="copyPythonButton">コードをコピー</button>
+          <button type="button" id="downloadPythonButton">.py保存</button>
+          <button type="button" id="resetPythonButton" class="secondary-button">リセット</button>
+        </div>
+      </div>
+
+      <section class="code-panel python-code-panel" aria-labelledby="python-code-heading">
+        <div class="code-panel-header python-accent">
+          <h2 id="python-code-heading">Python</h2>
+        </div>
+        <textarea id="pythonCode" spellcheck="false" aria-label="Pythonコード"></textarea>
+      </section>
+    </section>
+
+    <section class="python-output-panel" aria-labelledby="python-output-heading">
+      <div class="preview-toolbar">
+        <h2 id="python-output-heading">実行結果</h2>
+        <div class="preview-actions">
+          <span id="pythonStatus" class="editor-status" role="status" aria-live="polite">準備完了</span>
+          <button type="button" id="copyPythonOutputButton" class="secondary-button">結果をコピー</button>
+          <button type="button" id="clearPythonOutputButton" class="secondary-button">消去</button>
+        </div>
+      </div>
+
+      <pre id="pythonOutput">まだ実行していません。</pre>
+
+      <p class="tool-note">標準ライブラリとPyodide対応パッケージを利用できます。外部パッケージの読み込みには時間がかかる場合があります。</p>
+    </section>
+  </main>
+</body>
+</html>

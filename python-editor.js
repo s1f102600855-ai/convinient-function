@@ -1,0 +1,185 @@
+const pythonCode = document.getElementById("pythonCode");
+const pythonOutput = document.getElementById("pythonOutput");
+const pythonStatus = document.getElementById("pythonStatus");
+const runPythonButton = document.getElementById("runPythonButton");
+const stopPythonButton = document.getElementById("stopPythonButton");
+const savePythonButton = document.getElementById("savePythonButton");
+const copyPythonButton = document.getElementById("copyPythonButton");
+const copyPythonOutputButton = document.getElementById("copyPythonOutputButton");
+const downloadPythonButton = document.getElementById("downloadPythonButton");
+const resetPythonButton = document.getElementById("resetPythonButton");
+const clearPythonOutputButton = document.getElementById("clearPythonOutputButton");
+const autoSavePython = document.getElementById("autoSavePython");
+
+const pythonStorageKey = "pythonEditorCodeV1";
+const defaultPythonCode = `# ブラウザ内でPythonを実行できます
+name = "便利サイト"
+numbers = [1, 2, 3, 4, 5]
+
+print(f"Hello, {name}!")
+print("合計:", sum(numbers))
+print("2乗:", [number ** 2 for number in numbers])
+`;
+
+let pythonWorker = null;
+let activeRunId = 0;
+let saveTimer = null;
+
+function setPythonStatus(message) {
+  pythonStatus.textContent = message;
+}
+
+function setRunning(isRunning) {
+  runPythonButton.disabled = isRunning;
+  stopPythonButton.disabled = !isRunning;
+}
+
+function createPythonWorker() {
+  if (pythonWorker) {
+    return pythonWorker;
+  }
+
+  pythonWorker = new Worker("python-worker.js", { type: "module" });
+
+  pythonWorker.addEventListener("message", (event) => {
+    const data = event.data || {};
+
+    if (data.runId && data.runId !== activeRunId) {
+      return;
+    }
+
+    if (data.type === "status") {
+      setPythonStatus(data.message);
+      return;
+    }
+
+    if (data.type === "output") {
+      pythonOutput.textContent = data.output || "出力はありません。";
+      setPythonStatus(data.error ? "エラーがあります。" : "実行が完了しました。");
+      setRunning(false);
+      return;
+    }
+
+    if (data.type === "error") {
+      pythonOutput.textContent = data.message || "実行中にエラーが発生しました。";
+      setPythonStatus("実行に失敗しました。");
+      setRunning(false);
+    }
+  });
+
+  pythonWorker.addEventListener("error", (event) => {
+    pythonOutput.textContent = event.message || "Python実行環境を読み込めませんでした。";
+    setPythonStatus("実行環境の読み込みに失敗しました。");
+    setRunning(false);
+  });
+
+  return pythonWorker;
+}
+
+function stopPython() {
+  activeRunId += 1;
+
+  if (pythonWorker) {
+    pythonWorker.terminate();
+    pythonWorker = null;
+  }
+
+  setRunning(false);
+  setPythonStatus("停止しました。");
+}
+
+function runPython() {
+  activeRunId += 1;
+  const runId = activeRunId;
+  let worker = null;
+
+  pythonOutput.textContent = "";
+  setRunning(true);
+  setPythonStatus("Pythonを準備しています...");
+
+  try {
+    worker = createPythonWorker();
+  } catch (error) {
+    pythonOutput.textContent = error?.message || "Python実行環境を起動できませんでした。";
+    setPythonStatus("実行環境の起動に失敗しました。");
+    setRunning(false);
+    return;
+  }
+
+  worker.postMessage({
+    type: "run",
+    runId,
+    code: pythonCode.value
+  });
+}
+
+function savePythonCode() {
+  try {
+    localStorage.setItem(pythonStorageKey, pythonCode.value);
+    setPythonStatus("保存しました。");
+  } catch (error) {
+    setPythonStatus("保存できませんでした。ブラウザの保存容量を確認してください。");
+  }
+}
+
+function scheduleSave() {
+  if (!autoSavePython.checked) return;
+
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(savePythonCode, 500);
+}
+
+async function copyText(text, successMessage) {
+  try {
+    await navigator.clipboard.writeText(text);
+    setPythonStatus(successMessage);
+  } catch (error) {
+    setPythonStatus("コピーできませんでした。");
+  }
+}
+
+function downloadPythonFile() {
+  const blob = new Blob([pythonCode.value], { type: "text/x-python" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "python-code.py";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  setPythonStatus(".pyファイルを作成しました。");
+}
+
+function resetPythonCode() {
+  const ok = confirm("Pythonコードを初期状態に戻しますか？");
+  if (!ok) return;
+
+  pythonCode.value = defaultPythonCode;
+  savePythonCode();
+  setPythonStatus("初期コードに戻しました。");
+}
+
+function loadPythonCode() {
+  pythonCode.value = localStorage.getItem(pythonStorageKey) || defaultPythonCode;
+}
+
+runPythonButton.addEventListener("click", runPython);
+stopPythonButton.addEventListener("click", stopPython);
+savePythonButton.addEventListener("click", savePythonCode);
+copyPythonButton.addEventListener("click", () => {
+  copyText(pythonCode.value, "コードをコピーしました。");
+});
+copyPythonOutputButton.addEventListener("click", () => {
+  copyText(pythonOutput.textContent, "実行結果をコピーしました。");
+});
+downloadPythonButton.addEventListener("click", downloadPythonFile);
+resetPythonButton.addEventListener("click", resetPythonCode);
+clearPythonOutputButton.addEventListener("click", () => {
+  pythonOutput.textContent = "";
+  setPythonStatus("実行結果を消去しました。");
+});
+pythonCode.addEventListener("input", scheduleSave);
+
+loadPythonCode();

@@ -989,8 +989,81 @@ canvas {
   white-space: pre-wrap;
 }
 
+.python-editor-main {
+  width: min(1440px, calc(100% - 32px));
+  min-height: calc(100vh - 190px);
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) minmax(360px, 0.8fr);
+  gap: 16px;
+}
+
+.python-editor-main .memo-safety-note {
+  grid-column: 1 / -1;
+}
+
+.python-workspace,
+.python-output-panel {
+  min-width: 0;
+}
+
+.python-code-panel {
+  min-height: calc(100vh - 360px);
+}
+
+.python-accent {
+  border-left: 5px solid #3776ab;
+}
+
+#pythonCode {
+  flex: 1;
+  width: 100%;
+  min-height: 520px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  padding: 14px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.python-output-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#pythonOutput {
+  flex: 1;
+  min-height: 520px;
+  margin: 0;
+  overflow: auto;
+  padding: 14px;
+  background: #0f172a;
+  color: #dbeafe;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.python-output-panel .tool-note {
+  border-top: 1px solid var(--line);
+  margin: 0;
+  padding: 12px;
+  background: var(--surface-soft);
+}
+
 @media (max-width: 1080px) {
-  .code-editor-main {
+  .code-editor-main,
+  .python-editor-main {
     grid-template-columns: 1fr;
   }
 
@@ -1002,6 +1075,12 @@ canvas {
 
   .preview-panel {
     min-height: 560px;
+  }
+
+  .python-code-panel,
+  #pythonCode,
+  #pythonOutput {
+    min-height: 360px;
   }
 }
 
@@ -1233,7 +1312,8 @@ canvas {
     width: 100%;
   }
 
-  .code-editor-main {
+  .code-editor-main,
+  .python-editor-main {
     width: min(100% - 24px, 100%);
     margin: 16px auto;
   }
@@ -1272,6 +1352,12 @@ canvas {
   .console-panel {
     margin: 10px;
   }
+
+  .python-code-panel,
+  #pythonCode,
+  #pythonOutput {
+    min-height: 320px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1309,7 +1395,8 @@ canvas {
   .converter-main,
   .calendar-main,
   .site-footer,
-  .code-editor-main {
+  .code-editor-main,
+  .python-editor-main {
     width: calc(100% - 20px);
   }
 
@@ -1413,5 +1500,11 @@ canvas {
 
   #consoleOutput {
     max-height: 140px;
+  }
+
+  .python-code-panel,
+  #pythonCode,
+  #pythonOutput {
+    min-height: 280px;
   }
 }
