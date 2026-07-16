@@ -35,11 +35,49 @@
     "operatingSystem": "Any",
     "inLanguage": "ja",
     "description": "PDFの各ページをJPEG画像に変換できる無料ツールです。",
+    "featureList": [
+      "PDFをページごとにJPEG画像へ変換",
+      "画質と解像度を選択",
+      "変換結果を個別またはまとめてダウンロード",
+      "ブラウザ内でPDFを処理"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "JPY"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "PDFをJPEGに変換するファイルはサーバーへ送信されますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "このページのPDF変換処理はブラウザ内で行います。選択したPDFをサーバーへアップロードせず、端末上でJPEG画像を作成します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "複数ページのPDFもJPEGにできますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。PDFの各ページをJPEG画像として変換できます。端末への負荷を抑えるため、50MB以下、80ページまでのPDFに制限しています。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "JPEGの画質や解像度は選べますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "画質は高画質、標準、軽量から選べます。解像度も低め、標準、高解像度から選択できます。"
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -110,6 +148,44 @@
     <button class="download-all" id="downloadAllButton" type="button" disabled>すべてダウンロード</button>
     <section class="results" id="results" aria-label="変換結果"></section>
   </main>
+
+  <section class="seo-content" aria-labelledby="pdf-guide-heading">
+    <div class="seo-summary">
+      <h2 id="pdf-guide-heading">PDFをJPEG画像に無料変換</h2>
+      <p>このツールは、PDFファイルの各ページをJPEG画像として保存したいときに使える無料ブラウザツールです。資料のページを画像として共有したい場合や、PDFの一部を画像化して別の資料へ貼り付けたい場合に利用できます。</p>
+    </div>
+
+    <div class="seo-grid" aria-label="PDF JPEG変換ツールの特徴">
+      <article>
+        <h3>ブラウザ内で処理</h3>
+        <p>選択したPDFはブラウザ内で読み込まれ、JPEG画像へ変換されます。オンライン変換サービスへファイルをアップロードしたくない場合にも使いやすい仕様です。</p>
+      </article>
+      <article>
+        <h3>画質を選べる</h3>
+        <p>高画質、標準、軽量の画質設定を選べます。きれいに保存したいときは高画質、ファイルサイズを抑えたいときは軽量が便利です。</p>
+      </article>
+      <article>
+        <h3>まとめて保存</h3>
+        <p>複数ページのPDFを変換した後、各ページを個別に保存できます。作成済み画像をまとめてダウンロードする操作にも対応しています。</p>
+      </article>
+    </div>
+
+    <div class="seo-faq" aria-labelledby="pdf-faq-heading">
+      <h2 id="pdf-faq-heading">よくある質問</h2>
+      <article>
+        <h3>PDFをJPEGに変換するファイルはサーバーへ送信されますか？</h3>
+        <p>このページのPDF変換処理はブラウザ内で行います。選択したPDFをサーバーへアップロードせず、端末上でJPEG画像を作成します。</p>
+      </article>
+      <article>
+        <h3>複数ページのPDFもJPEGにできますか？</h3>
+        <p>はい。PDFの各ページをJPEG画像として変換できます。端末への負荷を抑えるため、50MB以下、80ページまでのPDFに制限しています。</p>
+      </article>
+      <article>
+        <h3>JPEGの画質や解像度は選べますか？</h3>
+        <p>画質は高画質、標準、軽量から選べます。解像度も低め、標準、高解像度から選択できます。</p>
+      </article>
+    </div>
+  </section>
 
   <canvas id="workCanvas"></canvas>
 

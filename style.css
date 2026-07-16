@@ -255,6 +255,70 @@ a:focus-visible {
   color: var(--muted);
 }
 
+.seo-content {
+  width: min(980px, calc(100% - 32px));
+  margin: 22px auto 30px;
+  display: grid;
+  gap: 16px;
+}
+
+.seo-content h2,
+.seo-content h3 {
+  margin: 0;
+}
+
+.seo-content p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.seo-content ul,
+.seo-content ol {
+  margin: 0;
+  padding-left: 22px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.seo-content li + li {
+  margin-top: 4px;
+}
+
+.seo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.seo-grid article,
+.seo-faq article,
+.seo-summary {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 16px;
+}
+
+.seo-grid article {
+  display: grid;
+  gap: 8px;
+}
+
+.seo-faq {
+  display: grid;
+  gap: 10px;
+}
+
+.seo-faq article {
+  display: grid;
+  gap: 8px;
+}
+
+.memo-seo {
+  grid-column: 1 / -1;
+}
+
 .memo-page {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
@@ -1331,8 +1395,20 @@ canvas {
   .tool-card,
   .panel,
   .result-card,
-  .text-section {
+  .text-section,
+  .seo-grid article,
+  .seo-faq article,
+  .seo-summary {
     padding: 16px;
+  }
+
+  .seo-content {
+    width: min(100% - 24px, 980px);
+    margin-top: 18px;
+  }
+
+  .seo-grid {
+    grid-template-columns: 1fr;
   }
 
   .tool-card {

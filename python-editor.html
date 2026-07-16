@@ -38,11 +38,51 @@
     "operatingSystem": "Any",
     "inLanguage": "ja",
     "description": "Pythonコードをブラウザ内で実行できる無料ツールです。",
+    "featureList": [
+      "Pythonコードをブラウザ内で実行",
+      "構文ハイライト",
+      "自動インデント",
+      "コード保存",
+      ".pyファイルの保存",
+      "実行結果のコピー"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "JPY"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Pythonをインストールしなくても実行できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。Pyodideを利用して、ブラウザ内でPythonコードを実行できます。初回読み込みには時間がかかる場合があります。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pythonコードは保存できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "コードはブラウザ内に自動保存できます。.pyファイルとして保存することもできます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "外部パッケージは使えますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "標準ライブラリとPyodide対応パッケージを利用できます。外部パッケージの読み込みには時間がかかる場合があります。"
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -111,5 +151,43 @@
       <p class="tool-note">標準ライブラリとPyodide対応パッケージを利用できます。外部パッケージの読み込みには時間がかかる場合があります。</p>
     </section>
   </main>
+
+  <section class="seo-content" aria-labelledby="python-guide-heading">
+    <div class="seo-summary">
+      <h2 id="python-guide-heading">ブラウザでPythonを実行できる無料エディター</h2>
+      <p>Pythonエディターは、Pythonをインストールしていない環境でもブラウザ内でコードを書いて実行できる無料ツールです。短いPythonコードの確認、学習、計算、標準ライブラリの動作確認に使えます。</p>
+    </div>
+
+    <div class="seo-grid" aria-label="Pythonエディターの特徴">
+      <article>
+        <h3>ブラウザ内で実行</h3>
+        <p>Pyodideを使ってPythonコードをブラウザ内で実行します。実行結果は同じ画面で確認でき、結果のコピーにも対応しています。</p>
+      </article>
+      <article>
+        <h3>書きやすいエディター</h3>
+        <p>構文ハイライト、行番号、自動インデントに対応しています。短いサンプルコードや学習用コードを読みやすく編集できます。</p>
+      </article>
+      <article>
+        <h3>コードを保存</h3>
+        <p>コードはブラウザ内に保存できます。必要に応じて.pyファイルとして保存し、別の環境で利用することもできます。</p>
+      </article>
+    </div>
+
+    <div class="seo-faq" aria-labelledby="python-faq-heading">
+      <h2 id="python-faq-heading">よくある質問</h2>
+      <article>
+        <h3>Pythonをインストールしなくても実行できますか？</h3>
+        <p>はい。Pyodideを利用して、ブラウザ内でPythonコードを実行できます。初回読み込みには時間がかかる場合があります。</p>
+      </article>
+      <article>
+        <h3>Pythonコードは保存できますか？</h3>
+        <p>コードはブラウザ内に自動保存できます。.pyファイルとして保存することもできます。</p>
+      </article>
+      <article>
+        <h3>外部パッケージは使えますか？</h3>
+        <p>標準ライブラリとPyodide対応パッケージを利用できます。外部パッケージの読み込みには時間がかかる場合があります。</p>
+      </article>
+    </div>
+  </section>
 </body>
 </html>

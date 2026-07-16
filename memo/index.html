@@ -34,11 +34,50 @@
     "operatingSystem": "Any",
     "inLanguage": "ja",
     "description": "ブラウザで使える無料のメモ帳です。",
+    "featureList": [
+      "ブラウザ内に自動保存",
+      "フォルダ分け",
+      "画像貼り付け",
+      "PDF保存",
+      "バックアップ保存と読込"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "JPY"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "メモ帳の内容はどこに保存されますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "書いた内容は、この端末のブラウザ内の保存領域に保存されます。別の端末や別のブラウザには自動共有されません。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "メモをPDFとして保存できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。PDF保存ボタンから、現在のメモを印刷機能を使ってPDFとして保存できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "メモのバックアップはできますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "バックアップ保存とバックアップ読込に対応しています。ブラウザデータの削除や端末変更に備えて、必要に応じて保存してください。"
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -110,5 +149,43 @@
       <span id="status" role="status" aria-live="polite">保存済み</span>
     </div>
   </main>
+
+  <section class="seo-content memo-seo" aria-labelledby="memo-guide-heading">
+    <div class="seo-summary">
+      <h2 id="memo-guide-heading">自動保存できる無料ブラウザメモ帳</h2>
+      <p>このメモ帳は、ブラウザだけで文章を書いて保存できる無料ツールです。ちょっとした下書き、作業メモ、買い物リスト、アイデア整理などを、アプリのインストールなしで始められます。</p>
+    </div>
+
+    <div class="seo-grid" aria-label="メモ帳の特徴">
+      <article>
+        <h3>自動保存</h3>
+        <p>入力したメモはブラウザ内に自動保存されます。ページを閉じても、同じ端末とブラウザで開き直すと続きから編集できます。</p>
+      </article>
+      <article>
+        <h3>フォルダ分け</h3>
+        <p>メモをフォルダごとに整理できます。仕事、学習、日常のメモなど、用途別に分けたいときに便利です。</p>
+      </article>
+      <article>
+        <h3>PDF保存とバックアップ</h3>
+        <p>メモはPDFとして保存できます。バックアップ保存と読込にも対応しているため、大切なメモを手元に残しやすくなっています。</p>
+      </article>
+    </div>
+
+    <div class="seo-faq" aria-labelledby="memo-faq-heading">
+      <h2 id="memo-faq-heading">よくある質問</h2>
+      <article>
+        <h3>メモ帳の内容はどこに保存されますか？</h3>
+        <p>書いた内容は、この端末のブラウザ内の保存領域に保存されます。別の端末や別のブラウザには自動共有されません。</p>
+      </article>
+      <article>
+        <h3>メモをPDFとして保存できますか？</h3>
+        <p>はい。PDF保存ボタンから、現在のメモを印刷機能を使ってPDFとして保存できます。</p>
+      </article>
+      <article>
+        <h3>メモのバックアップはできますか？</h3>
+        <p>バックアップ保存とバックアップ読込に対応しています。ブラウザデータの削除や端末変更に備えて、必要に応じて保存してください。</p>
+      </article>
+    </div>
+  </section>
 </body>
 </html>

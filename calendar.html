@@ -34,11 +34,50 @@
     "operatingSystem": "Any",
     "inLanguage": "ja",
     "description": "予定をブラウザ内に保存し、Googleカレンダーとも同期できる無料カレンダーです。",
+    "featureList": [
+      "月間カレンダー表示",
+      "日別予定の登録",
+      "ブラウザ内保存",
+      "Googleカレンダー同期",
+      "バックアップ保存と読込"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "JPY"
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "予定はどこに保存されますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "予定はこの端末のブラウザ内に保存されます。Google連携を使う場合は、選択した予定をGoogleカレンダーと同期できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Googleカレンダーと同期できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。Google Cloudで作成したOAuth Client IDを設定すると、Googleカレンダーとの同期機能を利用できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "カレンダーの予定をバックアップできますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "バックアップ保存とバックアップ読込に対応しています。ブラウザデータの削除に備えて保存できます。"
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -188,5 +227,43 @@
       <div id="eventList" class="event-list" aria-live="polite"></div>
     </section>
   </main>
+
+  <section class="seo-content" aria-labelledby="calendar-guide-heading">
+    <div class="seo-summary">
+      <h2 id="calendar-guide-heading">ブラウザで使える無料カレンダー</h2>
+      <p>このカレンダーは、予定をブラウザ内に保存して管理できる無料ツールです。月間表示で予定を確認し、日付ごとに仕事、私用、重要予定などを登録できます。</p>
+    </div>
+
+    <div class="seo-grid" aria-label="カレンダーの特徴">
+      <article>
+        <h3>端末内に予定を保存</h3>
+        <p>予定はブラウザ内に保存されます。会員登録なしで、同じ端末とブラウザから予定を確認できます。</p>
+      </article>
+      <article>
+        <h3>Googleカレンダー同期</h3>
+        <p>OAuth Client IDを設定すると、Googleカレンダーとの同期を利用できます。普段の予定管理とブラウザ内の予定をつなげたい場合に便利です。</p>
+      </article>
+      <article>
+        <h3>バックアップ対応</h3>
+        <p>予定データのバックアップ保存と読込に対応しています。ブラウザデータを削除する前や、予定を手元に残したい場合に役立ちます。</p>
+      </article>
+    </div>
+
+    <div class="seo-faq" aria-labelledby="calendar-faq-heading">
+      <h2 id="calendar-faq-heading">よくある質問</h2>
+      <article>
+        <h3>予定はどこに保存されますか？</h3>
+        <p>予定はこの端末のブラウザ内に保存されます。Google連携を使う場合は、選択した予定をGoogleカレンダーと同期できます。</p>
+      </article>
+      <article>
+        <h3>Googleカレンダーと同期できますか？</h3>
+        <p>はい。Google Cloudで作成したOAuth Client IDを設定すると、Googleカレンダーとの同期機能を利用できます。</p>
+      </article>
+      <article>
+        <h3>カレンダーの予定をバックアップできますか？</h3>
+        <p>バックアップ保存とバックアップ読込に対応しています。ブラウザデータの削除に備えて保存できます。</p>
+      </article>
+    </div>
+  </section>
 </body>
 </html>
