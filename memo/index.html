@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>メモ帳 | 自動保存できる無料ブラウザメモ</title>
-  <meta name="description" content="ブラウザで使える無料のメモ帳です。自動保存、フォルダ分け、文字数カウント、画像貼り付け、直前の保存状態への復元に対応しています。" />
+  <meta name="description" content="ブラウザで使える無料のメモ帳です。自動保存、フォルダ分け、文字数カウント、画像貼り付け、PDF保存、直前の保存状態への復元に対応しています。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/memo/" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data: blob:; object-src 'none'; base-uri 'self'; form-action 'self';" />
@@ -87,6 +87,7 @@
     <div class="toolbar">
       <button id="restoreButton" type="button">直前の保存状態へ戻す</button>
       <button id="imageButton" type="button">画像を挿入</button>
+      <button id="pdfButton" class="secondary-button" type="button">PDF保存</button>
       <button id="exportButton" class="secondary-button" type="button">バックアップ保存</button>
       <button id="importButton" class="secondary-button" type="button">バックアップ読込</button>
       <input id="imageInput" type="file" accept="image/*" hidden />

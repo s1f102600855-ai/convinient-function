@@ -12,6 +12,7 @@ const deleteButton = document.getElementById("deleteButton");
 const imageButton = document.getElementById("imageButton");
 const imageInput = document.getElementById("imageInput");
 const restoreButton = document.getElementById("restoreButton");
+const pdfButton = document.getElementById("pdfButton");
 const exportButton = document.getElementById("exportButton");
 const importButton = document.getElementById("importButton");
 const importInput = document.getElementById("importInput");
@@ -467,6 +468,164 @@ function insertImageFile(file) {
   reader.readAsDataURL(file);
 }
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[character];
+  });
+}
+
+function sanitizeMemoHtml(html) {
+  const template = document.createElement("template");
+  template.innerHTML = html || "";
+
+  template.content
+    .querySelectorAll("script, style, iframe, object, embed, link, meta, form, input, button, textarea, select")
+    .forEach((element) => element.remove());
+
+  template.content.querySelectorAll("*").forEach((element) => {
+    [...element.attributes].forEach((attribute) => {
+      const name = attribute.name.toLowerCase();
+      const value = attribute.value.trim().toLowerCase();
+
+      if (name.startsWith("on") || value.startsWith("javascript:")) {
+        element.removeAttribute(attribute.name);
+      }
+    });
+  });
+
+  return template.innerHTML;
+}
+
+function printCurrentMemoAsPdf() {
+  autoSaveMemo();
+
+  const memo = getCurrentMemo();
+  if (!memo) {
+    statusText.textContent = "PDF保存できるメモがありません";
+    return;
+  }
+
+  const title = memo.title.trim() || "無題のメモ";
+  const folder = folders.find((item) => item.id === memo.folderId);
+  const printedAt = new Date().toLocaleString("ja-JP");
+  const safeTitle = escapeHtml(title);
+  const safeFolderName = escapeHtml(folder?.name || "未分類");
+  const safeBody = sanitizeMemoHtml(memo.body || "");
+  const printWindow = window.open("", "_blank");
+
+  if (!printWindow) {
+    statusText.textContent = "ポップアップがブロックされました。ブラウザ設定を確認してください。";
+    return;
+  }
+
+  printWindow.opener = null;
+  printWindow.document.write(`<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${safeTitle}</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: #18202a;
+      background: #ffffff;
+      font-family: "Yu Gothic UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.8;
+    }
+
+    main {
+      width: min(840px, calc(100% - 32px));
+      margin: 28px auto;
+    }
+
+    header {
+      border-bottom: 1px solid #d7dee8;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .meta {
+      margin: 0;
+      color: #607080;
+      font-size: 13px;
+    }
+
+    .memo-body {
+      min-height: 320px;
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+
+    .memo-body img {
+      display: block;
+      max-width: 100%;
+      max-height: 620px;
+      margin: 12px 0;
+      object-fit: contain;
+    }
+
+    .memo-body table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .memo-body th,
+    .memo-body td {
+      border: 1px solid #d7dee8;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+
+    @page {
+      margin: 16mm;
+    }
+
+    @media print {
+      main {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>${safeTitle}</h1>
+      <p class="meta">フォルダ: ${safeFolderName} / 作成日時: ${escapeHtml(printedAt)}</p>
+    </header>
+    <section class="memo-body">${safeBody || "<p>本文はありません。</p>"}</section>
+  </main>
+</body>
+</html>`);
+
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.setTimeout(() => {
+    printWindow.print();
+  }, 250);
+
+  statusText.textContent = "印刷画面を開きました。保存先でPDFを選んでください。";
+}
+
 function deleteMemo() {
   const memo = getCurrentMemo();
   if (!memo) return;
@@ -648,6 +807,8 @@ imageInput.addEventListener("change", () => {
   insertImageFile(file);
   imageInput.value = "";
 });
+
+pdfButton.addEventListener("click", printCurrentMemoAsPdf);
 
 exportButton.addEventListener("click", exportBackup);
 

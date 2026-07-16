@@ -990,12 +990,12 @@ canvas {
 }
 
 .python-editor-main {
-  width: min(1440px, calc(100% - 32px));
+  width: min(1560px, calc(100% - 24px));
   min-height: calc(100vh - 190px);
-  margin: 24px auto;
+  margin: 18px auto 28px;
   display: grid;
-  grid-template-columns: minmax(420px, 1fr) minmax(360px, 0.8fr);
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
 .python-editor-main .memo-safety-note {
@@ -1008,7 +1008,7 @@ canvas {
 }
 
 .python-code-panel {
-  min-height: calc(100vh - 360px);
+  min-height: auto;
 }
 
 .python-accent {
@@ -1018,16 +1018,17 @@ canvas {
 #pythonCode {
   flex: 1;
   width: 100%;
+  height: clamp(560px, 62vh, 820px);
   min-height: 520px;
   border: none;
   outline: none;
   resize: vertical;
-  padding: 14px;
+  padding: 18px;
   background: #0f172a;
   color: #e2e8f0;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.75;
   tab-size: 4;
 }
 
@@ -1042,7 +1043,8 @@ canvas {
 
 #pythonOutput {
   flex: 1;
-  min-height: 520px;
+  min-height: 220px;
+  max-height: 38vh;
   margin: 0;
   overflow: auto;
   padding: 14px;
@@ -1062,8 +1064,7 @@ canvas {
 }
 
 @media (max-width: 1080px) {
-  .code-editor-main,
-  .python-editor-main {
+  .code-editor-main {
     grid-template-columns: 1fr;
   }
 
@@ -1077,10 +1078,14 @@ canvas {
     min-height: 560px;
   }
 
-  .python-code-panel,
-  #pythonCode,
+  #pythonCode {
+    height: clamp(500px, 58vh, 720px);
+    min-height: 460px;
+  }
+
   #pythonOutput {
-    min-height: 360px;
+    min-height: 200px;
+    max-height: 34vh;
   }
 }
 
@@ -1354,9 +1359,15 @@ canvas {
   }
 
   .python-code-panel,
-  #pythonCode,
   #pythonOutput {
-    min-height: 320px;
+    min-height: 180px;
+  }
+
+  #pythonCode {
+    height: clamp(440px, 58vh, 640px);
+    min-height: 420px;
+    padding: 15px;
+    font-size: 14px;
   }
 }
 
@@ -1503,8 +1514,13 @@ canvas {
   }
 
   .python-code-panel,
-  #pythonCode,
   #pythonOutput {
-    min-height: 280px;
+    min-height: 160px;
+  }
+
+  #pythonCode {
+    height: clamp(380px, 60vh, 560px);
+    min-height: 360px;
+    padding: 13px;
   }
 }
