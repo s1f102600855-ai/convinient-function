@@ -1054,16 +1054,16 @@ canvas {
 }
 
 .python-editor-main {
-  width: min(1560px, calc(100% - 24px));
+  width: min(1740px, calc(100% - 24px));
   min-height: 0;
   margin: 14px auto 18px;
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr);
+  grid-template-columns: minmax(560px, 1.02fr) minmax(520px, 0.98fr);
   grid-template-areas:
     "note note"
     "workspace learning"
     "workspace output";
-  gap: 12px;
+  gap: 14px;
   align-items: stretch;
 }
 
@@ -1113,24 +1113,26 @@ canvas {
 
 .python-learning-panel {
   grid-area: learning;
-  height: clamp(260px, 36vh, 380px);
+  height: clamp(360px, 44vh, 480px);
   min-height: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(128px, 0.3fr) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
   overflow: hidden;
 }
 
 .python-learning-header {
+  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   border-bottom: 1px solid var(--line);
   background: var(--surface-soft);
-  padding: 10px 12px;
+  padding: 12px 14px;
 }
 
 .python-learning-header h2 {
@@ -1139,21 +1141,30 @@ canvas {
 }
 
 .lesson-tabs {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  border-bottom: 1px solid var(--line);
-  padding: 8px;
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid var(--line);
+  background: #f8fafc;
+  padding: 10px;
 }
 
 .lesson-tab {
-  flex: 0 0 auto;
-  min-height: 34px;
-  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 38px;
+  border-radius: 8px;
   background: #e2e8f0;
   color: var(--text);
-  padding: 7px 10px;
-  font-size: 13px;
+  padding: 8px 9px;
+  font-size: 12.5px;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
 }
 
 .lesson-tab.active {
@@ -1162,12 +1173,12 @@ canvas {
 }
 
 .lesson-card {
-  flex: 1;
   min-height: 0;
   overflow: auto;
   display: grid;
+  align-content: start;
   gap: 8px;
-  padding: 12px;
+  padding: 12px 14px;
 }
 
 .lesson-card h3,
@@ -1188,19 +1199,19 @@ canvas {
 .lesson-card p,
 .lesson-card li {
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 13.5px;
+  line-height: 1.48;
 }
 
 .lesson-points,
 .lesson-challenge {
   display: grid;
-  gap: 5px;
+  gap: 4px;
 }
 
 .lesson-points ul {
   margin: 0;
-  padding-left: 20px;
+  padding-left: 18px;
 }
 
 .lesson-actions {
@@ -1215,9 +1226,10 @@ canvas {
 }
 
 .lesson-actions button {
-  min-height: 36px;
-  padding: 8px 12px;
-  font-size: 14px;
+  flex: 1 1 0;
+  min-height: 34px;
+  padding: 8px;
+  font-size: 13.5px;
 }
 
 .python-code-panel {
@@ -1341,7 +1353,7 @@ canvas {
 
 .python-output-panel {
   grid-area: output;
-  height: clamp(160px, 20vh, 260px);
+  height: clamp(210px, 26vh, 320px);
   min-height: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1357,7 +1369,7 @@ canvas {
   max-height: none;
   margin: 0;
   overflow: auto;
-  padding: 14px;
+  padding: 16px;
   background: #0f172a;
   color: #dbeafe;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -1370,8 +1382,10 @@ canvas {
 .python-output-panel .tool-note {
   border-top: 1px solid var(--line);
   margin: 0;
-  padding: 12px;
+  padding: 10px 12px;
   background: var(--surface-soft);
+  font-size: 13px;
+  line-height: 1.55;
 }
 
 @media (max-width: 1080px) {
@@ -1411,6 +1425,32 @@ canvas {
   .python-learning-panel {
     height: auto;
     max-height: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lesson-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: visible;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    padding: 10px;
+  }
+
+  .lesson-tab {
+    flex: 1 1 150px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .lesson-card {
+    overflow: visible;
+  }
+
+  .lesson-actions {
+    position: static;
   }
 
   #pythonOutput {
@@ -1793,6 +1833,9 @@ canvas {
   }
 
   .lesson-tab {
+    flex-basis: 100%;
+    justify-content: flex-start;
+    text-align: left;
     width: auto;
   }
 
