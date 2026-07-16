@@ -1016,7 +1016,6 @@ canvas {
 }
 
 #pythonCode {
-  flex: 1;
   width: 100%;
   height: clamp(420px, 48vh, 640px);
   min-height: 400px;
@@ -1030,6 +1029,99 @@ canvas {
   font-size: 15px;
   line-height: 1.75;
   tab-size: 4;
+}
+
+.python-code-panel .CodeMirror {
+  width: 100%;
+  height: clamp(420px, 48vh, 640px);
+  min-height: 400px;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.python-code-panel .CodeMirror-scroll {
+  min-height: 100%;
+  tab-size: 4;
+}
+
+.python-code-panel .CodeMirror-lines {
+  padding: 16px 0;
+}
+
+.python-code-panel .CodeMirror pre.CodeMirror-line,
+.python-code-panel .CodeMirror pre.CodeMirror-line-like {
+  padding: 0 18px;
+}
+
+.python-code-panel .CodeMirror-gutters {
+  background: #111827;
+  border-right: 1px solid rgba(148, 163, 184, 0.24);
+  color: #64748b;
+}
+
+.python-code-panel .CodeMirror-linenumber {
+  color: #64748b;
+}
+
+.python-code-panel .CodeMirror-cursor {
+  border-left-color: #ffffff;
+}
+
+.python-code-panel .CodeMirror-selected {
+  background: rgba(56, 189, 248, 0.28);
+}
+
+.python-code-panel .CodeMirror-activeline-background {
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.python-code-panel .cm-keyword {
+  color: #c084fc;
+  font-weight: 700;
+}
+
+.python-code-panel .cm-def,
+.python-code-panel .cm-variable-2 {
+  color: #93c5fd;
+}
+
+.python-code-panel .cm-variable,
+.python-code-panel .cm-property {
+  color: #e2e8f0;
+}
+
+.python-code-panel .cm-builtin {
+  color: #67e8f9;
+}
+
+.python-code-panel .cm-string {
+  color: #86efac;
+}
+
+.python-code-panel .cm-number,
+.python-code-panel .cm-atom {
+  color: #fbbf24;
+}
+
+.python-code-panel .cm-comment {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.python-code-panel .cm-operator {
+  color: #f9a8d4;
+}
+
+.python-code-panel .cm-error {
+  color: #fecaca;
+  background: rgba(185, 28, 28, 0.25);
+}
+
+.python-fallback-textarea {
+  display: block;
 }
 
 .python-output-panel {
@@ -1078,7 +1170,8 @@ canvas {
     min-height: 560px;
   }
 
-  #pythonCode {
+  #pythonCode,
+  .python-code-panel .CodeMirror {
     height: clamp(380px, 48vh, 560px);
     min-height: 360px;
   }
@@ -1363,11 +1456,23 @@ canvas {
     min-height: 180px;
   }
 
-  #pythonCode {
+  #pythonCode,
+  .python-code-panel .CodeMirror {
     height: clamp(340px, 50vh, 500px);
     min-height: 320px;
-    padding: 15px;
+  }
+
+  .python-code-panel .CodeMirror,
+  .python-fallback-textarea {
     font-size: 14px;
+  }
+
+  #pythonCode,
+  .python-fallback-textarea,
+  .python-code-panel .CodeMirror pre.CodeMirror-line,
+  .python-code-panel .CodeMirror pre.CodeMirror-line-like {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
@@ -1518,9 +1623,17 @@ canvas {
     min-height: 160px;
   }
 
-  #pythonCode {
+  #pythonCode,
+  .python-code-panel .CodeMirror {
     height: clamp(300px, 52vh, 440px);
     min-height: 280px;
-    padding: 13px;
+  }
+
+  #pythonCode,
+  .python-fallback-textarea,
+  .python-code-panel .CodeMirror pre.CodeMirror-line,
+  .python-code-panel .CodeMirror pre.CodeMirror-line-like {
+    padding-left: 13px;
+    padding-right: 13px;
   }
 }

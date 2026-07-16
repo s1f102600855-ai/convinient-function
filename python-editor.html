@@ -8,7 +8,7 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/python-editor.html" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';" />
 
   <meta property="og:title" content="Pythonエディター | ブラウザでPythonを実行できる無料ツール" />
   <meta property="og:description" content="Pythonコードをブラウザ上で書いて、その場で実行できます。" />
@@ -22,8 +22,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.css" />
   <link rel="stylesheet" href="style.css" />
-  <script src="python-editor.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js" defer></script>
+  <script src="python-editor.js?v=20260716-cm5" defer></script>
 
   <script type="application/ld+json">
   {

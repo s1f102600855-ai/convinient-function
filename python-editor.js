@@ -24,6 +24,7 @@ print("2乗:", [number ** 2 for number in numbers])
 let pythonWorker = null;
 let activeRunId = 0;
 let saveTimer = null;
+let pythonEditor = null;
 
 function setPythonStatus(message) {
   pythonStatus.textContent = message;
@@ -32,6 +33,84 @@ function setPythonStatus(message) {
 function setRunning(isRunning) {
   runPythonButton.disabled = isRunning;
   stopPythonButton.disabled = !isRunning;
+}
+
+function getPythonCode() {
+  if (pythonEditor) {
+    return pythonEditor.getValue();
+  }
+
+  return pythonCode.value;
+}
+
+function setPythonCode(code) {
+  if (pythonEditor) {
+    pythonEditor.setValue(code);
+    return;
+  }
+
+  pythonCode.value = code;
+}
+
+function loadPythonCode() {
+  try {
+    return localStorage.getItem(pythonStorageKey) || defaultPythonCode;
+  } catch (error) {
+    return defaultPythonCode;
+  }
+}
+
+function setupPythonEditor() {
+  const initialCode = loadPythonCode();
+
+  pythonCode.value = initialCode;
+
+  if (!window.CodeMirror) {
+    pythonCode.classList.add("python-fallback-textarea");
+    pythonCode.addEventListener("input", scheduleSave);
+    setPythonStatus("通常入力モードで起動しました。");
+    return;
+  }
+
+  pythonEditor = window.CodeMirror.fromTextArea(pythonCode, {
+    mode: "python",
+    lineNumbers: true,
+    lineWrapping: true,
+    indentUnit: 4,
+    tabSize: 4,
+    indentWithTabs: false,
+    smartIndent: true,
+    electricChars: true,
+    viewportMargin: 20,
+    extraKeys: {
+      Enter: "newlineAndIndent",
+      "Ctrl-Enter": runPython,
+      "Cmd-Enter": runPython,
+      "Ctrl-S": savePythonCode,
+      "Cmd-S": savePythonCode,
+      "Shift-Tab"(editor) {
+        editor.execCommand("indentLess");
+      },
+      Tab(editor) {
+        if (editor.somethingSelected()) {
+          editor.execCommand("indentMore");
+          return;
+        }
+
+        editor.replaceSelection(" ".repeat(editor.getOption("indentUnit")), "end");
+      }
+    }
+  });
+
+  pythonEditor.on("change", () => {
+    scheduleSave();
+  });
+
+  window.setTimeout(() => {
+    pythonEditor.refresh();
+  }, 0);
+
+  setPythonStatus("準備完了");
 }
 
 function createPythonWorker() {
@@ -109,13 +188,13 @@ function runPython() {
   worker.postMessage({
     type: "run",
     runId,
-    code: pythonCode.value
+    code: getPythonCode()
   });
 }
 
 function savePythonCode() {
   try {
-    localStorage.setItem(pythonStorageKey, pythonCode.value);
+    localStorage.setItem(pythonStorageKey, getPythonCode());
     setPythonStatus("保存しました。");
   } catch (error) {
     setPythonStatus("保存できませんでした。ブラウザの保存容量を確認してください。");
@@ -139,7 +218,7 @@ async function copyText(text, successMessage) {
 }
 
 function downloadPythonFile() {
-  const blob = new Blob([pythonCode.value], { type: "text/x-python" });
+  const blob = new Blob([getPythonCode()], { type: "text/x-python" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
 
@@ -156,20 +235,16 @@ function resetPythonCode() {
   const ok = confirm("Pythonコードを初期状態に戻しますか？");
   if (!ok) return;
 
-  pythonCode.value = defaultPythonCode;
+  setPythonCode(defaultPythonCode);
   savePythonCode();
   setPythonStatus("初期コードに戻しました。");
-}
-
-function loadPythonCode() {
-  pythonCode.value = localStorage.getItem(pythonStorageKey) || defaultPythonCode;
 }
 
 runPythonButton.addEventListener("click", runPython);
 stopPythonButton.addEventListener("click", stopPython);
 savePythonButton.addEventListener("click", savePythonCode);
 copyPythonButton.addEventListener("click", () => {
-  copyText(pythonCode.value, "コードをコピーしました。");
+  copyText(getPythonCode(), "コードをコピーしました。");
 });
 copyPythonOutputButton.addEventListener("click", () => {
   copyText(pythonOutput.textContent, "実行結果をコピーしました。");
@@ -180,6 +255,5 @@ clearPythonOutputButton.addEventListener("click", () => {
   pythonOutput.textContent = "";
   setPythonStatus("実行結果を消去しました。");
 });
-pythonCode.addEventListener("input", scheduleSave);
 
-loadPythonCode();
+setupPythonEditor();
