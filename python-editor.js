@@ -10,6 +10,15 @@ const downloadPythonButton = document.getElementById("downloadPythonButton");
 const resetPythonButton = document.getElementById("resetPythonButton");
 const clearPythonOutputButton = document.getElementById("clearPythonOutputButton");
 const autoSavePython = document.getElementById("autoSavePython");
+const lessonTabs = document.getElementById("lessonTabs");
+const lessonProgress = document.getElementById("lessonProgress");
+const lessonTitle = document.getElementById("lessonTitle");
+const lessonDescription = document.getElementById("lessonDescription");
+const lessonPoints = document.getElementById("lessonPoints");
+const lessonChallenge = document.getElementById("lessonChallenge");
+const insertLessonButton = document.getElementById("insertLessonButton");
+const runLessonButton = document.getElementById("runLessonButton");
+const nextLessonButton = document.getElementById("nextLessonButton");
 
 const pythonStorageKey = "pythonEditorCodeV1";
 const pythonWorkerUrl = "python-worker.js?v=20260716-runfix";
@@ -26,6 +35,106 @@ let pythonWorker = null;
 let activeRunId = 0;
 let saveTimer = null;
 let pythonEditor = null;
+let currentLessonIndex = 0;
+
+const pythonLessons = [
+  {
+    title: "変数とprint",
+    description: "変数に値を入れて、printで画面に表示する基本を練習します。",
+    points: [
+      "文字は引用符で囲みます。",
+      "変数名は内容が分かる名前にすると読みやすくなります。",
+      "f文字列を使うと、文字と変数を組み合わせて表示できます。"
+    ],
+    challenge: "nameやfavoriteを書き換えて、自分用の自己紹介文を作ってみましょう。",
+    code: `# 変数とprint
+name = "便利サイト"
+favorite = "Python"
+
+print("こんにちは")
+print(f"私は{name}で{favorite}を学習しています。")
+`
+  },
+  {
+    title: "ifで条件分岐",
+    description: "条件によって処理を変えるif文を練習します。",
+    points: [
+      "条件の後ろにはコロンを書きます。",
+      "条件に当てはまる処理はインデントします。",
+      "elseは条件に当てはまらない場合の処理です。"
+    ],
+    challenge: "scoreの数字を変えて、表示される結果がどう変わるか試してみましょう。",
+    code: `# ifで条件分岐
+score = 82
+
+if score >= 80:
+    print("よくできました")
+elif score >= 60:
+    print("合格です")
+else:
+    print("もう一度練習しましょう")
+`
+  },
+  {
+    title: "forで繰り返し",
+    description: "同じような処理を何度も行うfor文を練習します。",
+    points: [
+      "forはリストの中身を1つずつ取り出します。",
+      "繰り返す処理はインデントします。",
+      "rangeを使うと回数を指定した繰り返しもできます。"
+    ],
+    challenge: "itemsに好きな単語を追加して、表示が増えるか確認しましょう。",
+    code: `# forで繰り返し
+items = ["メモ", "カレンダー", "Python"]
+
+for item in items:
+    print(f"{item}を確認しました")
+
+for number in range(1, 4):
+    print(f"{number}回目の練習")
+`
+  },
+  {
+    title: "リストと合計",
+    description: "複数の値をまとめるリストと、合計・平均の出し方を練習します。",
+    points: [
+      "リストは角かっこで作ります。",
+      "sumで合計、lenで個数を調べられます。",
+      "計算結果を変数に入れると後で使いやすくなります。"
+    ],
+    challenge: "scoresの点数を増やして、合計と平均がどう変わるか見てみましょう。",
+    code: `# リストと合計
+scores = [72, 88, 91, 65]
+
+total = sum(scores)
+average = total / len(scores)
+
+print(f"合計: {total}")
+print(f"平均: {average}")
+`
+  },
+  {
+    title: "関数を作る",
+    description: "よく使う処理をまとめる関数を練習します。",
+    points: [
+      "defで関数を作ります。",
+      "returnで結果を返します。",
+      "同じ処理を何度も使いたいときに便利です。"
+    ],
+    challenge: "priceやcountを変えて、合計金額を計算してみましょう。",
+    code: `# 関数を作る
+def calc_total(price, count):
+    return price * count
+
+apple_total = calc_total(120, 3)
+orange_total = calc_total(90, 5)
+
+print(f"りんご: {apple_total}円")
+print(f"オレンジ: {orange_total}円")
+print(f"合計: {apple_total + orange_total}円")
+`
+  }
+];
 
 function setPythonStatus(message) {
   pythonStatus.textContent = message;
@@ -127,6 +236,72 @@ function setupPythonEditor() {
   }, 0);
 
   setPythonStatus("準備完了");
+}
+
+function renderLesson() {
+  const lesson = pythonLessons[currentLessonIndex];
+
+  lessonProgress.textContent = `${currentLessonIndex + 1} / ${pythonLessons.length}`;
+  lessonTitle.textContent = lesson.title;
+  lessonDescription.textContent = lesson.description;
+  lessonChallenge.textContent = lesson.challenge;
+  lessonPoints.innerHTML = "";
+
+  lesson.points.forEach((point) => {
+    const item = document.createElement("li");
+    item.textContent = point;
+    lessonPoints.appendChild(item);
+  });
+
+  Array.from(lessonTabs.children).forEach((button, index) => {
+    const isActive = index === currentLessonIndex;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
+  });
+}
+
+function selectLesson(index) {
+  currentLessonIndex = (index + pythonLessons.length) % pythonLessons.length;
+  renderLesson();
+}
+
+function insertCurrentLessonCode() {
+  const lesson = pythonLessons[currentLessonIndex];
+
+  setPythonCode(lesson.code);
+  scheduleSave();
+
+  if (pythonEditor) {
+    pythonEditor.focus();
+  } else {
+    pythonCode.focus();
+  }
+
+  setPythonStatus(`「${lesson.title}」のコードを入れました。`);
+}
+
+function runCurrentLessonCode() {
+  insertCurrentLessonCode();
+  runPython();
+}
+
+function setupPythonLessons() {
+  pythonLessons.forEach((lesson, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "lesson-tab";
+    button.role = "tab";
+    button.textContent = `${index + 1}. ${lesson.title}`;
+    button.addEventListener("click", () => selectLesson(index));
+    lessonTabs.appendChild(button);
+  });
+
+  insertLessonButton.addEventListener("click", insertCurrentLessonCode);
+  runLessonButton.addEventListener("click", runCurrentLessonCode);
+  nextLessonButton.addEventListener("click", () => selectLesson(currentLessonIndex + 1));
+
+  renderLesson();
 }
 
 function createPythonWorker() {
@@ -273,3 +448,4 @@ clearPythonOutputButton.addEventListener("click", () => {
 });
 
 setupPythonEditor();
+setupPythonLessons();
