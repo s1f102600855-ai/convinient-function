@@ -1064,7 +1064,8 @@ canvas {
   grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
   grid-template-areas:
     "note note"
-    "workspace output";
+    "workspace output"
+    "workspace learning";
   gap: 14px;
   align-items: stretch;
 }
@@ -1104,7 +1105,8 @@ canvas {
 }
 
 .python-workspace,
-.python-output-panel {
+.python-output-panel,
+.python-learning-cta {
   min-width: 0;
 }
 
@@ -1268,6 +1270,30 @@ canvas {
   line-height: 1.55;
 }
 
+.python-learning-cta {
+  grid-area: learning;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 14px;
+}
+
+.python-learning-cta h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.python-learning-cta p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
 .python-learning-main {
   width: min(1080px, calc(100% - 32px));
   margin: 24px auto 30px;
@@ -1361,7 +1387,8 @@ canvas {
     grid-template-areas:
       "note"
       "workspace"
-      "output";
+      "output"
+      "learning";
   }
 
   .code-editor-grid {
@@ -1506,11 +1533,13 @@ canvas {
   }
 
   .learning-hero,
-  .learning-step {
+  .learning-step,
+  .python-learning-cta {
     grid-template-columns: 1fr;
   }
 
-  .learning-step .button-link {
+  .learning-step .button-link,
+  .python-learning-cta .button-link {
     width: 100%;
   }
 

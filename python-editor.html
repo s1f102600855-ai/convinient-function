@@ -23,7 +23,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.css" />
-  <link rel="stylesheet" href="style.css?v=20260717-python-learning-link" />
+  <link rel="stylesheet" href="style.css?v=20260717-python-learning-cta" />
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js" defer></script>
   <script src="python-editor.js?v=20260717-editor-focus" defer></script>
@@ -124,7 +124,6 @@
           <button type="button" id="savePythonButton">保存</button>
           <button type="button" id="copyPythonButton">コードをコピー</button>
           <button type="button" id="downloadPythonButton">.py保存</button>
-          <a class="button-link secondary-button" href="python-learning.html">Python学習へ</a>
           <button type="button" id="resetPythonButton" class="secondary-button">リセット</button>
         </div>
       </div>
@@ -150,6 +149,14 @@
       <pre id="pythonOutput">まだ実行していません。</pre>
 
       <p class="tool-note">標準ライブラリとPyodide対応パッケージを利用できます。外部パッケージの読み込みには時間がかかる場合があります。</p>
+    </section>
+
+    <section class="python-learning-cta" aria-labelledby="python-learning-cta-heading">
+      <div>
+        <h2 id="python-learning-cta-heading">Python学習</h2>
+        <p>基礎を確認したいときは、学習ページで流れを見ながらエディターで試せます。</p>
+      </div>
+      <a class="button-link" href="python-learning.html">学習ページへ</a>
     </section>
   </main>
 
