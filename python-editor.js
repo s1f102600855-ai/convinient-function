@@ -387,7 +387,12 @@ function setupPythonQuizModeSelector() {
     // 保存できない環境でも切り替え自体は動かします。
   }
 
-  function setActiveMode(mode) {
+  function scrollQuizPanelIntoView(mode) {
+    const panel = modePanels.find((item) => item.dataset.quizModePanel === mode);
+    panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function setActiveMode(mode, shouldScroll = false) {
     if (!validModes.includes(mode)) return;
 
     modeButtons.forEach((button) => {
@@ -398,6 +403,7 @@ function setupPythonQuizModeSelector() {
 
     modePanels.forEach((panel) => {
       panel.hidden = panel.dataset.quizModePanel !== mode;
+      panel.setAttribute("aria-hidden", String(panel.hidden));
     });
 
     try {
@@ -405,11 +411,15 @@ function setupPythonQuizModeSelector() {
     } catch (error) {
       // 保存できない環境でも画面上の切り替えは完了しています。
     }
+
+    if (shouldScroll) {
+      scrollQuizPanelIntoView(mode);
+    }
   }
 
   modeButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      setActiveMode(button.dataset.quizModeTarget);
+      setActiveMode(button.dataset.quizModeTarget, true);
     });
   });
 
@@ -434,7 +444,13 @@ function setupPythonQuizUnitSelector() {
     // 保存できない環境でも単元切り替え自体は動かします。
   }
 
-  function setActiveUnit(unit) {
+  function scrollActivePanelIntoView() {
+    const activeMode = document.querySelector(".quiz-mode-button.is-active")?.dataset.quizModeTarget || "choice";
+    const activePanel = document.querySelector(`[data-quiz-mode-panel="${activeMode}"]`);
+    activePanel?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function setActiveUnit(unit, shouldScroll = false) {
     if (!validUnits.includes(unit)) return;
 
     unitButtons.forEach((button) => {
@@ -445,6 +461,7 @@ function setupPythonQuizUnitSelector() {
 
     unitCards.forEach((card) => {
       card.hidden = unit !== "all" && card.dataset.quizUnit !== unit;
+      card.setAttribute("aria-hidden", String(card.hidden));
     });
 
     try {
@@ -454,11 +471,15 @@ function setupPythonQuizUnitSelector() {
     }
 
     document.dispatchEvent(new CustomEvent("pythonQuizUnitChange"));
+
+    if (shouldScroll) {
+      scrollActivePanelIntoView();
+    }
   }
 
   unitButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      setActiveUnit(button.dataset.quizUnitTarget);
+      setActiveUnit(button.dataset.quizUnitTarget, true);
     });
   });
 
