@@ -365,6 +365,114 @@ function setupPythonQuizzes() {
   updateQuizScore();
 }
 
+function setupPythonCodeQuizzes() {
+  const codeQuizCards = [...document.querySelectorAll(".code-quiz-card[data-code-answers]")];
+  const codeQuizScore = document.getElementById("codeQuizScore");
+  const resetCodeQuizButton = document.getElementById("resetPythonCodeQuiz");
+
+  if (!codeQuizCards.length) return;
+
+  function normalizeCodeAnswer(value, mode) {
+    const normalizedLines = value
+      .replace(/\r\n/g, "\n")
+      .trim()
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .join("\n");
+
+    if (mode === "compact") {
+      return normalizedLines.replace(/\s+/g, "");
+    }
+
+    return normalizedLines;
+  }
+
+  function updateCodeQuizScore() {
+    const correctCount = codeQuizCards.filter((card) => card.dataset.codeQuizState === "correct").length;
+
+    if (codeQuizScore) {
+      codeQuizScore.textContent = `${correctCount} / ${codeQuizCards.length} 問 正解`;
+    }
+  }
+
+  function setCodeQuizResult(card, input, result, state, message) {
+    card.dataset.codeQuizState = state;
+
+    input.classList.toggle("is-correct", state === "correct");
+    input.classList.toggle("is-incorrect", state === "incorrect");
+
+    if (result) {
+      result.textContent = message;
+      result.classList.toggle("is-correct", state === "correct");
+      result.classList.toggle("is-incorrect", state === "incorrect");
+    }
+
+    updateCodeQuizScore();
+  }
+
+  function resetCodeQuiz() {
+    codeQuizCards.forEach((card) => {
+      const input = card.querySelector(".code-answer-input");
+      const result = card.querySelector(".code-quiz-result");
+
+      card.dataset.codeQuizState = "";
+
+      if (input) {
+        input.value = "";
+        input.classList.remove("is-correct", "is-incorrect");
+      }
+
+      if (result) {
+        result.textContent = "コードを入力して確認してください。";
+        result.classList.remove("is-correct", "is-incorrect");
+      }
+    });
+
+    updateCodeQuizScore();
+  }
+
+  codeQuizCards.forEach((card) => {
+    const input = card.querySelector(".code-answer-input");
+    const checkButton = card.querySelector(".code-check-button");
+    const result = card.querySelector(".code-quiz-result");
+    const mode = card.dataset.codeMode || "exact";
+    const answers = (card.dataset.codeAnswers || "")
+      .split("|||")
+      .map((answer) => answer.trim())
+      .filter(Boolean);
+
+    if (!input || !checkButton || !answers.length) return;
+
+    checkButton.addEventListener("click", () => {
+      const value = input.value.trim();
+
+      if (!value) {
+        setCodeQuizResult(card, input, result, "empty", "コードを入力してください。");
+        return;
+      }
+
+      const normalizedValue = normalizeCodeAnswer(value, mode);
+      const isCorrect = answers.some((answer) => normalizeCodeAnswer(answer, mode) === normalizedValue);
+      const explanation = card.dataset.codeExplanation || "";
+      const correctExample = answers[0];
+
+      setCodeQuizResult(
+        card,
+        input,
+        result,
+        isCorrect ? "correct" : "incorrect",
+        isCorrect
+          ? `正解です。${explanation}`
+          : `もう一度確認しましょう。正解例: ${correctExample}。${explanation}`,
+      );
+    });
+  });
+
+  resetCodeQuizButton?.addEventListener("click", resetCodeQuiz);
+  updateCodeQuizScore();
+}
+
 runPythonButton.addEventListener("click", runPython);
 stopPythonButton.addEventListener("click", stopPython);
 savePythonButton.addEventListener("click", savePythonCode);
@@ -384,3 +492,4 @@ clearPythonOutputButton.addEventListener("click", () => {
 setupPythonEditor();
 setupPythonSampleButtons();
 setupPythonQuizzes();
+setupPythonCodeQuizzes();

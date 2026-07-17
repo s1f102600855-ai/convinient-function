@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Python小テスト | 基礎を選択問題で確認できる無料ページ</title>
-  <meta name="description" content="Pythonの変数、計算、条件分岐、リスト、辞書、関数の基礎を選択式の小テストで確認できる無料ページです。迷った問題はページ内のエディターでコードを実行できます。" />
+  <title>Python小テスト | 選択問題とコード入力問題で基礎を確認</title>
+  <meta name="description" content="Pythonの変数、計算、条件分岐、リスト、辞書、関数の基礎を、選択問題とコード入力問題で確認できる無料ページです。迷った問題はページ内のエディターで実行できます。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/python-quiz.html" />
 
-  <meta property="og:title" content="Python小テスト | 基礎を選択問題で確認できる無料ページ" />
-  <meta property="og:description" content="Pythonの基礎を小テストで確認し、迷った問題はページ内のエディターで実行できます。" />
+  <meta property="og:title" content="Python小テスト | 選択問題とコード入力問題で基礎を確認" />
+  <meta property="og:description" content="Pythonの基礎を選択問題とコード入力問題で確認し、迷った問題はページ内のエディターで実行できます。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://convenientfunction.com/python-quiz.html" />
   <meta property="og:site_name" content="便利サイト" />
@@ -22,10 +22,10 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.css" />
-  <link rel="stylesheet" href="style.css?v=20260718-python-quiz-page" />
+  <link rel="stylesheet" href="style.css?v=20260718-code-input-quiz" />
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js" defer></script>
-  <script src="python-editor.js?v=20260718-python-quiz-page" defer></script>
+  <script src="python-editor.js?v=20260718-code-input-quiz" defer></script>
 
   <script type="application/ld+json">
   {
@@ -36,7 +36,7 @@
     "inLanguage": "ja",
     "learningResourceType": "Quiz",
     "educationalLevel": "Beginner",
-    "description": "Pythonの基礎を選択式の小テストで確認し、ページ内のPythonエディターでコード入力と実行結果を試せる無料ページです。",
+    "description": "Pythonの基礎を選択式の小テストとコード入力問題で確認し、ページ内のPythonエディターでコード入力と実行結果を試せる無料ページです。",
     "teaches": [
       "Pythonの変数",
       "print関数",
@@ -48,7 +48,8 @@
       "リスト",
       "辞書",
       "関数",
-      "Python小テスト"
+      "Python小テスト",
+      "Pythonコード入力練習"
     ]
   }
   </script>
@@ -69,7 +70,7 @@
     <div class="site-heading">
       <p class="eyebrow">Python quiz</p>
       <h1>Python小テスト</h1>
-      <p>Pythonの基礎を選択問題で確認し、迷ったコードはその場で実行できます。</p>
+      <p>Pythonの基礎を選択問題とコード入力問題で確認し、迷ったコードはその場で実行できます。</p>
     </div>
   </header>
 
@@ -77,7 +78,7 @@
     <section class="learning-hero" aria-labelledby="learning-start-heading">
       <div>
         <h2 id="learning-start-heading">基礎を小テストで確認</h2>
-        <p>変数、計算、if文、リスト、辞書、関数の基本を短い選択問題で確認できます。解説を読んで、必要なときはコードで動きを確かめられます。</p>
+        <p>変数、計算、if文、リスト、辞書、関数の基本を短い問題で確認できます。選択問題で考え方を押さえ、コード入力問題で自分の手で書く練習ができます。</p>
       </div>
       <a class="button-link" href="#learning-quiz-heading">小テストを始める</a>
     </section>
@@ -261,6 +262,105 @@ print(profile["name"])</code></pre>
       </div>
 
       <button type="button" id="resetPythonQuiz" class="secondary-button quiz-reset">小テストをリセット</button>
+    </section>
+
+    <section class="learning-code-quiz" aria-labelledby="learning-code-quiz-heading">
+      <div class="section-heading quiz-heading">
+        <div>
+          <h2 id="learning-code-quiz-heading">コード入力問題</h2>
+          <p>短いコードを自分で入力して確認します。スペースの違いはある程度吸収して判定します。</p>
+        </div>
+        <p id="codeQuizScore" class="quiz-score" aria-live="polite">0 / 4 問 正解</p>
+      </div>
+
+      <div class="quiz-grid code-quiz-grid">
+        <article class="quiz-card code-quiz-card" data-code-answers="print(name)" data-code-mode="compact" data-code-explanation="print(name)で変数nameの中身を画面に表示できます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C1</p>
+            <div>
+              <h3>変数の中身を表示する</h3>
+              <p>変数nameに入っている文字を表示する1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>name = "Python"
+# ここに1行</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C1のコード入力" placeholder="print(name)"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-variables">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-code-answers="if score >= 60:" data-code-mode="compact" data-code-explanation="ifの条件式の最後にはコロンを付けます。60以上ならこの中の処理に進みます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C2</p>
+            <div>
+              <h3>条件分岐を書く</h3>
+              <p>scoreが60以上なら処理に入るif文の1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>score = 80
+# ここに1行
+    print("合格")</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C2のコード入力" placeholder="if score >= 60:"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-if">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-code-answers='tasks.append("Pythonを練習")' data-code-mode="compact" data-code-explanation="appendを使うと、リストの最後に新しい値を追加できます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C3</p>
+            <div>
+              <h3>リストに追加する</h3>
+              <p>空のリストtasksに「Pythonを練習」という文字を追加する1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>tasks = []
+# ここに1行</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C3のコード入力" placeholder='tasks.append("Pythonを練習")'></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-list-append">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-code-answers="return price * count" data-code-mode="compact" data-code-explanation="関数の中で値を返すときはreturnを使います。price * countで合計金額を計算できます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C4</p>
+            <div>
+              <h3>関数で値を返す</h3>
+              <p>priceとcountを掛けた値を返す1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>def calc_total(price, count):
+    # ここに1行</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C4のコード入力" placeholder="return price * count"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-function">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+      </div>
+
+      <button type="button" id="resetPythonCodeQuiz" class="secondary-button quiz-reset">コード入力問題をリセット</button>
     </section>
 
     <template id="sample-variables">name = "Python"
