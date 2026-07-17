@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Python小テスト | 選択問題とコード入力問題で基礎を確認</title>
-  <meta name="description" content="Pythonの変数、計算、条件分岐、繰り返し、例外処理、関数の基礎を、選択問題とコード入力問題で確認できる無料ページです。迷った問題はページ内のエディターで実行できます。" />
+  <meta name="description" content="Pythonの変数、計算、条件分岐、リスト、正規表現、クラス、例外処理の基礎を、単元別の選択問題とコード入力問題で確認できる無料ページです。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/python-quiz.html" />
 
@@ -22,10 +22,10 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.css" />
-  <link rel="stylesheet" href="style.css?v=20260718-practice-rewrite" />
+  <link rel="stylesheet" href="style.css?v=20260718-unit-practice" />
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js" defer></script>
-  <script src="python-editor.js?v=20260718-practice-rewrite" defer></script>
+  <script src="python-editor.js?v=20260718-unit-practice" defer></script>
 
   <script type="application/ld+json">
   {
@@ -79,7 +79,7 @@
     <section class="learning-hero" aria-labelledby="learning-start-heading">
       <div>
         <h2 id="learning-start-heading">基礎を小テストで確認</h2>
-        <p>変数、計算、if文、繰り返し、例外処理、関数の基本を短い問題で確認できます。選択問題で考え方を押さえ、コード入力問題で自分の手で書く練習ができます。</p>
+        <p>変数、計算、if文、リスト、正規表現、クラス、例外処理の基本を短い問題で確認できます。選択問題で考え方を押さえ、コード入力問題で自分の手で書く練習ができます。</p>
       </div>
       <a class="button-link" href="#quiz-mode-heading">問題を選ぶ</a>
     </section>
@@ -151,17 +151,34 @@
       </div>
     </section>
 
+    <section class="quiz-unit-selector" aria-labelledby="quiz-unit-heading">
+      <div>
+        <p class="eyebrow">Unit</p>
+        <h2 id="quiz-unit-heading">単元を選ぶ</h2>
+        <p>苦手な単元だけに絞って練習できます。個人や団体を特定できる固有名詞を使わない汎用的な類題にしています。</p>
+      </div>
+      <div class="quiz-unit-buttons" role="group" aria-label="学習する単元を選択">
+        <button type="button" class="quiz-unit-button is-active" data-quiz-unit-target="all" aria-pressed="true">すべて</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="basics" aria-pressed="false">変数・計算・関数</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="condition" aria-pressed="false">条件分岐</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="list-loop" aria-pressed="false">リスト・繰り返し</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="regex" aria-pressed="false">正規表現</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="class" aria-pressed="false">クラス</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="exception" aria-pressed="false">例外処理</button>
+      </div>
+    </section>
+
     <section id="choiceQuizPanel" class="learning-quiz" aria-labelledby="learning-quiz-heading" data-quiz-mode-panel="choice">
       <div class="section-heading quiz-heading">
         <div>
           <h2 id="learning-quiz-heading">基礎小テスト</h2>
           <p>選択肢を押すと正誤と解説が出ます。迷った問題は「コードで確認」からエディターで動かせます。</p>
         </div>
-        <p id="quizScore" class="quiz-score" aria-live="polite">0 / 10 問 正解</p>
+        <p id="quizScore" class="quiz-score" aria-live="polite">0 / 15 問 正解</p>
       </div>
 
       <div class="quiz-grid">
-        <article class="quiz-card" data-quiz-answer="python" data-quiz-explanation="変数nameには文字列Pythonが入っているので、print(name)はPythonを表示します。">
+        <article class="quiz-card" data-quiz-unit="basics" data-quiz-answer="python" data-quiz-explanation="変数nameには文字列Pythonが入っているので、print(name)はPythonを表示します。">
           <div class="quiz-question-row">
             <p class="step-number">Q1</p>
             <div>
@@ -180,7 +197,7 @@ print(name)</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-variables">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="360" data-quiz-explanation="priceが120、countが3なので、price * count は360です。">
+        <article class="quiz-card" data-quiz-unit="basics" data-quiz-answer="360" data-quiz-explanation="priceが120、countが3なので、price * count は360です。">
           <div class="quiz-question-row">
             <p class="step-number">Q2</p>
             <div>
@@ -200,7 +217,7 @@ print(price * count)</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-math">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="pass" data-quiz-explanation="scoreは80で60以上なので、ifの中のprintが動いて合格と表示されます。">
+        <article class="quiz-card" data-quiz-unit="condition" data-quiz-answer="pass" data-quiz-explanation="scoreは80で60以上なので、ifの中のprintが動いて合格と表示されます。">
           <div class="quiz-question-row">
             <p class="step-number">Q3</p>
             <div>
@@ -222,7 +239,7 @@ else:
           <button type="button" class="secondary-button" data-python-sample="sample-if">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="240" data-quiz-explanation="sum(scores)はリスト内の70、80、90を合計するので240です。">
+        <article class="quiz-card" data-quiz-unit="list-loop" data-quiz-answer="240" data-quiz-explanation="sum(scores)はリスト内の70、80、90を合計するので240です。">
           <div class="quiz-question-row">
             <p class="step-number">Q4</p>
             <div>
@@ -241,7 +258,7 @@ print(sum(scores))</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-list">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="memo" data-quiz-explanation="辞書ではキーtoolを使って値を取り出します。profile['tool']の値はmemoです。">
+        <article class="quiz-card" data-quiz-unit="list-loop" data-quiz-answer="memo" data-quiz-explanation="辞書ではキーtoolを使って値を取り出します。profile['tool']の値はmemoです。">
           <div class="quiz-question-row">
             <p class="step-number">Q5</p>
             <div>
@@ -260,7 +277,7 @@ print(profile["tool"])</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-dict">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="return" data-quiz-explanation="関数の中で値を返すときはreturnを使います。printは表示、defは関数を作るキーワードです。">
+        <article class="quiz-card" data-quiz-unit="basics" data-quiz-answer="return" data-quiz-explanation="関数の中で値を返すときはreturnを使います。printは表示、defは関数を作るキーワードです。">
           <div class="quiz-question-row">
             <p class="step-number">Q6</p>
             <div>
@@ -279,7 +296,7 @@ print(profile["tool"])</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-function">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="ok" data-quiz-explanation="18は3で割り切れ、15以上でもあるため、条件が真になってOKが返ります。">
+        <article class="quiz-card" data-quiz-unit="condition" data-quiz-answer="ok" data-quiz-explanation="18は3で割り切れ、15以上でもあるため、条件が真になってOKが返ります。">
           <div class="quiz-question-row">
             <p class="step-number">Q7</p>
             <div>
@@ -302,7 +319,7 @@ print(check_number(18))</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-condition-check">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="24" data-quiz-explanation="totalは1から始まり、1、2、3、4を順に掛けるので、最後は24になります。">
+        <article class="quiz-card" data-quiz-unit="list-loop" data-quiz-answer="24" data-quiz-explanation="totalは1から始まり、1、2、3、4を順に掛けるので、最後は24になります。">
           <div class="quiz-question-row">
             <p class="step-number">Q8</p>
             <div>
@@ -324,7 +341,7 @@ print(total)</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-factorial">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="error" data-quiz-explanation="数字に変換できない文字列をintに渡すとValueErrorになり、exceptの中のprintが実行されます。">
+        <article class="quiz-card" data-quiz-unit="exception" data-quiz-answer="error" data-quiz-explanation="数字に変換できない文字列をintに渡すとValueErrorになり、exceptの中のprintが実行されます。">
           <div class="quiz-question-row">
             <p class="step-number">Q9</p>
             <div>
@@ -346,7 +363,7 @@ except ValueError:
           <button type="button" class="secondary-button" data-python-sample="sample-error-handling">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-answer="40" data-quiz-explanation="長方形の面積は横幅×高さなので、8 * 5 = 40です。">
+        <article class="quiz-card" data-quiz-unit="basics" data-quiz-answer="40" data-quiz-explanation="長方形の面積は横幅×高さなので、8 * 5 = 40です。">
           <div class="quiz-question-row">
             <p class="step-number">Q10</p>
             <div>
@@ -366,6 +383,130 @@ print(rectangle_area(8, 5))</code></pre>
           <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
           <button type="button" class="secondary-button" data-python-sample="sample-area">コードで確認</button>
         </article>
+
+        <article class="quiz-card" data-quiz-unit="list-loop" data-quiz-answer="2" data-quiz-explanation="treeとblueが4文字なので、条件に当てはまる単語は2つです。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q11</p>
+            <div>
+              <h3>文字数を数える関数の結果は？</h3>
+              <p>4文字の単語だけを数えた結果を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def count4(words):
+    count = 0
+    for word in words:
+        if len(word) == 4:
+            count += 1
+    return count
+
+print(count4(["tree", "blue", "peach", "grape"]))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q11の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="1" aria-pressed="false">1</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="2" aria-pressed="false">2</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="4" aria-pressed="false">4</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-word-count">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="list-loop" data-quiz-answer="ng" data-quiz-explanation="最後の90が最初の80と違うため、途中でNGを返します。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q12</p>
+            <div>
+              <h3>すべて同じか確認する</h3>
+              <p>リスト内の数字を順番に確認した結果を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def all_same(nums):
+    first = nums[0]
+    for num in nums:
+        if num != first:
+            return "NG"
+    return "OK"
+
+print(all_same([80, 80, 90]))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q12の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="ok" aria-pressed="false">OK</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="ng" aria-pressed="false">NG</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="90" aria-pressed="false">90</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-all-same">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="regex" data-quiz-answer="true" data-quiz-explanation="A12bは「英大文字、数字2文字、英小文字」の順に並んでいるため、正規表現に一致します。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q13</p>
+            <div>
+              <h3>正規表現の判定は？</h3>
+              <p>条件を満たすコードが文字列に含まれるかを選んでください。</p>
+            </div>
+          </div>
+          <pre><code>import re
+
+pattern = r"[A-Z][0-9]{2}[a-z]"
+print(re.search(pattern, "ID is A12b") is not None)</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q13の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="true" aria-pressed="false">True</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="false" aria-pressed="false">False</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="none" aria-pressed="false">None</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-code-pattern">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="class" data-quiz-answer="6" data-quiz-explanation="add_stock()でstockが1増えるため、5から6になります。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q14</p>
+            <div>
+              <h3>クラスのメソッド実行後の値は？</h3>
+              <p>在庫数を増やすメソッドを呼び出したあと、表示される値を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>class Product:
+    def __init__(self, name, price, stock):
+        self.name = name
+        self.price = price
+        self.stock = stock
+
+    def add_stock(self):
+        self.stock += 1
+
+product = Product("pen", 120, 5)
+product.add_stock()
+print(product.stock)</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q14の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="5" aria-pressed="false">5</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="6" aria-pressed="false">6</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="120" aria-pressed="false">120</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-product-class">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="condition" data-quiz-answer="pass" data-quiz-explanation="すべての点数が60以上なので、最後までFAILを返さずPASSになります。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q15</p>
+            <div>
+              <h3>すべて合格点か確認する</h3>
+              <p>1つずつ点数を確認した結果を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def check_scores(scores):
+    for score in scores:
+        if score < 60:
+            return "FAIL"
+    return "PASS"
+
+print(check_scores([60, 72, 85]))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q15の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="pass" aria-pressed="false">PASS</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="fail" aria-pressed="false">FAIL</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="60" aria-pressed="false">60</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-score-check">コードで確認</button>
+        </article>
       </div>
 
       <button type="button" id="resetPythonQuiz" class="secondary-button quiz-reset">小テストをリセット</button>
@@ -377,11 +518,11 @@ print(rectangle_area(8, 5))</code></pre>
           <h2 id="learning-code-quiz-heading">コード入力問題</h2>
           <p>短いコードを自分で入力して確認します。スペースの違いはある程度吸収して判定します。</p>
         </div>
-        <p id="codeQuizScore" class="quiz-score" aria-live="polite">0 / 8 問 正解</p>
+        <p id="codeQuizScore" class="quiz-score" aria-live="polite">0 / 13 問 正解</p>
       </div>
 
       <div class="quiz-grid code-quiz-grid">
-        <article class="quiz-card code-quiz-card" data-code-answers="print(name)" data-code-mode="compact" data-code-explanation="print(name)で変数nameの中身を画面に表示できます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="basics" data-code-answers="print(name)" data-code-mode="compact" data-code-explanation="print(name)で変数nameの中身を画面に表示できます。">
           <div class="quiz-question-row">
             <p class="step-number">C1</p>
             <div>
@@ -402,7 +543,7 @@ print(rectangle_area(8, 5))</code></pre>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-code-answers="if score >= 60:" data-code-mode="compact" data-code-explanation="ifの条件式の最後にはコロンを付けます。60以上ならこの中の処理に進みます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="condition" data-code-answers="if score >= 60:" data-code-mode="compact" data-code-explanation="ifの条件式の最後にはコロンを付けます。60以上ならこの中の処理に進みます。">
           <div class="quiz-question-row">
             <p class="step-number">C2</p>
             <div>
@@ -424,7 +565,7 @@ print(rectangle_area(8, 5))</code></pre>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-code-answers='tasks.append("Pythonを練習")' data-code-mode="compact" data-code-explanation="appendを使うと、リストの最後に新しい値を追加できます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="list-loop" data-code-answers='tasks.append("Pythonを練習")' data-code-mode="compact" data-code-explanation="appendを使うと、リストの最後に新しい値を追加できます。">
           <div class="quiz-question-row">
             <p class="step-number">C3</p>
             <div>
@@ -445,7 +586,7 @@ print(rectangle_area(8, 5))</code></pre>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-code-answers="return price * count" data-code-mode="compact" data-code-explanation="関数の中で値を返すときはreturnを使います。price * countで合計金額を計算できます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="basics" data-code-answers="return price * count" data-code-mode="compact" data-code-explanation="関数の中で値を返すときはreturnを使います。price * countで合計金額を計算できます。">
           <div class="quiz-question-row">
             <p class="step-number">C4</p>
             <div>
@@ -466,7 +607,7 @@ print(rectangle_area(8, 5))</code></pre>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-code-answers="if x % 3 == 0 and x >= 15:" data-code-mode="compact" data-code-explanation="andを使うと、3で割り切れることと15以上であることを同時に判定できます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="condition" data-code-answers="if x % 3 == 0 and x >= 15:" data-code-mode="compact" data-code-explanation="andを使うと、3で割り切れることと15以上であることを同時に判定できます。">
           <div class="quiz-question-row">
             <p class="step-number">C5</p>
             <div>
@@ -489,7 +630,7 @@ print(rectangle_area(8, 5))</code></pre>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-code-answers="total *= number|||total = total * number" data-code-mode="compact" data-code-explanation="ループの中でtotalにnumberを掛け直すと、階乗のような積を作れます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="list-loop" data-code-answers="total *= number|||total = total * number" data-code-mode="compact" data-code-explanation="ループの中でtotalにnumberを掛け直すと、階乗のような積を作れます。">
           <div class="quiz-question-row">
             <p class="step-number">C6</p>
             <div>
@@ -511,7 +652,7 @@ for number in range(1, 5):
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-code-answers="except ValueError:" data-code-mode="compact" data-code-explanation="intで変換できない値が入る可能性があるときは、ValueErrorをexceptで受け取れます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="exception" data-code-answers="except ValueError:" data-code-mode="compact" data-code-explanation="intで変換できない値が入る可能性があるときは、ValueErrorをexceptで受け取れます。">
           <div class="quiz-question-row">
             <p class="step-number">C7</p>
             <div>
@@ -535,7 +676,7 @@ for number in range(1, 5):
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-code-answers="return width * height" data-code-mode="compact" data-code-explanation="長方形の面積はwidthとheightを掛けて求めます。関数の結果として返すのでreturnを使います。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="basics" data-code-answers="return width * height" data-code-mode="compact" data-code-explanation="長方形の面積はwidthとheightを掛けて求めます。関数の結果として返すのでreturnを使います。">
           <div class="quiz-question-row">
             <p class="step-number">C8</p>
             <div>
@@ -552,6 +693,116 @@ for number in range(1, 5):
           <div class="code-quiz-actions">
             <button type="button" class="code-check-button">答えを確認</button>
             <button type="button" class="secondary-button" data-python-sample="sample-area">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="list-loop" data-code-answers="if len(word) == 4:" data-code-mode="compact" data-code-explanation="len(word)で単語の文字数を調べ、4文字ならcountを増やします。">
+          <div class="quiz-question-row">
+            <p class="step-number">C9</p>
+            <div>
+              <h3>4文字の単語を数える</h3>
+              <p>単語の文字数が4なら処理に入るif文の1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>for word in words:
+    # ここに1行
+        count += 1</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C9のコード入力" placeholder="if len(word) == 4:"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-word-count">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="list-loop" data-code-answers="if num != first:" data-code-mode="compact" data-code-explanation="!= は等しくないという意味です。最初の数字と違うものがあればNGを返します。">
+          <div class="quiz-question-row">
+            <p class="step-number">C10</p>
+            <div>
+              <h3>最初の要素と比べる</h3>
+              <p>numがfirstと違うときに処理に入るif文の1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>first = nums[0]
+for num in nums:
+    # ここに1行
+        return "NG"</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C10のコード入力" placeholder="if num != first:"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-all-same">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="regex" data-code-answers='pattern = r"[A-Z][0-9]{2}[a-z]"' data-code-mode="compact" data-code-explanation="英大文字1文字、数字2文字、英小文字1文字の順番を正規表現で表しています。">
+          <div class="quiz-question-row">
+            <p class="step-number">C11</p>
+            <div>
+              <h3>正規表現パターンを書く</h3>
+              <p>A12bのような「英大文字、数字2文字、英小文字」に一致するpatternの1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>import re
+# ここに1行
+print(re.search(pattern, "A12b") is not None)</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C11のコード入力" placeholder='pattern = r"[A-Z][0-9]{2}[a-z]"'></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-code-pattern">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="class" data-code-answers="self.stock += 1|||self.stock = self.stock + 1" data-code-mode="compact" data-code-explanation="インスタンスが持つ在庫数を増やすので、self.stockを1増やします。">
+          <div class="quiz-question-row">
+            <p class="step-number">C12</p>
+            <div>
+              <h3>クラスの属性を更新する</h3>
+              <p>add_stockメソッドの中で在庫数を1増やす1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>def add_stock(self):
+    # ここに1行</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C12のコード入力" placeholder="self.stock += 1"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-product-class">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="condition" data-code-answers="if score < 60:" data-code-mode="compact" data-code-explanation="1つでも60点未満なら不合格なので、score < 60 を条件にします。">
+          <div class="quiz-question-row">
+            <p class="step-number">C13</p>
+            <div>
+              <h3>合否判定を書く</h3>
+              <p>点数が60点未満なら処理に入るif文の1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>for score in scores:
+    # ここに1行
+        return "FAIL"</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C13のコード入力" placeholder="if score < 60:"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-score-check">コードで確認</button>
           </div>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
@@ -630,6 +881,55 @@ for text in texts:
 
 area = rectangle_area(8, 5)
 print(f"面積: {area}")</template>
+
+    <template id="sample-word-count">def count4(words):
+    count = 0
+    for word in words:
+        if len(word) == 4:
+            count += 1
+    return count
+
+print(count4(["tree", "blue", "peach", "grape"]))</template>
+
+    <template id="sample-all-same">def all_same(nums):
+    first = nums[0]
+    for num in nums:
+        if num != first:
+            return "NG"
+    return "OK"
+
+print(all_same([80, 80, 90]))
+print(all_same([70, 70, 70]))</template>
+
+    <template id="sample-code-pattern">import re
+
+pattern = r"[A-Z][0-9]{2}[a-z]"
+
+for text in ["ID is A12b", "a12b", "A123b"]:
+    print(text, re.search(pattern, text) is not None)</template>
+
+    <template id="sample-product-class">class Product:
+    def __init__(self, name, price, stock):
+        self.name = name
+        self.price = price
+        self.stock = stock
+
+    def add_stock(self):
+        self.stock += 1
+
+product = Product("pen", 120, 5)
+product.add_stock()
+print(product.name)
+print(product.stock)</template>
+
+    <template id="sample-score-check">def check_scores(scores):
+    for score in scores:
+        if score < 60:
+            return "FAIL"
+    return "PASS"
+
+print(check_scores([60, 72, 85]))
+print(check_scores([80, 59, 90]))</template>
 
     <template id="sample-string">item = "ノート"
 count = 2

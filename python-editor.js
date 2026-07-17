@@ -13,6 +13,7 @@ const autoSavePython = document.getElementById("autoSavePython");
 
 const pythonStorageKey = "pythonEditorCodeV1";
 const pythonQuizModeStorageKey = "pythonQuizModeV1";
+const pythonQuizUnitStorageKey = "pythonQuizUnitV1";
 const pythonWorkerUrl = "python-worker.js?v=20260716-runfix";
 const defaultPythonCode = `# ブラウザ内でPythonを実行できます
 name = "便利サイト"
@@ -303,10 +304,11 @@ function setupPythonQuizzes() {
   if (!quizCards.length) return;
 
   function updateQuizScore() {
-    const correctCount = quizCards.filter((card) => card.dataset.quizState === "correct").length;
+    const visibleCards = quizCards.filter((card) => !card.hidden);
+    const correctCount = visibleCards.filter((card) => card.dataset.quizState === "correct").length;
 
     if (quizScore) {
-      quizScore.textContent = `${correctCount} / ${quizCards.length} 問 正解`;
+      quizScore.textContent = `${correctCount} / ${visibleCards.length} 問 正解`;
     }
   }
 
@@ -363,6 +365,7 @@ function setupPythonQuizzes() {
   });
 
   resetQuizButton?.addEventListener("click", resetQuiz);
+  document.addEventListener("pythonQuizUnitChange", updateQuizScore);
   updateQuizScore();
 }
 
@@ -413,6 +416,55 @@ function setupPythonQuizModeSelector() {
   setActiveMode(activeMode);
 }
 
+function setupPythonQuizUnitSelector() {
+  const unitButtons = [...document.querySelectorAll("[data-quiz-unit-target]")];
+  const unitCards = [...document.querySelectorAll("[data-quiz-unit]")];
+
+  if (!unitButtons.length || !unitCards.length) return;
+
+  const validUnits = unitButtons.map((button) => button.dataset.quizUnitTarget);
+  let activeUnit = "all";
+
+  try {
+    const savedUnit = localStorage.getItem(pythonQuizUnitStorageKey);
+    if (validUnits.includes(savedUnit)) {
+      activeUnit = savedUnit;
+    }
+  } catch (error) {
+    // 保存できない環境でも単元切り替え自体は動かします。
+  }
+
+  function setActiveUnit(unit) {
+    if (!validUnits.includes(unit)) return;
+
+    unitButtons.forEach((button) => {
+      const isActive = button.dataset.quizUnitTarget === unit;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    unitCards.forEach((card) => {
+      card.hidden = unit !== "all" && card.dataset.quizUnit !== unit;
+    });
+
+    try {
+      localStorage.setItem(pythonQuizUnitStorageKey, unit);
+    } catch (error) {
+      // 保存できない環境でも画面上の切り替えは完了しています。
+    }
+
+    document.dispatchEvent(new CustomEvent("pythonQuizUnitChange"));
+  }
+
+  unitButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setActiveUnit(button.dataset.quizUnitTarget);
+    });
+  });
+
+  setActiveUnit(activeUnit);
+}
+
 function setupPythonCodeQuizzes() {
   const codeQuizCards = [...document.querySelectorAll(".code-quiz-card[data-code-answers]")];
   const codeQuizScore = document.getElementById("codeQuizScore");
@@ -437,10 +489,11 @@ function setupPythonCodeQuizzes() {
   }
 
   function updateCodeQuizScore() {
-    const correctCount = codeQuizCards.filter((card) => card.dataset.codeQuizState === "correct").length;
+    const visibleCards = codeQuizCards.filter((card) => !card.hidden);
+    const correctCount = visibleCards.filter((card) => card.dataset.codeQuizState === "correct").length;
 
     if (codeQuizScore) {
-      codeQuizScore.textContent = `${correctCount} / ${codeQuizCards.length} 問 正解`;
+      codeQuizScore.textContent = `${correctCount} / ${visibleCards.length} 問 正解`;
     }
   }
 
@@ -518,6 +571,7 @@ function setupPythonCodeQuizzes() {
   });
 
   resetCodeQuizButton?.addEventListener("click", resetCodeQuiz);
+  document.addEventListener("pythonQuizUnitChange", updateCodeQuizScore);
   updateCodeQuizScore();
 }
 
@@ -540,5 +594,6 @@ clearPythonOutputButton.addEventListener("click", () => {
 setupPythonEditor();
 setupPythonSampleButtons();
 setupPythonQuizzes();
-setupPythonQuizModeSelector();
 setupPythonCodeQuizzes();
+setupPythonQuizModeSelector();
+setupPythonQuizUnitSelector();
