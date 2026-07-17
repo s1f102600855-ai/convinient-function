@@ -1294,6 +1294,13 @@ canvas {
   line-height: 1.65;
 }
 
+.python-learning-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .python-learning-main {
   width: min(1080px, calc(100% - 32px));
   margin: 24px auto 30px;
@@ -1331,6 +1338,16 @@ canvas {
 
 .learning-hero p {
   margin: 8px 0 0;
+}
+
+.learning-next p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.learning-next .button-link {
+  margin-top: 14px;
 }
 
 .learning-steps {
@@ -1720,10 +1737,16 @@ button.quiz-choice.is-incorrect {
 
   .learning-step .button-link,
   .learning-step button,
+  .python-learning-actions,
+  .python-learning-actions .button-link,
   .quiz-card .secondary-button,
   .quiz-reset,
   .python-learning-cta .button-link {
     width: 100%;
+  }
+
+  .python-learning-actions {
+    justify-content: stretch;
   }
 
   .quiz-options {
