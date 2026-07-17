@@ -1338,6 +1338,41 @@ canvas {
   gap: 12px;
 }
 
+.learning-runner {
+  display: grid;
+  gap: 12px;
+}
+
+.learning-runner-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.learning-runner-grid .python-workspace,
+.learning-runner-grid .python-output-panel {
+  grid-area: auto;
+  min-width: 0;
+}
+
+.learning-runner-grid .python-output-panel {
+  height: clamp(320px, 44vh, 560px);
+}
+
+.learning-runner .code-toolbar {
+  align-items: flex-start;
+}
+
+.learning-runner .toggle-control {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.learning-runner .code-actions {
+  flex: 1 1 360px;
+}
+
 .learning-step {
   display: grid;
   grid-template-columns: 54px minmax(0, 1fr) auto;
@@ -1389,6 +1424,10 @@ canvas {
       "workspace"
       "output"
       "learning";
+  }
+
+  .learning-runner-grid {
+    grid-template-columns: 1fr;
   }
 
   .code-editor-grid {
@@ -1539,6 +1578,7 @@ canvas {
   }
 
   .learning-step .button-link,
+  .learning-step button,
   .python-learning-cta .button-link {
     width: 100%;
   }

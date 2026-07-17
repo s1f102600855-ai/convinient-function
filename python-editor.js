@@ -62,6 +62,8 @@ function getPythonCode() {
 function setPythonCode(code) {
   if (pythonEditor) {
     pythonEditor.setValue(code);
+    pythonEditor.save();
+    window.setTimeout(() => pythonEditor.refresh(), 0);
     return;
   }
 
@@ -256,6 +258,42 @@ function resetPythonCode() {
   setPythonStatus("初期コードに戻しました。");
 }
 
+function insertPythonSample(sampleId) {
+  const template = document.getElementById(sampleId);
+  if (!template) return;
+
+  const code = `${template.content.textContent.trim()}\n`;
+  setPythonCode(code);
+  clearTimeout(saveTimer);
+  saveTimer = null;
+
+  try {
+    localStorage.setItem(pythonStorageKey, code);
+  } catch (error) {
+    // サンプル挿入自体は続けます。
+  }
+
+  pythonOutput.textContent = "まだ実行していません。";
+  setPythonStatus("サンプルコードを入れました。実行できます。");
+
+  const runner = document.getElementById("pythonLearningRunner") || document.querySelector(".python-workspace");
+  runner?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  if (pythonEditor) {
+    pythonEditor.focus();
+  } else {
+    pythonCode.focus();
+  }
+}
+
+function setupPythonSampleButtons() {
+  document.querySelectorAll("[data-python-sample]").forEach((button) => {
+    button.addEventListener("click", () => {
+      insertPythonSample(button.dataset.pythonSample);
+    });
+  });
+}
+
 runPythonButton.addEventListener("click", runPython);
 stopPythonButton.addEventListener("click", stopPython);
 savePythonButton.addEventListener("click", savePythonCode);
@@ -273,3 +311,4 @@ clearPythonOutputButton.addEventListener("click", () => {
 });
 
 setupPythonEditor();
+setupPythonSampleButtons();
