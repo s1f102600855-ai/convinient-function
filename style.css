@@ -50,6 +50,9 @@ input {
 
 button,
 .button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 44px;
   border: none;
   border-radius: 8px;
@@ -1265,6 +1268,89 @@ canvas {
   line-height: 1.55;
 }
 
+.python-learning-main {
+  width: min(1080px, calc(100% - 32px));
+  margin: 24px auto 30px;
+  display: grid;
+  gap: 18px;
+}
+
+.learning-hero,
+.learning-next {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 18px;
+}
+
+.learning-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.learning-hero h2,
+.learning-next h2,
+.learning-step h3 {
+  margin: 0;
+}
+
+.learning-hero p,
+.learning-step p,
+.learning-next li {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.learning-hero p {
+  margin: 8px 0 0;
+}
+
+.learning-steps {
+  display: grid;
+  gap: 12px;
+}
+
+.learning-step {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 16px;
+}
+
+.step-number {
+  margin: 0;
+  color: var(--accent-dark);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.learning-step p {
+  margin: 6px 0 0;
+}
+
+.learning-step pre {
+  margin: 10px 0 0;
+  overflow: auto;
+  border-radius: 8px;
+  background: #0f172a;
+  color: #dbeafe;
+  padding: 12px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.learning-next ul {
+  margin: 10px 0 0;
+  padding-left: 22px;
+}
+
 @media (max-width: 1080px) {
   .code-editor-main {
     grid-template-columns: 1fr;
@@ -1389,6 +1475,7 @@ canvas {
   .content-main,
   .converter-main,
   .calendar-main,
+  .python-learning-main,
   .site-footer {
     width: min(100% - 24px, 980px);
     margin-top: 16px;
@@ -1416,6 +1503,15 @@ canvas {
   .tool-card {
     grid-template-columns: 1fr;
     align-items: stretch;
+  }
+
+  .learning-hero,
+  .learning-step {
+    grid-template-columns: 1fr;
+  }
+
+  .learning-step .button-link {
+    width: 100%;
   }
 
   .calendar-toolbar,
@@ -1644,6 +1740,7 @@ canvas {
   .content-main,
   .converter-main,
   .calendar-main,
+  .python-learning-main,
   .site-footer,
   .code-editor-main,
   .python-editor-main {
