@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Python学習 | 基礎を学んでエディターで試せる無料ページ</title>
-  <meta name="description" content="Pythonの基礎を順番に確認し、ページ内のエディターでコード入力と実行結果を試せる無料学習ページです。変数、条件分岐、繰り返し、リスト、関数の入口をまとめています。" />
+  <meta name="description" content="Pythonの基礎を順番に確認し、ページ内のエディターでコード入力と実行結果を試せる無料学習ページです。変数、計算、条件分岐、繰り返し、リスト、辞書、関数の練習をまとめています。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/python-learning.html" />
 
   <meta property="og:title" content="Python学習 | 基礎を学んでエディターで試せる無料ページ" />
-  <meta property="og:description" content="Pythonの基礎を確認しながら、ページ内のエディターでコードを入力して実行できます。" />
+  <meta property="og:description" content="Pythonの基礎練習を確認しながら、ページ内のエディターでコードを入力して実行できます。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://convenientfunction.com/python-learning.html" />
   <meta property="og:site_name" content="便利サイト" />
@@ -36,13 +36,17 @@
     "inLanguage": "ja",
     "learningResourceType": "Practice problem",
     "educationalLevel": "Beginner",
-    "description": "Pythonの基礎を確認し、ページ内のPythonエディターでコード入力と実行結果を試せる無料学習ページです。",
+    "description": "Pythonの基礎練習を確認し、ページ内のPythonエディターでコード入力と実行結果を試せる無料学習ページです。",
     "teaches": [
       "Pythonの変数",
       "print関数",
+      "四則演算",
+      "文字列",
       "if文",
       "for文",
+      "while文",
       "リスト",
+      "辞書",
       "関数"
     ]
   }
@@ -63,7 +67,7 @@
     <div class="site-heading">
       <p class="eyebrow">Python learning</p>
       <h1>Python学習</h1>
-      <p>Pythonの基礎を確認しながら、ブラウザ内のPythonエディターですぐ試せる学習ページです。</p>
+        <p>Pythonの基礎を確認しながら、ブラウザ内のPythonエディターですぐ練習できる学習ページです。</p>
     </div>
   </header>
 
@@ -71,7 +75,7 @@
     <section class="learning-hero" aria-labelledby="learning-start-heading">
       <div>
         <h2 id="learning-start-heading">学んだら、すぐ実行して確認</h2>
-        <p>このページでは、Pythonの入口になる項目を短く整理しています。下の実行エリアにコードを書いて、その場で動きを確かめられます。</p>
+        <p>このページでは、Pythonの入口になる項目を短く整理しています。下の実行エリアにコードを書いて、その場で動きを確かめながら練習できます。</p>
       </div>
       <a class="button-link" href="#pythonLearningRunner">このページで試す</a>
     </section>
@@ -128,7 +132,7 @@
     <section class="learning-steps" aria-labelledby="learning-steps-heading">
       <div class="section-heading">
         <h2 id="learning-steps-heading">基礎の順番</h2>
-        <p>まずは、短いコードを動かしながら1つずつ確認するのがおすすめです。</p>
+        <p>まずは、短いコードを動かし、数字や文字を少し変えながら1つずつ確認するのがおすすめです。</p>
       </div>
 
       <article class="learning-step">
@@ -186,6 +190,85 @@ print(sum(scores))</code></pre>
         </div>
         <button type="button" class="secondary-button" data-python-sample="sample-function">試す</button>
       </article>
+
+      <article class="learning-step">
+        <p class="step-number">06</p>
+        <div>
+          <h3>四則演算</h3>
+          <p>足し算、引き算、掛け算、割り算を使い、計算結果を表示します。</p>
+          <pre><code>price = 120
+count = 3
+print(price * count)</code></pre>
+        </div>
+        <button type="button" class="secondary-button" data-python-sample="sample-math">試す</button>
+      </article>
+
+      <article class="learning-step">
+        <p class="step-number">07</p>
+        <div>
+          <h3>文字列とf-string</h3>
+          <p>文字と変数を組み合わせて、読みやすい文章を作ります。</p>
+          <pre><code>item = "ノート"
+print(f"{item}を買いました")</code></pre>
+        </div>
+        <button type="button" class="secondary-button" data-python-sample="sample-string">試す</button>
+      </article>
+
+      <article class="learning-step">
+        <p class="step-number">08</p>
+        <div>
+          <h3>比較と論理演算</h3>
+          <p>複数の条件を組み合わせて、より細かく判定します。</p>
+          <pre><code>age = 20
+has_ticket = True</code></pre>
+        </div>
+        <button type="button" class="secondary-button" data-python-sample="sample-logic">試す</button>
+      </article>
+
+      <article class="learning-step">
+        <p class="step-number">09</p>
+        <div>
+          <h3>リストに追加</h3>
+          <p>あとから値を追加し、リストの中身を順番に表示します。</p>
+          <pre><code>tasks = []
+tasks.append("メモを書く")</code></pre>
+        </div>
+        <button type="button" class="secondary-button" data-python-sample="sample-list-append">試す</button>
+      </article>
+
+      <article class="learning-step">
+        <p class="step-number">10</p>
+        <div>
+          <h3>辞書で管理</h3>
+          <p>名前つきのデータをまとめ、キーを使って値を取り出します。</p>
+          <pre><code>profile = {"name": "Aoi"}
+print(profile["name"])</code></pre>
+        </div>
+        <button type="button" class="secondary-button" data-python-sample="sample-dict">試す</button>
+      </article>
+
+      <article class="learning-step">
+        <p class="step-number">11</p>
+        <div>
+          <h3>whileで繰り返し</h3>
+          <p>条件が成り立つ間だけ、同じ処理を繰り返します。</p>
+          <pre><code>count = 3
+while count > 0:
+    print(count)</code></pre>
+        </div>
+        <button type="button" class="secondary-button" data-python-sample="sample-while">試す</button>
+      </article>
+
+      <article class="learning-step">
+        <p class="step-number">12</p>
+        <div>
+          <h3>enumerateで番号つき表示</h3>
+          <p>リストの順番と値を一緒に取り出して表示します。</p>
+          <pre><code>tools = ["メモ", "カレンダー"]
+for index, tool in enumerate(tools):</code></pre>
+        </div>
+        <button type="button" class="secondary-button" data-python-sample="sample-enumerate">試す</button>
+      </article>
     </section>
 
     <template id="sample-variables">name = "Python"
@@ -219,11 +302,71 @@ print(f"平均: {average}")</template>
 message = greet("Python")
 print(message)</template>
 
+    <template id="sample-math">price = 120
+count = 3
+tax_rate = 0.1
+
+subtotal = price * count
+tax_included = int(subtotal * (1 + tax_rate))
+
+print(f"小計: {subtotal}円")
+print(f"税込: {tax_included}円")</template>
+
+    <template id="sample-string">item = "ノート"
+count = 2
+place = "学校"
+
+message = f"{place}で使う{item}を{count}冊買いました"
+print(message)
+print(f"文字数: {len(message)}")</template>
+
+    <template id="sample-logic">age = 20
+has_ticket = True
+
+if age >= 18 and has_ticket:
+    print("入場できます")
+elif age >= 18:
+    print("チケットが必要です")
+else:
+    print("18歳以上から入場できます")</template>
+
+    <template id="sample-list-append">tasks = []
+tasks.append("メモを書く")
+tasks.append("カレンダーを確認")
+tasks.append("Pythonを10分練習")
+
+for task in tasks:
+    print(f"- {task}")</template>
+
+    <template id="sample-dict">profile = {
+    "name": "Aoi",
+    "level": 1,
+    "study_minutes": 15
+}
+
+profile["level"] += 1
+print(f"{profile['name']}さん")
+print(f"レベル: {profile['level']}")
+print(f"今日の学習: {profile['study_minutes']}分")</template>
+
+    <template id="sample-while">count = 3
+
+while count > 0:
+    print(count)
+    count -= 1
+
+print("スタート")</template>
+
+    <template id="sample-enumerate">tools = ["メモ", "カレンダー", "Pythonエディター"]
+
+for index, tool in enumerate(tools, start=1):
+    print(f"{index}. {tool}")</template>
+
     <section class="learning-next" aria-labelledby="learning-next-heading">
       <h2 id="learning-next-heading">今後追加したい内容</h2>
       <ul>
         <li>各項目ごとの詳しい解説</li>
-        <li>練習問題と答えの確認</li>
+        <li>答えを隠して解ける練習モード</li>
         <li>章ごとの短い確認テスト</li>
         <li>初心者向けの小さな課題集</li>
       </ul>
