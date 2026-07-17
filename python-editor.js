@@ -294,6 +294,77 @@ function setupPythonSampleButtons() {
   });
 }
 
+function setupPythonQuizzes() {
+  const quizCards = [...document.querySelectorAll(".quiz-card[data-quiz-answer]")];
+  const quizScore = document.getElementById("quizScore");
+  const resetQuizButton = document.getElementById("resetPythonQuiz");
+
+  if (!quizCards.length) return;
+
+  function updateQuizScore() {
+    const correctCount = quizCards.filter((card) => card.dataset.quizState === "correct").length;
+
+    if (quizScore) {
+      quizScore.textContent = `${correctCount} / ${quizCards.length} 問 正解`;
+    }
+  }
+
+  function resetQuiz() {
+    quizCards.forEach((card) => {
+      card.dataset.quizState = "";
+      card.querySelectorAll("[data-quiz-choice]").forEach((button) => {
+        button.classList.remove("is-selected", "is-correct", "is-incorrect");
+        button.setAttribute("aria-pressed", "false");
+      });
+
+      const result = card.querySelector(".quiz-result");
+      if (result) {
+        result.textContent = "答えを選んでください。";
+        result.classList.remove("is-correct", "is-incorrect");
+      }
+    });
+
+    updateQuizScore();
+  }
+
+  quizCards.forEach((card) => {
+    const choices = [...card.querySelectorAll("[data-quiz-choice]")];
+    const result = card.querySelector(".quiz-result");
+
+    choices.forEach((button) => {
+      button.addEventListener("click", () => {
+        const isCorrect = button.dataset.quizChoice === card.dataset.quizAnswer;
+
+        choices.forEach((choice) => {
+          choice.classList.remove("is-selected", "is-correct", "is-incorrect");
+          choice.setAttribute("aria-pressed", "false");
+        });
+
+        button.classList.add("is-selected");
+        button.classList.add(isCorrect ? "is-correct" : "is-incorrect");
+        button.setAttribute("aria-pressed", "true");
+
+        if (!isCorrect) {
+          const correctChoice = choices.find((choice) => choice.dataset.quizChoice === card.dataset.quizAnswer);
+          correctChoice?.classList.add("is-correct");
+        }
+
+        if (result) {
+          result.textContent = `${isCorrect ? "正解です。" : "もう一度確認しましょう。"}${card.dataset.quizExplanation || ""}`;
+          result.classList.toggle("is-correct", isCorrect);
+          result.classList.toggle("is-incorrect", !isCorrect);
+        }
+
+        card.dataset.quizState = isCorrect ? "correct" : "incorrect";
+        updateQuizScore();
+      });
+    });
+  });
+
+  resetQuizButton?.addEventListener("click", resetQuiz);
+  updateQuizScore();
+}
+
 runPythonButton.addEventListener("click", runPython);
 stopPythonButton.addEventListener("click", stopPython);
 savePythonButton.addEventListener("click", savePythonCode);
@@ -312,3 +383,4 @@ clearPythonOutputButton.addEventListener("click", () => {
 
 setupPythonEditor();
 setupPythonSampleButtons();
+setupPythonQuizzes();

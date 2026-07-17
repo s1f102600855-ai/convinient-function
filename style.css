@@ -1407,6 +1407,142 @@ canvas {
   line-height: 1.55;
 }
 
+.learning-quiz {
+  display: grid;
+  gap: 14px;
+}
+
+.quiz-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.quiz-heading h2 {
+  margin: 0;
+}
+
+.quiz-heading p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.quiz-score {
+  margin: 0;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 10px 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.quiz-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 16px;
+}
+
+.quiz-question-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.quiz-card h3 {
+  margin: 0;
+}
+
+.quiz-card p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.quiz-card pre {
+  margin: 0;
+  overflow: auto;
+  border-radius: 8px;
+  background: #0f172a;
+  color: #dbeafe;
+  padding: 12px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+button.quiz-choice {
+  justify-content: flex-start;
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: var(--text);
+  text-align: left;
+  box-shadow: none;
+}
+
+button.quiz-choice:hover,
+button.quiz-choice.is-selected {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+button.quiz-choice.is-correct {
+  border-color: #22c55e;
+  background: #dcfce7;
+  color: #166534;
+}
+
+button.quiz-choice.is-incorrect {
+  border-color: #ef4444;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.quiz-result {
+  border-left: 4px solid #94a3b8;
+  border-radius: 8px;
+  background: var(--surface-soft);
+  padding: 10px 12px;
+}
+
+.quiz-result.is-correct {
+  border-left-color: #22c55e;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.quiz-result.is-incorrect {
+  border-left-color: #ef4444;
+  background: #fff1f2;
+  color: #991b1b;
+}
+
+.quiz-card .secondary-button,
+.quiz-reset {
+  justify-self: start;
+}
+
 .learning-next ul {
   margin: 10px 0 0;
   padding-left: 22px;
@@ -1427,6 +1563,10 @@ canvas {
   }
 
   .learning-runner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1572,6 +1712,7 @@ canvas {
   }
 
   .learning-hero,
+  .quiz-heading,
   .learning-step,
   .python-learning-cta {
     grid-template-columns: 1fr;
@@ -1579,8 +1720,14 @@ canvas {
 
   .learning-step .button-link,
   .learning-step button,
+  .quiz-card .secondary-button,
+  .quiz-reset,
   .python-learning-cta .button-link {
     width: 100%;
+  }
+
+  .quiz-options {
+    grid-template-columns: 1fr;
   }
 
   .calendar-toolbar,
