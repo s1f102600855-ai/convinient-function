@@ -22,10 +22,10 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.css" />
-  <link rel="stylesheet" href="style.css?v=20260718-code-input-quiz" />
+  <link rel="stylesheet" href="style.css?v=20260718-quiz-mode-selector" />
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js" defer></script>
-  <script src="python-editor.js?v=20260718-code-input-quiz" defer></script>
+  <script src="python-editor.js?v=20260718-quiz-mode-selector" defer></script>
 
   <script type="application/ld+json">
   {
@@ -80,7 +80,7 @@
         <h2 id="learning-start-heading">基礎を小テストで確認</h2>
         <p>変数、計算、if文、リスト、辞書、関数の基本を短い問題で確認できます。選択問題で考え方を押さえ、コード入力問題で自分の手で書く練習ができます。</p>
       </div>
-      <a class="button-link" href="#learning-quiz-heading">小テストを始める</a>
+      <a class="button-link" href="#quiz-mode-heading">問題を選ぶ</a>
     </section>
 
     <section id="pythonLearningRunner" class="learning-runner" aria-labelledby="learning-runner-heading">
@@ -132,7 +132,25 @@
       </div>
     </section>
 
-    <section class="learning-quiz" aria-labelledby="learning-quiz-heading">
+    <section class="quiz-mode-selector" aria-labelledby="quiz-mode-heading">
+      <div>
+        <p class="eyebrow">Quiz mode</p>
+        <h2 id="quiz-mode-heading">解く問題を選ぶ</h2>
+        <p>まず4択問題で考え方を確認するか、コード入力問題で自分で書く練習をするかを選べます。</p>
+      </div>
+      <div class="quiz-mode-buttons" role="group" aria-label="問題タイプを選択">
+        <button type="button" class="quiz-mode-button is-active" data-quiz-mode-target="choice" aria-pressed="true" aria-controls="choiceQuizPanel">
+          <span>4択問題</span>
+          <small>選択肢から答える</small>
+        </button>
+        <button type="button" class="quiz-mode-button" data-quiz-mode-target="code" aria-pressed="false" aria-controls="codeQuizPanel">
+          <span>コード入力問題</span>
+          <small>自分でコードを書く</small>
+        </button>
+      </div>
+    </section>
+
+    <section id="choiceQuizPanel" class="learning-quiz" aria-labelledby="learning-quiz-heading" data-quiz-mode-panel="choice">
       <div class="section-heading quiz-heading">
         <div>
           <h2 id="learning-quiz-heading">基礎小テスト</h2>
@@ -264,7 +282,7 @@ print(profile["name"])</code></pre>
       <button type="button" id="resetPythonQuiz" class="secondary-button quiz-reset">小テストをリセット</button>
     </section>
 
-    <section class="learning-code-quiz" aria-labelledby="learning-code-quiz-heading">
+    <section id="codeQuizPanel" class="learning-code-quiz" aria-labelledby="learning-code-quiz-heading" data-quiz-mode-panel="code" hidden>
       <div class="section-heading quiz-heading">
         <div>
           <h2 id="learning-code-quiz-heading">コード入力問題</h2>

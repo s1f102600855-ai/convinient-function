@@ -12,6 +12,7 @@ const clearPythonOutputButton = document.getElementById("clearPythonOutputButton
 const autoSavePython = document.getElementById("autoSavePython");
 
 const pythonStorageKey = "pythonEditorCodeV1";
+const pythonQuizModeStorageKey = "pythonQuizModeV1";
 const pythonWorkerUrl = "python-worker.js?v=20260716-runfix";
 const defaultPythonCode = `# ブラウザ内でPythonを実行できます
 name = "便利サイト"
@@ -365,6 +366,53 @@ function setupPythonQuizzes() {
   updateQuizScore();
 }
 
+function setupPythonQuizModeSelector() {
+  const modeButtons = [...document.querySelectorAll("[data-quiz-mode-target]")];
+  const modePanels = [...document.querySelectorAll("[data-quiz-mode-panel]")];
+
+  if (!modeButtons.length || !modePanels.length) return;
+
+  const validModes = modeButtons.map((button) => button.dataset.quizModeTarget);
+  let activeMode = "choice";
+
+  try {
+    const savedMode = localStorage.getItem(pythonQuizModeStorageKey);
+    if (validModes.includes(savedMode)) {
+      activeMode = savedMode;
+    }
+  } catch (error) {
+    // 保存できない環境でも切り替え自体は動かします。
+  }
+
+  function setActiveMode(mode) {
+    if (!validModes.includes(mode)) return;
+
+    modeButtons.forEach((button) => {
+      const isActive = button.dataset.quizModeTarget === mode;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    modePanels.forEach((panel) => {
+      panel.hidden = panel.dataset.quizModePanel !== mode;
+    });
+
+    try {
+      localStorage.setItem(pythonQuizModeStorageKey, mode);
+    } catch (error) {
+      // 保存できない環境でも画面上の切り替えは完了しています。
+    }
+  }
+
+  modeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setActiveMode(button.dataset.quizModeTarget);
+    });
+  });
+
+  setActiveMode(activeMode);
+}
+
 function setupPythonCodeQuizzes() {
   const codeQuizCards = [...document.querySelectorAll(".code-quiz-card[data-code-answers]")];
   const codeQuizScore = document.getElementById("codeQuizScore");
@@ -492,4 +540,5 @@ clearPythonOutputButton.addEventListener("click", () => {
 setupPythonEditor();
 setupPythonSampleButtons();
 setupPythonQuizzes();
+setupPythonQuizModeSelector();
 setupPythonCodeQuizzes();
