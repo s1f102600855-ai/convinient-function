@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pythonエディター | ブラウザでPythonを実行できる無料ツール</title>
-  <meta name="description" content="Pythonコードをブラウザ内で実行しながら学習できる無料ツールです。Pyodideを使い、コードは端末内に自動保存されます。" />
+  <meta name="description" content="Pythonコードをブラウザ内で書いて実行できる無料ツールです。Pyodideを使い、コードは端末内に自動保存されます。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://convenientfunction.com/python-editor.html" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self';" />
 
   <meta property="og:title" content="Pythonエディター | ブラウザでPythonを実行できる無料ツール" />
-  <meta property="og:description" content="Pythonコードをブラウザ上で書いて、その場で実行しながら学習できます。" />
+  <meta property="og:description" content="Pythonコードをブラウザ上で書いて、その場で実行結果を確認できます。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://convenientfunction.com/python-editor.html" />
   <meta property="og:site_name" content="便利サイト" />
@@ -23,10 +23,10 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.css" />
-  <link rel="stylesheet" href="style.css?v=20260717-python-learning-layout" />
+  <link rel="stylesheet" href="style.css?v=20260717-python-editor-focus" />
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js" defer></script>
-  <script src="python-editor.js?v=20260717-learning" defer></script>
+  <script src="python-editor.js?v=20260717-editor-focus" defer></script>
 
   <script type="application/ld+json">
   {
@@ -44,8 +44,7 @@
       "自動インデント",
       "コード保存",
       ".pyファイルの保存",
-      "実行結果のコピー",
-      "Python学習ミニレッスン"
+      "実行結果のコピー"
     ],
     "offers": {
       "@type": "Offer",
@@ -112,39 +111,6 @@
       <p>Pythonはブラウザ内の別スレッドで実行されます。初回読み込みには時間がかかります。コードはこのブラウザ内に保存されますが、秘密情報やパスワードは入力しないでください。</p>
     </section>
 
-    <section class="python-learning-panel" aria-labelledby="python-learning-heading">
-      <div class="python-learning-header">
-        <div>
-          <p class="eyebrow">Learn Python</p>
-          <h2 id="python-learning-heading">Python学習</h2>
-        </div>
-        <p id="lessonProgress" class="status">1 / 5</p>
-      </div>
-
-      <div id="lessonTabs" class="lesson-tabs" role="tablist" aria-label="Python学習レッスン"></div>
-
-      <article class="lesson-card" aria-live="polite">
-        <h3 id="lessonTitle"></h3>
-        <p id="lessonDescription"></p>
-
-        <div class="lesson-points">
-          <h4>ポイント</h4>
-          <ul id="lessonPoints"></ul>
-        </div>
-
-        <div class="lesson-challenge">
-          <h4>練習</h4>
-          <p id="lessonChallenge"></p>
-        </div>
-
-        <div class="lesson-actions">
-          <button type="button" id="insertLessonButton">コードに入れる</button>
-          <button type="button" id="runLessonButton" class="secondary-button">入れて実行</button>
-          <button type="button" id="nextLessonButton" class="secondary-button">次へ</button>
-        </div>
-      </article>
-    </section>
-
     <section class="python-workspace" aria-label="Pythonコード編集エリア">
       <div class="code-toolbar">
         <label class="toggle-control">
@@ -189,7 +155,7 @@
   <section class="seo-content" aria-labelledby="python-guide-heading">
     <div class="seo-summary">
       <h2 id="python-guide-heading">ブラウザでPythonを実行できる無料エディター</h2>
-        <p>Pythonエディターは、Pythonをインストールしていない環境でもブラウザ内でコードを書いて実行できる無料ツールです。短いPythonコードの確認、学習、計算、標準ライブラリの動作確認に使えます。ミニレッスンを選ぶと、説明を読みながらサンプルコードをすぐ実行できます。</p>
+        <p>Pythonエディターは、Pythonをインストールしていない環境でもブラウザ内でコードを書いて実行できる無料ツールです。短いPythonコードの確認、計算、標準ライブラリの動作確認に使えます。構文ハイライトと自動インデントに対応しているため、コードを書きながら実行結果を同じ画面で確認できます。</p>
     </div>
 
     <div class="seo-grid" aria-label="Pythonエディターの特徴">
@@ -199,7 +165,7 @@
       </article>
       <article>
         <h3>書きやすいエディター</h3>
-        <p>構文ハイライト、行番号、自動インデントに対応しています。短いサンプルコードや学習用コードを読みやすく編集できます。</p>
+        <p>構文ハイライト、行番号、自動インデントに対応しています。短いサンプルコードや確認用コードを読みやすく編集できます。</p>
       </article>
       <article>
         <h3>コードを保存</h3>

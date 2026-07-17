@@ -1054,14 +1054,13 @@ canvas {
 }
 
 .python-editor-main {
-  width: min(1740px, calc(100% - 24px));
+  width: min(1560px, calc(100% - 24px));
   min-height: 0;
   margin: 14px auto 18px;
   display: grid;
-  grid-template-columns: minmax(560px, 1.02fr) minmax(520px, 0.98fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
   grid-template-areas:
     "note note"
-    "workspace learning"
     "workspace output";
   gap: 14px;
   align-items: stretch;
@@ -1102,134 +1101,12 @@ canvas {
 }
 
 .python-workspace,
-.python-learning-panel,
 .python-output-panel {
   min-width: 0;
 }
 
 .python-workspace {
   grid-area: workspace;
-}
-
-.python-learning-panel {
-  grid-area: learning;
-  height: clamp(360px, 44vh, 480px);
-  min-height: 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  display: grid;
-  grid-template-columns: minmax(128px, 0.3fr) minmax(0, 1fr);
-  grid-template-rows: auto minmax(0, 1fr);
-  overflow: hidden;
-}
-
-.python-learning-header {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid var(--line);
-  background: var(--surface-soft);
-  padding: 12px 14px;
-}
-
-.python-learning-header h2 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.lesson-tabs {
-  display: grid;
-  align-content: start;
-  gap: 7px;
-  min-height: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  border-right: 1px solid var(--line);
-  background: #f8fafc;
-  padding: 10px;
-}
-
-.lesson-tab {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  min-height: 38px;
-  border-radius: 8px;
-  background: #e2e8f0;
-  color: var(--text);
-  padding: 8px 9px;
-  font-size: 12.5px;
-  line-height: 1.35;
-  text-align: left;
-  white-space: normal;
-}
-
-.lesson-tab.active {
-  background: var(--accent);
-  color: #ffffff;
-}
-
-.lesson-card {
-  min-height: 0;
-  overflow: auto;
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  padding: 12px 14px;
-}
-
-.lesson-card h3,
-.lesson-card h4,
-.lesson-card p {
-  margin: 0;
-}
-
-.lesson-card h3 {
-  font-size: 17px;
-}
-
-.lesson-card h4 {
-  font-size: 13px;
-  color: var(--accent-dark);
-}
-
-.lesson-card p,
-.lesson-card li {
-  color: var(--muted);
-  font-size: 13.5px;
-  line-height: 1.48;
-}
-
-.lesson-points,
-.lesson-challenge {
-  display: grid;
-  gap: 4px;
-}
-
-.lesson-points ul {
-  margin: 0;
-  padding-left: 18px;
-}
-
-.lesson-actions {
-  position: sticky;
-  bottom: -12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  border-top: 1px solid var(--line);
-  background: var(--surface);
-  padding-top: 8px;
-}
-
-.lesson-actions button {
-  flex: 1 1 0;
-  min-height: 34px;
-  padding: 8px;
-  font-size: 13.5px;
 }
 
 .python-code-panel {
@@ -1353,7 +1230,7 @@ canvas {
 
 .python-output-panel {
   grid-area: output;
-  height: clamp(210px, 26vh, 320px);
+  height: clamp(320px, calc(100vh - 330px), 620px);
   min-height: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1398,7 +1275,6 @@ canvas {
     grid-template-areas:
       "note"
       "workspace"
-      "learning"
       "output";
   }
 
@@ -1420,37 +1296,6 @@ canvas {
 
   .python-output-panel {
     height: auto;
-  }
-
-  .python-learning-panel {
-    height: auto;
-    max-height: none;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .lesson-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    overflow: visible;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-    background: var(--surface);
-    padding: 10px;
-  }
-
-  .lesson-tab {
-    flex: 1 1 150px;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .lesson-card {
-    overflow: visible;
-  }
-
-  .lesson-actions {
-    position: static;
   }
 
   #pythonOutput {
@@ -1829,17 +1674,6 @@ canvas {
   button,
   .button-link,
   select {
-    width: 100%;
-  }
-
-  .lesson-tab {
-    flex-basis: 100%;
-    justify-content: flex-start;
-    text-align: left;
-    width: auto;
-  }
-
-  .lesson-actions button {
     width: 100%;
   }
 
