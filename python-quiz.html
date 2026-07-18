@@ -174,7 +174,7 @@
           <h2 id="learning-quiz-heading">基礎小テスト</h2>
           <p>選択肢を押すと正誤と解説が出ます。迷った問題は「コードで確認」からエディターで動かせます。</p>
         </div>
-        <p id="quizScore" class="quiz-score" aria-live="polite">0 / 26 問 正解</p>
+        <p id="quizScore" class="quiz-score" aria-live="polite">0 / 31 問 正解</p>
       </div>
 
       <div class="quiz-grid">
@@ -755,6 +755,130 @@ except ZeroDivisionError:
           <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
           <button type="button" class="secondary-button" data-python-sample="sample-zero-division">コードで確認</button>
         </article>
+
+        <article class="quiz-card" data-quiz-unit="condition" data-quiz-answer="ok" data-quiz-explanation="28は4で割り切れ、20より大きいので、条件が真になってOKが返ります。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q27</p>
+            <div>
+              <h3>倍数と大小を同時に判定する</h3>
+              <p>条件に当てはまるとき、表示される文字を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def check_value(x):
+    if x % 4 == 0 and x &gt; 20:
+        return "OK"
+    return "NG"
+
+print(check_value(28))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q27の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="ok" aria-pressed="false">OK</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="ng" aria-pressed="false">NG</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="28" aria-pressed="false">28</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-exam-condition">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="list-loop" data-quiz-answer="3" data-quiz-explanation="water、green、lightが5文字なので、条件に当てはまる単語は3つです。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q28</p>
+            <div>
+              <h3>5文字の単語を数える</h3>
+              <p>リストの中で5文字の単語だけを数えた結果を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def count5(words):
+    count = 0
+    for word in words:
+        if len(word) == 5:
+            count += 1
+    return count
+
+print(count5(["water", "sun", "green", "book", "light"]))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q28の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="2" aria-pressed="false">2</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="3" aria-pressed="false">3</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="5" aria-pressed="false">5</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-exam-count5">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="list-loop" data-quiz-answer="ng" data-quiz-explanation="3番目の7が最初の6と違うため、途中でNGが返ります。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q29</p>
+            <div>
+              <h3>全要素が同じか判定する</h3>
+              <p>リストを順番に確認した結果を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def same_all(nums):
+    first = nums[0]
+    for num in nums:
+        if num != first:
+            return "NG"
+    return "OK"
+
+print(same_all([6, 6, 7, 6]))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q29の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="ok" aria-pressed="false">OK</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="ng" aria-pressed="false">NG</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="7" aria-pressed="false">7</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-exam-all-equal">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="regex" data-quiz-answer="true" data-quiz-explanation=":-Dは「目」「鼻」「口」が順番に並ぶ形なので、正規表現に一致します。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q30</p>
+            <div>
+              <h3>顔文字の形を判定する</h3>
+              <p>文字列の中に条件を満たす顔文字が含まれるかを選んでください。</p>
+            </div>
+          </div>
+          <pre><code>import re
+
+pattern = r"[:;][-=]?[)(DP]"
+print(re.search(pattern, "Good job :-D") is not None)</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q30の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="true" aria-pressed="false">True</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="false" aria-pressed="false">False</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="none" aria-pressed="false">None</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-exam-emoticon">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="class" data-quiz-answer="7" data-quiz-explanation="最初のlikesは5です。add_like()を2回呼ぶので、5から7になります。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q31</p>
+            <div>
+              <h3>いいね数を増やすクラス</h3>
+              <p>メソッドを2回呼び出したあと、表示される数を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>class MessagePost:
+    def __init__(self, username, content, likes):
+        self.username = username
+        self.content = content
+        self.likes = likes
+
+    def add_like(self):
+        self.likes += 1
+
+post = MessagePost("writer1", "Python practice", 5)
+post.add_like()
+post.add_like()
+print(post.likes)</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q31の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="5" aria-pressed="false">5</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="6" aria-pressed="false">6</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="7" aria-pressed="false">7</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-exam-post-like">コードで確認</button>
+        </article>
       </div>
 
       <button type="button" id="resetPythonQuiz" class="secondary-button quiz-reset">小テストをリセット</button>
@@ -766,7 +890,7 @@ except ZeroDivisionError:
           <h2 id="learning-code-quiz-heading">コード入力問題</h2>
           <p>短いコードを自分で入力して確認します。スペースの違いはある程度吸収して判定します。</p>
         </div>
-        <p id="codeQuizScore" class="quiz-score" aria-live="polite">0 / 24 問 正解</p>
+        <p id="codeQuizScore" class="quiz-score" aria-live="polite">0 / 29 問 正解</p>
       </div>
 
       <div class="quiz-grid code-quiz-grid">
@@ -1294,6 +1418,117 @@ print(re.fullmatch(pattern, "123-4567") is not None)</code></pre>
           </div>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="condition" data-code-answers="if x % 4 == 0 and x > 20:" data-code-mode="compact" data-code-explanation="4で割り切れることと20より大きいことを、andで同時に判定します。">
+          <div class="quiz-question-row">
+            <p class="step-number">C25</p>
+            <div>
+              <h3>倍数と大小の条件を書く</h3>
+              <p>xが4の倍数で20より大きいときだけOKを返すif文の1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>def check_value(x):
+    # ここに1行
+        return "OK"
+    return "NG"</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C25のコード入力" placeholder="if x % 4 == 0 and x > 20:"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-exam-condition">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="list-loop" data-code-answers="if len(word) == 5:" data-code-mode="compact" data-code-explanation="len(word)で単語の文字数を調べ、5文字のときだけcountを増やします。">
+          <div class="quiz-question-row">
+            <p class="step-number">C26</p>
+            <div>
+              <h3>5文字の単語を判定する</h3>
+              <p>wordが5文字なら処理に入るif文の1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>for word in words:
+    # ここに1行
+        count += 1</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C26のコード入力" placeholder="if len(word) == 5:"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-exam-count5">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="list-loop" data-code-answers="if num != first:" data-code-mode="compact" data-code-explanation="最初の要素と違う数字が見つかったら、すべて同じではないと判断できます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C27</p>
+            <div>
+              <h3>最初の値と違うか調べる</h3>
+              <p>numがfirstと違うときに処理に入るif文の1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>first = nums[0]
+for num in nums:
+    # ここに1行
+        return "NG"</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C27のコード入力" placeholder="if num != first:"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-exam-all-equal">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="regex" data-code-answers='pattern = r"[:;][-=]?[)(DP]"' data-code-mode="compact" data-code-explanation="[:;]が目、[-=]?が省略可能な鼻、[)(DP]が口を表します。">
+          <div class="quiz-question-row">
+            <p class="step-number">C28</p>
+            <div>
+              <h3>顔文字の正規表現を書く</h3>
+              <p>目、必要なら鼻、口の順に並ぶ顔文字に一致するpatternの1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>import re
+# ここに1行
+print(re.search(pattern, "Good job :-D") is not None)</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C28のコード入力" placeholder='pattern = r"[:;][-=]?[)(DP]"'></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-exam-emoticon">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="class" data-code-answers="self.likes += 1|||self.likes = self.likes + 1" data-code-mode="compact" data-code-explanation="インスタンスが持つlikesを1増やすので、self.likesを更新します。">
+          <div class="quiz-question-row">
+            <p class="step-number">C29</p>
+            <div>
+              <h3>いいね数を1増やす</h3>
+              <p>add_likeメソッドの中でlikesを1増やす1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>def add_like(self):
+    # ここに1行</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C29のコード入力" placeholder="self.likes += 1"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-exam-post-like">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
       </div>
 
       <button type="button" id="resetPythonCodeQuiz" class="secondary-button quiz-reset">コード入力問題をリセット</button>
@@ -1432,6 +1667,56 @@ print(counter.value)</template>
     print(10 // 0)
 except ZeroDivisionError:
     print("割れません")</template>
+
+    <template id="sample-exam-condition">def check_value(x):
+    if x % 4 == 0 and x &gt; 20:
+        return "OK"
+    return "NG"
+
+for value in [16, 20, 24, 28, 31]:
+    print(value, check_value(value))</template>
+
+    <template id="sample-exam-count5">def count5(words):
+    count = 0
+    for word in words:
+        if len(word) == 5:
+            count += 1
+    return count
+
+print(count5(["water", "sun", "green", "book", "light"]))
+print(count5(["apple", "pen", "grape", "desk"]))</template>
+
+    <template id="sample-exam-all-equal">def same_all(nums):
+    first = nums[0]
+    for num in nums:
+        if num != first:
+            return "NG"
+    return "OK"
+
+print(same_all([6, 6, 7, 6]))
+print(same_all([9, 9, 9]))</template>
+
+    <template id="sample-exam-emoticon">import re
+
+pattern = r"[:;][-=]?[)(DP]"
+
+for text in ["Good job :-D", "smile :)", "separated : )", "reversed )-:"]:
+    print(text, re.search(pattern, text) is not None)</template>
+
+    <template id="sample-exam-post-like">class MessagePost:
+    def __init__(self, username, content, likes):
+        self.username = username
+        self.content = content
+        self.likes = likes
+
+    def add_like(self):
+        self.likes += 1
+
+post = MessagePost("writer1", "Python practice", 5)
+post.add_like()
+post.add_like()
+print(post.username)
+print(post.likes)</template>
 
     <template id="sample-math">price = 120
 count = 3
