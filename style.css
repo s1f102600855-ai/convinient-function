@@ -1438,6 +1438,82 @@ canvas {
   gap: 14px;
 }
 
+.exam-problem-set {
+  display: grid;
+  gap: 14px;
+}
+
+.exam-problem-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.exam-problem-card {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 18px;
+}
+
+.exam-problem-card h3 {
+  margin: 0;
+}
+
+.exam-problem-card h4 {
+  margin: 4px 0 0;
+  color: var(--text);
+  font-size: 17px;
+}
+
+.exam-problem-card p {
+  margin: 6px 0 0;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.exam-problem-card code {
+  border-radius: 5px;
+  background: #f1f5f9;
+  color: var(--text);
+  padding: 2px 5px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.94em;
+}
+
+.exam-problem-card pre {
+  margin: 0;
+  overflow: auto;
+  border-radius: 8px;
+  background: #0f172a;
+  color: #dbeafe;
+  padding: 12px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.exam-problem-card pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+.exam-problem-card .secondary-button {
+  justify-self: start;
+}
+
+.exam-condition-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 22px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
 .quiz-mode-selector {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.75fr);

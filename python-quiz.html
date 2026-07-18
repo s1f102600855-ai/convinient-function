@@ -168,6 +168,281 @@
       </div>
     </section>
 
+    <section class="exam-problem-set" aria-labelledby="exam-problem-heading">
+      <div class="section-heading quiz-heading">
+        <div>
+          <p class="eyebrow">Implementation set</p>
+          <h2 id="exam-problem-heading">Python類題セット</h2>
+          <p>画像の問題をそのまま練習できる形で掲載しています。解答は上のPythonエディターに書いて、動作例と同じ出力になるか確認してください。</p>
+        </div>
+      </div>
+
+      <div class="exam-problem-grid">
+        <article class="exam-problem-card" data-quiz-unit="condition">
+          <div class="quiz-question-row">
+            <p class="step-number">問題1</p>
+            <div>
+              <h3>条件分岐</h3>
+              <p>正の整数 <code>x</code> を引数にとり、<code>x</code> が4の倍数かつ20以上ならば文字列 <code>'OK'</code> を、そうでなければ文字列 <code>'NG'</code> を返す関数 <code>check4(x)</code> を定義してください。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>print(check4(24))
+print(check4(18))
+print(check4(16))
+print(check4(40))
+print(check4(22))</code></pre>
+          <h4>出力</h4>
+          <pre><code>OK
+NG
+NG
+OK
+NG</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-set-check4">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="list-loop">
+          <div class="quiz-question-row">
+            <p class="step-number">問題2</p>
+            <div>
+              <h3>リストと文字数</h3>
+              <p>英単語のリスト <code>words</code> を引数にとり、その中にある文字数が4文字の単語の個数を返す関数 <code>count4(words)</code> を定義してください。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>print(count4(['book', 'apple', 'desk']))
+print(count4(['pen', 'tree', 'blue', 'orange']))
+print(count4(['dog', 'cat', 'banana']))
+print(count4(['game', 'play', 'read']))</code></pre>
+          <h4>出力</h4>
+          <pre><code>2
+2
+0
+3</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-set-count4">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="list-loop">
+          <div class="quiz-question-row">
+            <p class="step-number">問題3</p>
+            <div>
+              <h3>すべての要素を確認</h3>
+              <p>整数のリスト <code>scores</code> を引数にとり、すべての点数が60点以上なら文字列 <code>'PASS'</code> を、1つでも60点未満の点数があれば文字列 <code>'FAIL'</code> を返す関数 <code>check_scores(scores)</code> を定義してください。</p>
+              <p>なお、<code>scores</code> には1つ以上の要素が入っているものとします。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>print(check_scores([80, 75, 90]))
+print(check_scores([60, 60, 60]))
+print(check_scores([90, 55, 70]))
+print(check_scores([100, 85, 59]))</code></pre>
+          <h4>出力</h4>
+          <pre><code>PASS
+PASS
+FAIL
+FAIL</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-set-check-scores">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="regex">
+          <div class="quiz-question-row">
+            <p class="step-number">問題4</p>
+            <div>
+              <h3>正規表現</h3>
+              <p>文字列 <code>s</code> を引数にとり、その中に次の条件を満たすコードが含まれていれば <code>True</code>、含まれていなければ <code>False</code> を返す関数 <code>has_code(s)</code> を定義してください。</p>
+              <p>コードの条件は <code>英大文字 → 数字2文字 → 英小文字</code> です。例えば、<code>A12b</code> や <code>Z99x</code> は条件を満たします。</p>
+            </div>
+          </div>
+          <ul class="exam-condition-list">
+            <li>英大文字: <code>A</code> から <code>Z</code></li>
+            <li>数字: <code>0</code> から <code>9</code></li>
+            <li>英小文字: <code>a</code> から <code>z</code></li>
+          </ul>
+          <h4>動作例</h4>
+          <pre><code>print(has_code('My code is A12b.'))
+print(has_code('Z99x is available'))
+print(has_code('a12b'))
+print(has_code('A1b'))
+print(has_code('A123b'))
+print(has_code('No code here'))</code></pre>
+          <h4>出力</h4>
+          <pre><code>True
+True
+False
+False
+False
+False</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-set-has-code">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="class">
+          <div class="quiz-question-row">
+            <p class="step-number">問題5</p>
+            <div>
+              <h3>クラス</h3>
+              <p>次の属性とメソッドを持つ商品用のクラス <code>Product</code> を定義してください。</p>
+              <p>コンストラクタは <code>Product(name, price, stock)</code> の3つの引数を受け取り、属性 <code>name</code>、<code>price</code>、<code>stock</code> を持ちます。また、在庫数を1増やすメソッド <code>add_stock()</code> を持ちます。</p>
+            </div>
+          </div>
+          <ul class="exam-condition-list">
+            <li><code>name</code>: 商品名</li>
+            <li><code>price</code>: 商品の価格</li>
+            <li><code>stock</code>: 在庫数</li>
+          </ul>
+          <h4>動作例</h4>
+          <pre><code>product1 = Product('pen', 120, 5)
+product2 = Product('notebook', 300, 2)
+
+product1.add_stock()
+product2.add_stock()
+product2.add_stock()
+
+print(product1.name)
+print(product1.stock)
+print(product2.price)
+print(product2.stock)</code></pre>
+          <h4>出力</h4>
+          <pre><code>pen
+6
+300
+4</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-set-product">エディターに入れる</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="exam-problem-set" aria-labelledby="exam-similar-heading">
+      <div class="section-heading quiz-heading">
+        <div>
+          <p class="eyebrow">Similar set</p>
+          <h2 id="exam-similar-heading">画像の問題の類題</h2>
+          <p>上の5問と同じ考え方で解ける、数値や条件を変えた練習問題です。</p>
+        </div>
+      </div>
+
+      <div class="exam-problem-grid">
+        <article class="exam-problem-card" data-quiz-unit="condition">
+          <div class="quiz-question-row">
+            <p class="step-number">類題1</p>
+            <div>
+              <h3>条件分岐</h3>
+              <p>正の整数 <code>x</code> を引数にとり、<code>x</code> が5の倍数かつ30以上ならば文字列 <code>'OK'</code> を、そうでなければ文字列 <code>'NG'</code> を返す関数 <code>check5(x)</code> を定義してください。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>print(check5(35))
+print(check5(25))
+print(check5(30))
+print(check5(42))
+print(check5(50))</code></pre>
+          <h4>出力</h4>
+          <pre><code>OK
+NG
+OK
+NG
+OK</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-similar-check5">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="list-loop">
+          <div class="quiz-question-row">
+            <p class="step-number">類題2</p>
+            <div>
+              <h3>リストと文字数</h3>
+              <p>英単語のリスト <code>words</code> を引数にとり、その中にある文字数が5文字の単語の個数を返す関数 <code>count5_words(words)</code> を定義してください。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>print(count5_words(['apple', 'pen', 'grape']))
+print(count5_words(['train', 'bus', 'plane', 'ship']))
+print(count5_words(['red', 'blue', 'green']))
+print(count5_words(['light', 'sound', 'music']))</code></pre>
+          <h4>出力</h4>
+          <pre><code>2
+2
+1
+3</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-similar-count5-words">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="list-loop">
+          <div class="quiz-question-row">
+            <p class="step-number">類題3</p>
+            <div>
+              <h3>すべての要素を確認</h3>
+              <p>整数のリスト <code>scores</code> を引数にとり、すべての点数が70点以上なら文字列 <code>'PASS'</code> を、1つでも70点未満の点数があれば文字列 <code>'FAIL'</code> を返す関数 <code>check_scores70(scores)</code> を定義してください。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>print(check_scores70([70, 75, 90]))
+print(check_scores70([80, 69, 100]))
+print(check_scores70([95, 88, 72]))
+print(check_scores70([100, 70, 69]))</code></pre>
+          <h4>出力</h4>
+          <pre><code>PASS
+FAIL
+PASS
+FAIL</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-similar-check-scores70">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="regex">
+          <div class="quiz-question-row">
+            <p class="step-number">類題4</p>
+            <div>
+              <h3>正規表現</h3>
+              <p>文字列 <code>s</code> を引数にとり、その中に <code>英小文字 → 数字3文字 → 英大文字</code> の順に並ぶコードが含まれていれば <code>True</code>、含まれていなければ <code>False</code> を返す関数 <code>has_code2(s)</code> を定義してください。</p>
+              <p>例えば、<code>a123Z</code> や <code>m007Q</code> は条件を満たします。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>print(has_code2('code a123Z found'))
+print(has_code2('m007Q is ready'))
+print(has_code2('A123z'))
+print(has_code2('a12Z'))
+print(has_code2('a123z'))
+print(has_code2('none'))</code></pre>
+          <h4>出力</h4>
+          <pre><code>True
+True
+False
+False
+False
+False</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-similar-has-code2">エディターに入れる</button>
+        </article>
+
+        <article class="exam-problem-card" data-quiz-unit="class">
+          <div class="quiz-question-row">
+            <p class="step-number">類題5</p>
+            <div>
+              <h3>クラス</h3>
+              <p>次の属性とメソッドを持つ本用のクラス <code>Book</code> を定義してください。</p>
+              <p>コンストラクタは <code>Book(title, pages, stock)</code> の3つの引数を受け取り、属性 <code>title</code>、<code>pages</code>、<code>stock</code> を持ちます。また、在庫数を1増やすメソッド <code>add_stock()</code> を持ちます。</p>
+            </div>
+          </div>
+          <h4>動作例</h4>
+          <pre><code>book1 = Book('Python入門', 180, 1)
+book2 = Book('Web基礎', 220, 3)
+
+book1.add_stock()
+book1.add_stock()
+book2.add_stock()
+
+print(book1.title)
+print(book1.stock)
+print(book2.pages)
+print(book2.stock)</code></pre>
+          <h4>出力</h4>
+          <pre><code>Python入門
+3
+220
+4</code></pre>
+          <button type="button" class="secondary-button" data-python-sample="sample-similar-book">エディターに入れる</button>
+        </article>
+      </div>
+    </section>
+
     <section id="choiceQuizPanel" class="learning-quiz" aria-labelledby="learning-quiz-heading" data-quiz-mode-panel="choice">
       <div class="section-heading quiz-heading">
         <div>
@@ -1533,6 +1808,118 @@ print(re.search(pattern, "Good job :-D") is not None)</code></pre>
 
       <button type="button" id="resetPythonCodeQuiz" class="secondary-button quiz-reset">コード入力問題をリセット</button>
     </section>
+
+    <template id="sample-set-check4"># 問題1 条件分岐
+# check4(x) を定義してください。
+
+
+print(check4(24))
+print(check4(18))
+print(check4(16))
+print(check4(40))
+print(check4(22))</template>
+
+    <template id="sample-set-count4"># 問題2 リストと文字数
+# count4(words) を定義してください。
+
+
+print(count4(['book', 'apple', 'desk']))
+print(count4(['pen', 'tree', 'blue', 'orange']))
+print(count4(['dog', 'cat', 'banana']))
+print(count4(['game', 'play', 'read']))</template>
+
+    <template id="sample-set-check-scores"># 問題3 すべての要素を確認
+# check_scores(scores) を定義してください。
+
+
+print(check_scores([80, 75, 90]))
+print(check_scores([60, 60, 60]))
+print(check_scores([90, 55, 70]))
+print(check_scores([100, 85, 59]))</template>
+
+    <template id="sample-set-has-code"># 問題4 正規表現
+# has_code(s) を定義してください。
+import re
+
+
+print(has_code('My code is A12b.'))
+print(has_code('Z99x is available'))
+print(has_code('a12b'))
+print(has_code('A1b'))
+print(has_code('A123b'))
+print(has_code('No code here'))</template>
+
+    <template id="sample-set-product"># 問題5 クラス
+# Product クラスを定義してください。
+
+
+product1 = Product('pen', 120, 5)
+product2 = Product('notebook', 300, 2)
+
+product1.add_stock()
+product2.add_stock()
+product2.add_stock()
+
+print(product1.name)
+print(product1.stock)
+print(product2.price)
+print(product2.stock)</template>
+
+    <template id="sample-similar-check5"># 類題1 条件分岐
+# check5(x) を定義してください。
+
+
+print(check5(35))
+print(check5(25))
+print(check5(30))
+print(check5(42))
+print(check5(50))</template>
+
+    <template id="sample-similar-count5-words"># 類題2 リストと文字数
+# count5_words(words) を定義してください。
+
+
+print(count5_words(['apple', 'pen', 'grape']))
+print(count5_words(['train', 'bus', 'plane', 'ship']))
+print(count5_words(['red', 'blue', 'green']))
+print(count5_words(['light', 'sound', 'music']))</template>
+
+    <template id="sample-similar-check-scores70"># 類題3 すべての要素を確認
+# check_scores70(scores) を定義してください。
+
+
+print(check_scores70([70, 75, 90]))
+print(check_scores70([80, 69, 100]))
+print(check_scores70([95, 88, 72]))
+print(check_scores70([100, 70, 69]))</template>
+
+    <template id="sample-similar-has-code2"># 類題4 正規表現
+# has_code2(s) を定義してください。
+import re
+
+
+print(has_code2('code a123Z found'))
+print(has_code2('m007Q is ready'))
+print(has_code2('A123z'))
+print(has_code2('a12Z'))
+print(has_code2('a123z'))
+print(has_code2('none'))</template>
+
+    <template id="sample-similar-book"># 類題5 クラス
+# Book クラスを定義してください。
+
+
+book1 = Book('Python入門', 180, 1)
+book2 = Book('Web基礎', 220, 3)
+
+book1.add_stock()
+book1.add_stock()
+book2.add_stock()
+
+print(book1.title)
+print(book1.stock)
+print(book2.pages)
+print(book2.stock)</template>
 
     <template id="sample-variables">name = "Python"
 print(name)
