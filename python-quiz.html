@@ -158,7 +158,8 @@
       </div>
       <div class="quiz-unit-buttons" role="group" aria-label="学習する単元を選択">
         <button type="button" class="quiz-unit-button is-active" data-quiz-unit-target="all" aria-pressed="true">すべて</button>
-        <button type="button" class="quiz-unit-button" data-quiz-unit-target="basics" aria-pressed="false">変数・計算・関数</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="basics" aria-pressed="false">変数・計算</button>
+        <button type="button" class="quiz-unit-button" data-quiz-unit-target="function" aria-pressed="false">関数</button>
         <button type="button" class="quiz-unit-button" data-quiz-unit-target="condition" aria-pressed="false">条件分岐</button>
         <button type="button" class="quiz-unit-button" data-quiz-unit-target="list-loop" aria-pressed="false">リスト・繰り返し</button>
         <button type="button" class="quiz-unit-button" data-quiz-unit-target="regex" aria-pressed="false">正規表現</button>
@@ -173,7 +174,7 @@
           <h2 id="learning-quiz-heading">基礎小テスト</h2>
           <p>選択肢を押すと正誤と解説が出ます。迷った問題は「コードで確認」からエディターで動かせます。</p>
         </div>
-        <p id="quizScore" class="quiz-score" aria-live="polite">0 / 15 問 正解</p>
+        <p id="quizScore" class="quiz-score" aria-live="polite">0 / 20 問 正解</p>
       </div>
 
       <div class="quiz-grid">
@@ -276,7 +277,7 @@ print(profile["tool"])</code></pre>
           <button type="button" class="secondary-button" data-python-sample="sample-dict">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-unit="basics" data-quiz-answer="return" data-quiz-explanation="関数の中で値を返すときはreturnを使います。printは表示、defは関数を作るキーワードです。">
+        <article class="quiz-card" data-quiz-unit="function" data-quiz-answer="return" data-quiz-explanation="関数の中で値を返すときはreturnを使います。printは表示、defは関数を作るキーワードです。">
           <div class="quiz-question-row">
             <p class="step-number">Q6</p>
             <div>
@@ -362,7 +363,7 @@ except ValueError:
           <button type="button" class="secondary-button" data-python-sample="sample-error-handling">コードで確認</button>
         </article>
 
-        <article class="quiz-card" data-quiz-unit="basics" data-quiz-answer="40" data-quiz-explanation="長方形の面積は横幅×高さなので、8 * 5 = 40です。">
+        <article class="quiz-card" data-quiz-unit="function" data-quiz-answer="40" data-quiz-explanation="長方形の面積は横幅×高さなので、8 * 5 = 40です。">
           <div class="quiz-question-row">
             <p class="step-number">Q10</p>
             <div>
@@ -506,6 +507,115 @@ print(check_scores([60, 72, 85]))</code></pre>
           <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
           <button type="button" class="secondary-button" data-python-sample="sample-score-check">コードで確認</button>
         </article>
+
+        <article class="quiz-card" data-quiz-unit="function" data-quiz-answer="memo3" data-quiz-explanation="関数に渡した引数は、定義した順番でnameとcountに入ります。make_label(&quot;memo&quot;, 3)はmemo:3を返します。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q16</p>
+            <div>
+              <h3>引数の順番を確認する</h3>
+              <p>関数を呼び出したあと、表示される文字を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def make_label(name, count):
+    return f"{name}:{count}"
+
+print(make_label("memo", 3))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q16の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="namecount" aria-pressed="false">name:count</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="memo3" aria-pressed="false">memo:3</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="3memo" aria-pressed="false">3:memo</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-function-arguments">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="function" data-quiz-answer="110" data-quiz-explanation="rateを省略するとデフォルト値の0.1が使われます。100 * 1.1 を整数にして110です。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q17</p>
+            <div>
+              <h3>デフォルト引数の結果は？</h3>
+              <p>引数rateを省略して呼び出したときの表示を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def add_tax(price, rate=0.1):
+    return int(price * (1 + rate))
+
+print(add_tax(100))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q17の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="100" aria-pressed="false">100</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="101" aria-pressed="false">101</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="110" aria-pressed="false">110</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-function-default">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="function" data-quiz-answer="14" data-quiz-explanation="関数の中でx * 2をresultに入れ、その値をreturnしているので14が表示されます。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q18</p>
+            <div>
+              <h3>関数内の変数の値は？</h3>
+              <p>double(7)を呼び出した結果を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def double(x):
+    result = x * 2
+    return result
+
+print(double(7))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q18の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="7" aria-pressed="false">7</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="14" aria-pressed="false">14</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="result" aria-pressed="false">result</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-function-local">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="function" data-quiz-answer="ok" data-quiz-explanation="ageが18以上なので最初のreturnには進まず、最後のreturn &quot;OK&quot; が実行されます。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q19</p>
+            <div>
+              <h3>returnで処理が終わる流れは？</h3>
+              <p>judge(20)を実行したときの表示を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def judge(age):
+    if age &lt; 18:
+        return "NG"
+    return "OK"
+
+print(judge(20))</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q19の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="ng" aria-pressed="false">NG</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="ok" aria-pressed="false">OK</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="20" aria-pressed="false">20</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-function-early-return">コードで確認</button>
+        </article>
+
+        <article class="quiz-card" data-quiz-unit="function" data-quiz-answer="18" data-quiz-explanation="add(4, 5)の返り値は9です。その値をtotalに入れてから2倍するので18が表示されます。">
+          <div class="quiz-question-row">
+            <p class="step-number">Q20</p>
+            <div>
+              <h3>返り値を計算に使う</h3>
+              <p>関数の返り値を変数に入れたあと、表示される値を選んでください。</p>
+            </div>
+          </div>
+          <pre><code>def add(a, b):
+    return a + b
+
+total = add(4, 5)
+print(total * 2)</code></pre>
+          <div class="quiz-options" role="group" aria-label="Q20の選択肢">
+            <button type="button" class="quiz-choice" data-quiz-choice="9" aria-pressed="false">9</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="18" aria-pressed="false">18</button>
+            <button type="button" class="quiz-choice" data-quiz-choice="45" aria-pressed="false">45</button>
+          </div>
+          <p class="quiz-result" aria-live="polite">答えを選んでください。</p>
+          <button type="button" class="secondary-button" data-python-sample="sample-function-return-use">コードで確認</button>
+        </article>
       </div>
 
       <button type="button" id="resetPythonQuiz" class="secondary-button quiz-reset">小テストをリセット</button>
@@ -517,7 +627,7 @@ print(check_scores([60, 72, 85]))</code></pre>
           <h2 id="learning-code-quiz-heading">コード入力問題</h2>
           <p>短いコードを自分で入力して確認します。スペースの違いはある程度吸収して判定します。</p>
         </div>
-        <p id="codeQuizScore" class="quiz-score" aria-live="polite">0 / 13 問 正解</p>
+        <p id="codeQuizScore" class="quiz-score" aria-live="polite">0 / 18 問 正解</p>
       </div>
 
       <div class="quiz-grid code-quiz-grid">
@@ -585,7 +695,7 @@ print(check_scores([60, 72, 85]))</code></pre>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-quiz-unit="basics" data-code-answers="return price * count" data-code-mode="compact" data-code-explanation="関数の中で値を返すときはreturnを使います。price * countで合計金額を計算できます。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="function" data-code-answers="return price * count" data-code-mode="compact" data-code-explanation="関数の中で値を返すときはreturnを使います。price * countで合計金額を計算できます。">
           <div class="quiz-question-row">
             <p class="step-number">C4</p>
             <div>
@@ -601,7 +711,7 @@ print(check_scores([60, 72, 85]))</code></pre>
           </label>
           <div class="code-quiz-actions">
             <button type="button" class="code-check-button">答えを確認</button>
-            <button type="button" class="secondary-button" data-python-sample="sample-function">コードで確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-function-total">コードで確認</button>
           </div>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
@@ -675,7 +785,7 @@ for number in range(1, 5):
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
 
-        <article class="quiz-card code-quiz-card" data-quiz-unit="basics" data-code-answers="return width * height" data-code-mode="compact" data-code-explanation="長方形の面積はwidthとheightを掛けて求めます。関数の結果として返すのでreturnを使います。">
+        <article class="quiz-card code-quiz-card" data-quiz-unit="function" data-code-answers="return width * height" data-code-mode="compact" data-code-explanation="長方形の面積はwidthとheightを掛けて求めます。関数の結果として返すのでreturnを使います。">
           <div class="quiz-question-row">
             <p class="step-number">C8</p>
             <div>
@@ -805,6 +915,114 @@ print(re.search(pattern, "A12b") is not None)</code></pre>
           </div>
           <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
         </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="function" data-code-answers="def greet(name):" data-code-mode="compact" data-code-explanation="関数を作るときはdef、関数名、丸かっこ、コロンを書きます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C14</p>
+            <div>
+              <h3>関数を定義する</h3>
+              <p>nameを受け取るgreet関数の定義行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code># ここに1行
+    return f"{name}さん、こんにちは"</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C14のコード入力" placeholder="def greet(name):"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-function-define">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="function" data-code-answers='return f"{name}さん、こんにちは"' data-code-mode="compact" data-code-explanation="f文字列をreturnすると、呼び出し元で文字列として使えます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C15</p>
+            <div>
+              <h3>文字列を返す</h3>
+              <p>nameを使ったあいさつ文を返す1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>def greet(name):
+    # ここに1行</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C15のコード入力" placeholder='return f"{name}さん、こんにちは"'></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-function-greeting">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="function" data-code-answers="def add_tax(price, rate=0.1):" data-code-mode="compact" data-code-explanation="rate=0.1のように書くと、呼び出し時に省略できるデフォルト引数になります。">
+          <div class="quiz-question-row">
+            <p class="step-number">C16</p>
+            <div>
+              <h3>デフォルト引数を設定する</h3>
+              <p>priceと、初期値0.1のrateを受け取る関数定義行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code># ここに1行
+    return int(price * (1 + rate))</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C16のコード入力" placeholder="def add_tax(price, rate=0.1):"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-function-default">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="function" data-code-answers="total = add(4, 5)" data-code-mode="compact" data-code-explanation="関数の返り値は変数に代入できます。add(4, 5)の返り値をtotalへ入れます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C17</p>
+            <div>
+              <h3>関数を呼び出して代入する</h3>
+              <p>add(4, 5)の結果をtotalに入れる1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>def add(a, b):
+    return a + b
+
+# ここに1行
+print(total)</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C17のコード入力" placeholder="total = add(4, 5)"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-function-return-use">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
+
+        <article class="quiz-card code-quiz-card" data-quiz-unit="function" data-code-answers="return max(a, b)" data-code-mode="compact" data-code-explanation="max(a, b)で2つの値のうち大きい方を取り出し、そのままreturnできます。">
+          <div class="quiz-question-row">
+            <p class="step-number">C18</p>
+            <div>
+              <h3>大きい方を返す</h3>
+              <p>aとbのうち大きい方を返す1行を書いてください。</p>
+            </div>
+          </div>
+          <pre><code>def larger(a, b):
+    # ここに1行</code></pre>
+          <label class="code-answer-label">
+            <span>答えを入力</span>
+            <textarea class="code-answer-input" rows="2" spellcheck="false" aria-label="C18のコード入力" placeholder="return max(a, b)"></textarea>
+          </label>
+          <div class="code-quiz-actions">
+            <button type="button" class="code-check-button">答えを確認</button>
+            <button type="button" class="secondary-button" data-python-sample="sample-function-max">コードで確認</button>
+          </div>
+          <p class="quiz-result code-quiz-result" aria-live="polite">コードを入力して確認してください。</p>
+        </article>
       </div>
 
       <button type="button" id="resetPythonCodeQuiz" class="secondary-button quiz-reset">コード入力問題をリセット</button>
@@ -840,6 +1058,62 @@ print(f"平均: {average}")</template>
 
 message = greet("Python")
 print(message)</template>
+
+    <template id="sample-function-total">def calc_total(price, count):
+    return price * count
+
+print(calc_total(120, 3))</template>
+
+    <template id="sample-function-arguments">def make_label(name, count):
+    return f"{name}:{count}"
+
+print(make_label("memo", 3))
+print(make_label("calendar", 2))</template>
+
+    <template id="sample-function-default">def add_tax(price, rate=0.1):
+    return int(price * (1 + rate))
+
+print(add_tax(100))
+print(add_tax(100, 0.08))</template>
+
+    <template id="sample-function-local">def double(x):
+    result = x * 2
+    return result
+
+print(double(7))
+print(double(12))</template>
+
+    <template id="sample-function-early-return">def judge(age):
+    if age &lt; 18:
+        return "NG"
+    return "OK"
+
+print(judge(16))
+print(judge(20))</template>
+
+    <template id="sample-function-return-use">def add(a, b):
+    return a + b
+
+total = add(4, 5)
+print(total)
+print(total * 2)</template>
+
+    <template id="sample-function-define">def greet(name):
+    return f"{name}さん、こんにちは"
+
+print(greet("Python"))</template>
+
+    <template id="sample-function-greeting">def greet(name):
+    return f"{name}さん、こんにちは"
+
+message = greet("Python")
+print(message)</template>
+
+    <template id="sample-function-max">def larger(a, b):
+    return max(a, b)
+
+print(larger(4, 9))
+print(larger(12, 3))</template>
 
     <template id="sample-math">price = 120
 count = 3
