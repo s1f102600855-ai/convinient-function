@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f3">
+  <meta name="description" content="思いついたことを、そのまま。マウスで自由に書ける、シンプルな手書きノート。ペン、マーカー、消しゴムと自動保存。">
+  <title>手書きノート | マウスで自由に書ける無料ノート | 便利サイト</title>
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://convenientfunction.com/handwriting/">
+  <meta property="og:title" content="手書きノート | 便利サイト">
+  <meta property="og:description" content="マウスで自由に書ける無料ノート。ペン、マーカー、消しゴム、自動保存、画像保存に対応。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://convenientfunction.com/handwriting/">
+  <meta property="og:site_name" content="便利サイト">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"手書きノート","url":"https://convenientfunction.com/handwriting/","applicationCategory":"ProductivityApplication","operatingSystem":"Any","inLanguage":"ja","description":"マウスで文字や図を書き、ブラウザー内に自動保存できる無料ノート。","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"}}
+  </script>
+</head>
+<body>
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m16 3 5 5L8 21H3v-5L16 3ZM13 6l5 5M3 21l5-1-4-4"/></symbol>
+    <symbol id="i-marker" viewBox="0 0 24 24"><path d="m14 3 7 7-9 9-7-7 9-9ZM5 12l-2 5 4 4 5-2M3 21h7M12 5l7 7"/></symbol>
+    <symbol id="i-eraser" viewBox="0 0 24 24"><path d="m13 3 8 8-10 10H7l-5-5L13 3ZM7 11l8 8M10 21h12"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="m8 5-5 5 5 5M3 10h10a7 7 0 0 1 0 14" transform="translate(0 -2)"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m16 5 5 5-5 5M21 10H11a7 7 0 0 0 0 14" transform="translate(0 -2)"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18M15 3v18"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 3h15v18H5a3 3 0 0 1 0-6h15M5 3a3 3 0 0 0-3 3v12M7 3v12M11 7h5"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 4M12 16v.2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 16v5h16v-5"/></symbol>
+  </defs></svg>
+
+  <aside class="sidebar" id="sidebar" aria-label="ノートのページ">
+    <a class="brand" href="../" aria-label="便利サイト ホーム"><span class="brand-mark"><svg class="icon"><use href="#i-pen"/></svg></span><span>手書き<span class="brand-light">ノート</span><small>便利サイト / HANDWRITING</small></span></a>
+    <div class="notebook-label"><svg class="icon"><use href="#i-book"/></svg><span>マイノート</span><span class="count" id="page-count">1</span></div>
+    <button class="add-page" id="add-page"><svg class="icon"><use href="#i-plus"/></svg>新しいページ</button>
+    <div class="page-list" id="page-list"></div>
+    <div class="sidebar-bottom"><div class="privacy-note"><span class="tiny-dot"></span>あなたのブラウザーに自動保存</div><p>アイデアも、落書きも。<br>ここは、自由に書ける場所。</p><button class="help-button" id="help"><svg class="icon"><use href="#i-help"/></svg>使い方とショートカット</button><a class="back-to-site" href="../">← 便利サイトへ戻る</a></div>
+  </aside>
+  <button class="sidebar-shade" id="sidebar-shade" aria-label="ページ一覧を閉じる" hidden></button>
+
+  <main class="app-main">
+    <header class="topbar">
+      <div class="page-heading"><button class="icon-button mobile-menu" id="mobile-menu" aria-label="ページ一覧を開く"><svg class="icon"><use href="#i-menu"/></svg></button><a class="breadcrumb" href="../">便利サイト</a><span class="breadcrumb-slash">/</span><input id="page-title" class="page-title" aria-label="ページの名前" maxlength="60" value="はじめのページ"></div>
+      <div class="header-actions"><span class="save-state" id="save-state" role="status"><svg class="icon"><use href="#i-check"/></svg><span>保存しました</span></span><div class="popover-anchor"><button class="export-button" id="export-toggle" aria-expanded="false" aria-controls="export-menu"><svg class="icon"><use href="#i-download"/></svg><span>書き出す</span><svg class="icon small"><use href="#i-chevron"/></svg></button><div class="popover export-menu" id="export-menu" hidden><button id="export-png"><svg class="icon"><use href="#i-download"/></svg><span>このページをPNGで保存<small>紙の背景を含む画像</small></span></button><button id="export-json"><svg class="icon"><use href="#i-book"/></svg><span>ノートをバックアップ<small>すべてのページを保存</small></span></button><button id="import-json"><svg class="icon"><use href="#i-upload"/></svg><span>バックアップを読み込む<small>ノートにページを追加</small></span></button></div></div></div>
+    </header>
+
+    <section class="editor" aria-label="手書きノートエディター">
+      <div class="editor-intro"><div><a class="eyebrow" href="../">便利サイト / 手書きノート</a><h1>思いついたことを、そのまま。</h1></div><span class="intro-note"><svg class="icon"><use href="#i-spark"/></svg>うまく書かなくて、大丈夫。</span></div>
+      <div class="toolbar" role="toolbar" aria-label="描画ツール">
+        <div class="tool-group drawing-tools"><button class="tool-button active" data-tool="pen" aria-label="ペン (P)" aria-pressed="true" title="ペン (P)"><svg class="icon"><use href="#i-pen"/></svg><span>ペン</span></button><button class="tool-button" data-tool="marker" aria-label="マーカー (H)" aria-pressed="false" title="マーカー (H)"><svg class="icon"><use href="#i-marker"/></svg><span>マーカー</span></button><button class="tool-button" data-tool="eraser" aria-label="消しゴム (E)" aria-pressed="false" title="消しゴム (E)"><svg class="icon"><use href="#i-eraser"/></svg><span>消しゴム</span></button></div>
+        <span class="toolbar-divider"></span>
+        <div class="tool-group colors" aria-label="ペンの色"><button class="color-swatch selected" data-color="#303e38" style="--swatch:#303e38" aria-label="墨色" aria-pressed="true"></button><button class="color-swatch" data-color="#4c806b" style="--swatch:#4c806b" aria-label="緑" aria-pressed="false"></button><button class="color-swatch" data-color="#597cc0" style="--swatch:#597cc0" aria-label="青" aria-pressed="false"></button><button class="color-swatch" data-color="#cd796e" style="--swatch:#cd796e" aria-label="赤" aria-pressed="false"></button><button class="color-swatch" data-color="#dfb752" style="--swatch:#dfb752" aria-label="黄" aria-pressed="false"></button><label class="custom-color" title="好きな色を選ぶ"><input type="color" id="custom-color" value="#9271b5" aria-label="好きな色を選ぶ"><span></span></label></div>
+        <span class="toolbar-divider"></span>
+        <div class="popover-anchor"><button class="width-button" id="width-toggle" aria-label="線の太さ" aria-expanded="false" aria-controls="width-menu"><span class="width-preview" id="width-preview"></span><span id="width-label">3 px</span><svg class="icon small"><use href="#i-chevron"/></svg></button><div class="popover width-menu" id="width-menu" hidden><label for="pen-width">線の太さ <output id="width-output">3 px</output></label><input type="range" id="pen-width" min="1" max="30" value="3"><div class="width-presets"><button data-width="2" aria-label="細い線 2ピクセル"><span style="height:2px"></span></button><button data-width="5" aria-label="中くらいの線 5ピクセル"><span style="height:5px"></span></button><button data-width="12" aria-label="太い線 12ピクセル"><span style="height:12px"></span></button><button data-width="24" aria-label="極太の線 24ピクセル"><span style="height:24px"></span></button></div></div></div>
+        <div class="history-tools"><button class="icon-button" id="undo" aria-label="元に戻す (Ctrl+Z)" title="元に戻す (Ctrl+Z)" disabled><svg class="icon"><use href="#i-undo"/></svg></button><button class="icon-button" id="redo" aria-label="やり直す (Ctrl+Shift+Z)" title="やり直す (Ctrl+Shift+Z)" disabled><svg class="icon"><use href="#i-redo"/></svg></button></div>
+      </div>
+
+      <div class="paper-controls"><div class="paper-options"><svg class="icon"><use href="#i-grid"/></svg><label for="paper-type">用紙</label><select id="paper-type" aria-label="用紙の種類"><option value="dot">ドット</option><option value="grid">方眼</option><option value="ruled">横罫線</option><option value="plain">無地</option></select></div><div class="right-controls"><button class="clear-button" id="clear-page" aria-label="ページをクリア"><svg class="icon"><use href="#i-trash"/></svg><span>ページをクリア</span></button><span class="control-divider"></span><button class="zoom-button" id="zoom-out" aria-label="縮小">−</button><select id="zoom" aria-label="表示倍率"><option value="fit">自動</option><option value="0.5">50%</option><option value="0.75">75%</option><option value="1">100%</option><option value="1.25">125%</option><option value="1.5">150%</option></select><button class="zoom-button" id="zoom-in" aria-label="拡大">＋</button></div></div>
+
+      <div class="workspace" id="workspace"><div class="paper-wrap" id="paper-wrap"><div class="paper paper-dot" id="paper"><div class="paper-top"><span id="paper-date"></span><span>TEGAKI NOTE</span></div><canvas id="ink-canvas" width="1920" height="2400" aria-label="手書きノートの内容"></canvas><canvas id="draw-canvas" width="1920" height="2400" tabindex="0" aria-label="マウスを押したまま動かすと書けます。Pでペン、Hでマーカー、Eで消しゴム。"></canvas><div class="empty-hint" id="empty-hint"><div class="hint-drawing"><svg viewBox="0 0 180 90" aria-hidden="true"><path d="M13 61c16-41 19-45 23-26s7 41 17 20 15-39 18-22-6 41 9 28 15-41 18-27-5 30 12 19 16-28 18-13-2 24 16 10 17-13 22-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m151 24 13 3-3-13M166 27l-6-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><p>ここから、自由に。</p><span>マウスを押したまま動かしてみましょう</span><small>文字も、図も、なんでも。</small></div><span class="paper-page-number" id="paper-number">01</span></div></div></div>
+      <footer class="editor-footer"><span><span class="live-dot"></span><span id="active-tool-label">ペン</span><span class="footer-separator">·</span><span>マウスで自由に書けます</span></span><span id="page-position">PAGE 01 / 01</span></footer>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+  <dialog id="confirm-dialog"><form method="dialog"><div class="dialog-icon"><svg class="icon"><use href="#i-trash"/></svg></div><h2 id="confirm-title"></h2><p id="confirm-description"></p><div class="dialog-actions"><button value="cancel" class="secondary-button">キャンセル</button><button value="confirm" class="danger-button" id="confirm-action">消去する</button></div></form></dialog>
+  <dialog id="help-dialog"><button class="dialog-close icon-button" id="close-help" aria-label="閉じる"><svg class="icon"><use href="#i-close"/></svg></button><span class="eyebrow">MAKE YOURSELF AT HOME</span><h2>気軽に、書いてみましょう。</h2><p>紙の上でマウスを押したまま動かすと書けます。<br>タッチ操作やペンタブレットにも対応しています。</p><div class="shortcut-list"><span>ペン</span><kbd>P</kbd><span>マーカー</span><kbd>H</kbd><span>消しゴム</span><kbd>E</kbd><span>元に戻す</span><kbd>Ctrl / ⌘ + Z</kbd><span>やり直す</span><kbd>Ctrl / ⌘ + Shift + Z</kbd></div><div class="storage-explanation">ノートは、この端末・ブラウザー内に自動保存されます。別の端末への移動や、大切なノートの保管には「書き出す → ノートをバックアップ」をお使いください。ブラウザーのデータを削除するとノートも消去されます。</div></dialog>
+</body>
+</html>
